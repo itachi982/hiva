@@ -4,7 +4,7 @@ const jwt=require("json-web-token");
 
 //JWT VERIFICATION
 
-export const authenticateJWT=async(req,res,next)=>{
+const authenticateJWT=async(req,res,next)=>{
 
     const token=req.header('authorization');
 
@@ -32,7 +32,7 @@ export const authenticateJWT=async(req,res,next)=>{
 
 // VERIFY LOGEED IN USER  
 
-export const verifyUser=async(req,res,next)=>{
+const verifyUser=async(req,res,next)=>{
 
     const { decodedUsername, decodedAccessRights } = req.user;
 
@@ -70,7 +70,7 @@ export const verifyUser=async(req,res,next)=>{
 
 // VERIFY IF USER IS ADMIN OR NOT
 
-export const adminOnly=async (req,res,next)=>{
+const adminOnly=async (req,res,next)=>{
 
     try{
         const { decodedUsername, decodedAccessRights } = req.user;
@@ -98,7 +98,10 @@ export const adminOnly=async (req,res,next)=>{
         return res.status(500).json({ msg: "INTERNAL SERVER ERROR"});
     }
 
+}
 
-
-
+module.exports={
+    authenticateJWT,
+    verifyUser,
+    adminOnly
 }
