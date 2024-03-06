@@ -58,8 +58,8 @@ model Employee{
  photo          String
  url            String?
  access_rights  AccessRights
- createdAt      DateTime
- updatedAt      DateTime
+ createdAt      DateTime?
+ updatedAt      DateTime?
  jobs           Job[]
 }
 
