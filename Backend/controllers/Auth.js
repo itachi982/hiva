@@ -41,7 +41,7 @@ const adminLogin = async(req,res)=>{
             role:admin.access_rights
         }
         console.log(payload);
-        const token=jwt.sign(payload,process.env.JWTPASS);
+        const token=jwt.sign(payload,process.env.JWTPASS,{ expiresIn: '1h' });
         console.log(token);
         res.status(200).json({
             token,
