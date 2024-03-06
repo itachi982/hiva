@@ -70,7 +70,7 @@ const userlogin=async(req,res)=>{
         })
     }
 
-    const verifyPassword=await argon2.verify(admin.password,dpassword);
+    const verifyPassword=await argon2.verify(user.password,dpassword);
 
     if(!verifyPassword){
         res.status(400).json({
