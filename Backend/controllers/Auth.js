@@ -69,49 +69,45 @@ const userlogin=async(req,res)=>{
                 username:dusername,
             }
         })
-    if(user.access_rights!="user")
-    {
-        res.status(400).json({
-            msg:"this page is for employee's only"
-        })
-    }
-    else{
-        if(!user){
-            res.status(404).json({
-                msg:"Incorrect Username Or password"
-            })
-        }
-    
-        const verifyPassword=await argon2.verify(user.password,dpassword);
-    
-        if(!verifyPassword){
+        if(user.access_rights!="user")
+        {
             res.status(400).json({
-                msg:"Incorrect Username Or password"
+                msg:"this page is for employee's only"
             })
-            return;
         }
-        const payload={
-            username:dusername,
-            role:user.access_rights
-        }
-        const token=jwt.sign(payload,jwtpass,{ expiresIn: '1h' });
-        res.status(200).json({
-            token,
-            msg:"Login Successfull"
-        })
-    }
-
-
+        else{
+            if(!user){
+                res.status(404).json({
+                    msg:"Incorrect Username Or password"
+                })
+            }
     
+            const verifyPassword=await argon2.verify(user.password,dpassword);
+    
+            if(!verifyPassword){
+                res.status(400).json({
+                    msg:"Incorrect Username Or password"
+                })
+                return;
+            }
+            const payload={
+                username:dusername,
+                role:user.access_rights
+            }
+            const token=jwt.sign(payload,jwtpass,{ expiresIn: '1h' });
+            res.status(200).json({
+                token,
+                msg:"Login Successfull"
+            })
+        }
+    }
+    catch(err){
+        console.log("Error happened during user login")
+        res.status(500).json({
+            msg:"Internal server error"
+        })
 
-}
-catch(err){
-    console.log("Error happened during user login")
-    res.status(500).json({
-        msg:"Internal server error"
-    })
-
-}
+    }
 }
 
 module.exports={
