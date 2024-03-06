@@ -100,5 +100,4 @@ catch(err){
 module.exports={
     adminLogin,
     userlogin
-
 }
