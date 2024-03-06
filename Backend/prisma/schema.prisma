@@ -49,7 +49,7 @@ model Employee{
  employee_id    String
  PAN            String
  employee_name  String
- username       String
+ username       String  @unique
  password       String
  gender         String
  job_title      String
@@ -57,10 +57,15 @@ model Employee{
  status         String
  photo          String
  url            String?
- access_rights  String
+ access_rights  AccessRights
  createdAt      DateTime
  updatedAt      DateTime
  jobs           Job[]
+}
+
+enum AccessRights{
+  user
+  admin
 }
 
 model Deduction {

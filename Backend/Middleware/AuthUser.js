@@ -103,5 +103,6 @@ const adminOnly=async (req,res,next)=>{
 module.exports={
     authenticateJWT,
     verifyUser,
-    adminOnly
+    adminOnly,
+    jwt
 }
