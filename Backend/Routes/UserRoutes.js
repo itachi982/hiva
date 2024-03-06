@@ -37,12 +37,32 @@ router.post("/deduction_data",authenticateJWT,verifyUser,adminOnly);
 router.patch("/deduction_data/update",authenticateJWT,verifyUser,adminOnly);
 
 // Emplopyee_salary_data Routes
-
-    //Chitresh write your code here
+router.get("/employee_salary_data",authenticateJWT,verifyUser,adminOnly);
+router.get("/employee_salary_data/month",authenticateJWT,verifyUser,adminOnly);
+router.get("/employee_salary_data/year/",authenticateJWT,verifyUser,adminOnly);   
+//Chitresh write your code here
 
 // report Routes
 
-    //Chitresh write your code here
+//employee salary
+router.get("/report/salary",authenticateJWT,verifyUser,adminOnly);
+router.get("/report/salary/name/",authenticateJWT,verifyUser,adminOnly);
+router.get("report/salary/month/",authenticateJWT,verifyUser,adminOnly);
+router.get("/report.salary/year/",authenticateJWT,verifyUser,adminOnly);
+
+//emloyee attendance
+router.get("/report/attendance/month/",authenticateJWT,verifyUser,adminOnly);
+router.get("/report/salary/year/",authenticateJWT,verifyUser,adminOnly);
+
+//employee salary slips
+router.get("/report/salary_slip/name/",authenticateJWT,verifyUser,adminOnly);
+router.get("/report/salary_slip/month/",authenticateJWT,verifyUser,adminOnly);
+router.get("/report/salary_slip/year/",authenticateJWT,verifyUser,adminOnly);
+
+;
+
+
+//Chitresh write your code here
 
 
 //different Dashboard for {Users,admins}
@@ -61,6 +81,11 @@ router.patch("/change_password",authenticateJWT,verifyUser);
 //Logout Routes
 
 router.delete("/logout",authenticateJWT);
+//change password
+router.patch("/change_password",authenticateJWT,verifyUser,adminOnly);
+
+//logout
+router.delete("/logout",authenticateJWT)
 
 
 module.exports=router;
