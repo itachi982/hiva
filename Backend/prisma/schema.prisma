@@ -46,8 +46,8 @@ model Attendance {
 
 model Employee{
  id             Int     @id @default(autoincrement())
- employee_id    String
- PAN            String
+ employee_id    String  @unique
+ PAN            String? @unique
  employee_name  String
  username       String  @unique
  password       String
@@ -55,7 +55,7 @@ model Employee{
  job_title      String
  join_date      String
  status         String
- photo          String
+ photo          String?
  url            String?
  access_rights  AccessRights
  createdAt      DateTime?

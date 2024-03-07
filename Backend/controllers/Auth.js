@@ -28,8 +28,6 @@ const adminLogin = async(req,res)=>{
 
         const verifyPassword=await argon2.verify(admin.password,dpassword);
 
-        
-
         if(!verifyPassword){
             res.status(400).json({
                 msg:"Incorrect Username Or password"
@@ -40,7 +38,8 @@ const adminLogin = async(req,res)=>{
             username:dusername,
             role:admin.access_rights
         }
-        console.log(payload);
+
+        //console.log(payload);
         const token=jwt.sign(payload,process.env.JWTPASS,{ expiresIn: '1h' });
         console.log(token);
         res.status(200).json({
