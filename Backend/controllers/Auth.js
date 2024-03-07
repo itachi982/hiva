@@ -51,6 +51,7 @@ const adminLogin = async(req,res)=>{
         //console.log(payload);
         const token=jwt.sign(payload,process.env.JWTPASS,{ expiresIn: '1h' });
         console.log(token);
+        
         res.status(200).json({
             token,
             msg:"Login Successfull"

@@ -1,8 +1,7 @@
 const express=require("express");
 const { authenticateJWT, verifyUser, adminOnly } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin } = require("../controllers/Auth");
-const { userCreate } = require("../controllers/createAccount");
-const adminCreate = require("../controllers/createAccount");
+const { userCreate,adminCreate } = require("../controllers/createAccount");
 const router=express.Router();
 
 //admin Login

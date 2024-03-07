@@ -23,7 +23,7 @@ const createUserSchema = zod.object({
 const createAdminSchema = zod.object({
     
     employee_id:zod.string().min(1),
-    PAN: zod.string().min(10, 'Please Enter Valid PAN Number')
+    PAN: zod.string().min(10, 'Please Enter Valid PAN Number'),
     employee_name: zod.string(),
     username: zod.string(),
     password: zod.string().min(8, 'Password must be at least 8 characters long')
