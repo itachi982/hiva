@@ -2,6 +2,7 @@ const express=require("express");
 const { authenticateJWT, verifyUser, adminOnly } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin } = require("../controllers/Auth");
 const { userCreate } = require("../controllers/createAccount");
+const adminCreate = require("../controllers/createAccount");
 const router=express.Router();
 
 //admin Login
@@ -9,6 +10,10 @@ const router=express.Router();
 router.get("/admin/login",adminLogin);
 router.get("/user/login",userlogin);
 router.post("/employee/create",userCreate);
+
+//admin creation
+router.post("/employee/admin/create",adminCreate);
+
 
 //Employee Routes 
 
