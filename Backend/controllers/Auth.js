@@ -20,10 +20,18 @@ const adminLogin = async(req,res)=>{
             }
         })
 
+        if(admin.access_rights!="admin"){
+            res.status(403).json({
+                msg:"Forbidden"
+            })
+            return;
+        }
+
         if(!admin){
             res.status(404).json({
                 msg:"Incorrect Username Or password"
             })
+            return;
         }
 
         const verifyPassword=await argon2.verify(admin.password,dpassword);
@@ -31,7 +39,8 @@ const adminLogin = async(req,res)=>{
         if(!verifyPassword){
             res.status(400).json({
                 msg:"Incorrect Username Or password"
-            })
+           })
+            return;
         }
 
         const payload={
@@ -63,42 +72,47 @@ const userlogin=async(req,res)=>{
        const dusername=req.body.username;
        const dpassword=req.body.password;
 
+       console.log(dusername,dpassword);
+
        const user=await prisma.employee.findUnique({
             where:{
                 username:dusername,
             }
         })
+        console.log(user);
+        
+        if(!user){
+            res.status(404).json({
+                msg:"Incorrect Username Or password"
+            })
+            return;
+        }
+
         if(user.access_rights!="user")
         {
+            res.status(403).json({
+                msg:"Forbidden"
+            })
+            return;
+        }
+
+        const verifyPassword=await argon2.verify(user.password,dpassword);
+
+        if(!verifyPassword){
             res.status(400).json({
-                msg:"this page is for employee's only"
+                msg:"Incorrect Username Or password"
             })
+            return;
         }
-        else{
-            if(!user){
-                res.status(404).json({
-                    msg:"Incorrect Username Or password"
-                })
-            }
-    
-            const verifyPassword=await argon2.verify(user.password,dpassword);
-    
-            if(!verifyPassword){
-                res.status(400).json({
-                    msg:"Incorrect Username Or password"
-                })
-                return;
-            }
-            const payload={
-                username:dusername,
-                role:user.access_rights
-            }
-            const token=jwt.sign(payload,jwtpass,{ expiresIn: '1h' });
-            res.status(200).json({
-                token,
-                msg:"Login Successfull"
-            })
+        const payload={
+            username:dusername,
+            role:user.access_rights
         }
+        const token=jwt.sign(payload,jwtpass,{ expiresIn: '1h' });
+        res.status(200).json({
+            token,
+            msg:"Login Successfull"
+        })
     }
     catch(err){
         console.log("Error happened during user login")
