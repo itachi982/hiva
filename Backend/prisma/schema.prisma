@@ -53,15 +53,14 @@ model Employee{
  password       String
  gender         String
  job_title      String
- join_date      String
- status         String
+ join_date      DateTime?
+ status         String?  @default("Inactive")
  photo          String?
  url            String?
  access_rights  AccessRights
- createdAt      DateTime?
- updatedAt      DateTime?
  jobs           Job[]
 }
+
 
 enum AccessRights{
   user

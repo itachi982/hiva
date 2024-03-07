@@ -1,13 +1,14 @@
 const express=require("express");
 const { authenticateJWT, verifyUser, adminOnly } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin } = require("../controllers/Auth");
+const { userCreate } = require("../controllers/createAccount");
 const router=express.Router();
 
 //admin Login
 
 router.get("/admin/login",adminLogin);
 router.get("/user/login",userlogin);
-
+router.post("/employee/create",userCreate);
 
 //Employee Routes 
 
