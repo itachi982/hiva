@@ -12,3 +12,6 @@
 - dotenv (installed but not used yet)
 - Router (Route setup done and tested)
 - File Structure (Changed )
+- change password for user
+- change password for admin (NOTE : user id is missing in admin )
+
