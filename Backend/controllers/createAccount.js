@@ -33,7 +33,8 @@ const userCreate = async (req, res) => {
                     password: await argon2.hash(validatedUserDetails.password),
                     gender: validatedUserDetails.gender,
                     job_title: validatedUserDetails.job_title,
-                    access_rights:"user"
+                    access_rights:"user",
+                    status:"Active"
                 }
             });
 
@@ -83,7 +84,9 @@ const adminCreate = async (req, res) => {
                     password: await argon2.hash(validatedUserDetails.password),
                     gender: validatedUserDetails.gender,
                     job_title: validatedUserDetails.job_title,
-                    access_rights:"admin"
+                    access_rights:"admin",
+                    status:"Active"
+
                 }
             });
 

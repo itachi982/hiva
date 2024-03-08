@@ -39,8 +39,56 @@ const createAdminSchema = zod.object({
     
 });
 
+
+const changePasswordSchema=zod.object({
+
+    oldPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    }),
+    newPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    }),
+    confirmPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    })
+
+})
+const changeAdminPasswordSchema=zod.object({
+
+    // oldPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+    //   .refine((value) => /[A-Z]/.test(value), {
+    //     message: 'Password must contain at least one capital letter',
+    //   }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+    //     message: 'Password must contain at least one special character'
+    // }),
+    newPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    }),
+    confirmPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    })
+
+})
+
 module.exports={
     createUserSchema,
     createAdminSchema,
-    zod
+    zod,
+    changePasswordSchema,
+    changeAdminPasswordSchema
 }

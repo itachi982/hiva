@@ -54,7 +54,7 @@ model Employee{
  gender         String
  job_title      String
  join_date      DateTime?
- status         String?  @default("Inactive")
+ status         String?
  photo          String?
  url            String?
  access_rights  AccessRights
