@@ -4,8 +4,6 @@ const {PrismaClient} =require("@prisma/client");
 const { jwt } = require('../Middleware/AuthUser');
 const { changePasswordSchema, changeAdminPasswordSchema } = require('../Middleware/zodAuth');
 const prisma=new PrismaClient();
-const jwtpass=process.env.JWTPASS;
-
 
 const adminLogin = async(req,res)=>{
 
@@ -28,7 +26,7 @@ const adminLogin = async(req,res)=>{
             return;
         }
 
-        if(admin.status!="Active"){
+        if(admin.status!="active"){
             res.status(403).json({
                 msg:"Your id is Inactive"
             })
@@ -70,7 +68,7 @@ const adminLogin = async(req,res)=>{
 
     }
     catch(err){
-        console.log("Error happened during admin login")
+        console.log("Error happened during admin login",err)
         res.status(500).json({
             msg:"Internal server error"
         })
@@ -100,7 +98,7 @@ const userlogin=async(req,res)=>{
             return;
         }
 
-        if(user.status!="Active"){
+        if(user.status!="active"){
             res.status(403).json({
                 msg:"Your id is Inactive"
             })
@@ -128,14 +126,14 @@ const userlogin=async(req,res)=>{
             username:dusername,
             role:user.access_rights
         }
-        const token=jwt.sign(payload,jwtpass,{ expiresIn: '1h' });
+        const token=jwt.sign(payload,process.env.JWTPASS,{ expiresIn: '1h' });
         res.status(200).json({
             token,
             msg:"Login Successfull"
         })
     }
     catch(err){
-        console.log("Error happened during user login")
+        console.log("Error happened during user login",err)
         res.status(500).json({
             msg:"Internal server error"
         })
@@ -146,9 +144,7 @@ const userlogin=async(req,res)=>{
 const changePassword=async(req,res)=>{
 
     const changePass=req.body;
-    const token=req.header('authorization');
     
-
     if(!changePass){
         res.status(400).json({
             msg:"Bad Request please enter old,new,confirm password"
@@ -156,7 +152,7 @@ const changePassword=async(req,res)=>{
         return;
     }
 
-    if(!token){
+    if(!req.tokenData){
         res.status(400).json({
             msg:"Missing Token"
         })
@@ -176,9 +172,7 @@ const changePassword=async(req,res)=>{
             })
             return;
         }
-    
-        const decoded=jwt.verify(token,process.env.JWTPASS);
-            
+
         const user=await prisma.employee.findUnique({
             where:{
                 username:decoded.username,
@@ -231,9 +225,6 @@ const changePassword=async(req,res)=>{
 const adminChangePassword=async(req,res)=>{
 
     const changePass=req.body;
-    const token=req.header('authorization');
-    let tokendata;
-
     if(!changePass){
         res.status(400).json({
             msg:"Bad Request please enter old,new,confirm password"
@@ -241,9 +232,12 @@ const adminChangePassword=async(req,res)=>{
         return;
     }
 
+
     const authenticatedChangePass=changeAdminPasswordSchema.safeParse(changePass);
 
     if(authenticatedChangePass.success){
+
+        if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
 
         if(changePass.newPassword!=changePass.confirmPassword){
             res.status(300).json({
@@ -252,8 +246,6 @@ const adminChangePassword=async(req,res)=>{
             
             return;
         }
-    
-        const decoded=jwt.verify(token,process.env.JWTPASS);
             
         const user=await prisma.employee.findUnique({
             where:{
@@ -261,8 +253,7 @@ const adminChangePassword=async(req,res)=>{
                 employee_id:decoded.employee_id,
             }
         })
-        console.log(decoded);
-        if(decoded.role!="admin"){
+        if(req.tokenData.role!="admin"){
             res.status(403).json({
                 msg:"UNAUTHORISED"
             })

@@ -23,6 +23,8 @@ const userCreate = async (req, res) => {
     if (validationResult.success) {
         const validatedUserDetails = validationResult.data;
 
+        if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+
         try {
             await prisma.employee.create({
                 data: {
@@ -34,7 +36,7 @@ const userCreate = async (req, res) => {
                     gender: validatedUserDetails.gender,
                     job_title: validatedUserDetails.job_title,
                     access_rights:"user",
-                    status:"Active"
+                    status:"active"
                 }
             });
 
@@ -85,7 +87,7 @@ const adminCreate = async (req, res) => {
                     gender: validatedUserDetails.gender,
                     job_title: validatedUserDetails.job_title,
                     access_rights:"admin",
-                    status:"Active"
+                    status:"active"
 
                 }
             });
