@@ -4,6 +4,7 @@ const { adminLogin, userlogin, changePassword, adminChangePassword } = require("
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance } = require("../controllers/Attendance");
+const { getEmployeeData, getEmployeeDataByEmployeeName, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
 const router=express.Router();
 
 //admin Login
@@ -21,14 +22,14 @@ router.post("/employee/admin/change_password",jwtverify,adminChangePassword);
 
 //Employee Routes 
 
-router.get("/employee_data",jwtverify,);
-router.get("/employee_data/id",jwtverify);
-router.get('/data_employee/pan/',jwtverify);
-router.get("/employee_data/name",jwtverify);
+router.get("/employee_data",jwtverify,getEmployeeData);
+router.get("/employee_data/:username",jwtverify,getEmployeeDataByUsername);
+router.get('/data_employee/:PAN',jwtverify,getEmployeeDataByPan);
+router.get("/employee_data/:name",jwtverify,getEmployeeDataByEmployeeName);
 router.post("/employee_data",jwtverify);
-router.patch("/employee_data",jwtverify);
-router.delete("/employee_data",jwtverify);
-router.patch("/employee_data/change_password/",jwtverify);
+router.patch("/employee_data/:id",jwtverify,updateEmployeeData);
+router.delete("/employee_data/:id",jwtverify,deleteEmployeeData);
+router.patch("/employee_data/change_password",jwtverify,changePassword);
 
 
 

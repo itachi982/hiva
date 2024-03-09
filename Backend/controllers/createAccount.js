@@ -88,7 +88,6 @@ const adminCreate = async (req, res) => {
                     job_title: validatedUserDetails.job_title,
                     access_rights:"admin",
                     status:"active"
-
                 }
             });
 

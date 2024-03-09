@@ -145,24 +145,13 @@ const changePassword=async(req,res)=>{
 
     const changePass=req.body;
     
-    if(!changePass){
-        res.status(400).json({
-            msg:"Bad Request please enter old,new,confirm password"
-        })
-        return;
-    }
+    if(!changePass){return res.status(400).json({msg:"Bad Request please enter old,new,confirm password"});}
 
-    if(!req.tokenData){
-        res.status(400).json({
-            msg:"Missing Token"
-        })
-        return;
-    }
+    if(!req.tokenData){return res.status(400).json({msg:"UNAUTHORISED"})}
 
     const authenticatedChangePass=changePasswordSchema.safeParse(changePass);
 
     console.log(authenticatedChangePass);
-
 
     if(authenticatedChangePass.success){
 
@@ -175,42 +164,31 @@ const changePassword=async(req,res)=>{
 
         const user=await prisma.employee.findUnique({
             where:{
-                username:decoded.username,
-                employee_id:decoded.employee_id,
+                username:req.tokenData.username,
+                employee_id:req.tokenData.employee_id,
             }
         })
     
         const verifyPassword=await argon2.verify(user.password,changePass.oldPassword);
     
-        if(!verifyPassword){
-            res.status(300).json({
-                msg:"Incorrect Old Password"
-            })
-            return;
-        }
-    
+        if(!verifyPassword){return res.status(300).json({msg:"Incorrect Old Password"})}
         try{
             await prisma.employee.update({
                 where:{
-                    username:decoded.username,
-                    employee_id:decoded.employee_id,
+                    username:req.tokenData.username,
+                    employee_id:req.tokenData.employee_id,
                 },
                 data:{
                     password:await argon2.hash(changePass.newPassword),
                 }
             })
 
-            res.json({
-                msg:"Password updated Successfully",
-            })
+            res.json({msg:"Password updated Successfully"})
         }
         catch(error){
             console.log(error);
-            res.status(500).json({
-                msg:"INTERNAL SERVER ERROR",
-            })
+            res.status(500).json({msg:"INTERNAL SERVER ERROR"})
         }
-        
     }
     else{
         return res.status(400).json({
@@ -249,8 +227,8 @@ const adminChangePassword=async(req,res)=>{
             
         const user=await prisma.employee.findUnique({
             where:{
-                username:decoded.username,
-                employee_id:decoded.employee_id,
+                username:req.tokenData.username,
+                employee_id:req.tokenData.employee_id,
             }
         })
         if(req.tokenData.role!="admin"){
@@ -263,8 +241,8 @@ const adminChangePassword=async(req,res)=>{
         try{
             await prisma.employee.update({
                 where:{
-                    username:decoded.username,
-                    employee_id:decoded.employee_id,
+                    username:req.tokenData.username,
+                    employee_id:req.tokenData.employee_id,
                 },
                 data:{
                     password:await argon2.hash(changePass.newPassword),
