@@ -3,6 +3,7 @@ const {jwtverify } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin, changePassword, adminChangePassword } = require("../controllers/Auth");
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
+const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance } = require("../controllers/Attendance");
 const router=express.Router();
 
 //admin Login
@@ -20,7 +21,7 @@ router.post("/employee/admin/change_password",jwtverify,adminChangePassword);
 
 //Employee Routes 
 
-router.get("/employee_data",jwtverify);
+router.get("/employee_data",jwtverify,);
 router.get("/employee_data/id",jwtverify);
 router.get('/data_employee/pan/',jwtverify);
 router.get("/employee_data/name",jwtverify);
@@ -41,11 +42,11 @@ router.delete("/job_positions/:id",jwtverify,deleteJobData);
 
 //Attendance Data Routes
 
-router.get("/attendance_data");
-router.get("/attendance_data");
-router.post("/attendance_data");
-router.patch("/attendance_data/update");
-router.delete("/attendance_data");
+router.get("/attendance_data",jwtverify,getAllAttendance);
+router.get("/attendance_data/:id",jwtverify,getAttendanceByID);
+router.post("/attendance_data",jwtverify,createAttendance);
+router.patch("/attendance_data/update/:id",jwtverify,updateAttendance);
+router.delete("/attendance_data",jwtverify,deleteAttendance);
 
 //Deduction_data Routes
 

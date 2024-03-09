@@ -22,25 +22,17 @@ model Job {
  transportation_allowance Int
  meal_allowance           Int?
  Employees                Employee[]
- //employeeDataId           Int?
- //EmployeeData             Employee?     @relation(fields: [employeeDataId],references: [id])
-
 }
 
 model Attendance {
  id             Int      @id @default(autoincrement())
  month          String
- employee_id    String
- employee_name  String
- gender         String
- job_name       String?
  present        Int?
  sick           Int?
  absent         Int?
  employeeDataId Int?
  EmployeeData   Employee? @relation(fields: [employeeDataId], references: [id])
- createdAt      DateTime
- updatedAt      DateTime
+
 }
 
 model Employee{
@@ -80,6 +72,4 @@ model Deduction {
  salaryAfterDeduction   Int
  employeeDataId         Int 
  EmployeeData           Employee? @relation(fields: [employeeDataId],references: [id])
- createdAt              DateTime
- updatedAt              DateTime
 }
