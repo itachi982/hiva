@@ -2,6 +2,7 @@ const express=require("express");
 const { authenticateJWT, verifyUser, adminOnly } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin, changePassword, adminChangePassword } = require("../controllers/Auth");
 const { userCreate,adminCreate } = require("../controllers/createAccount");
+const { getEmployeeData } = require("../controllers/dataemployee");
 const router=express.Router();
 
 //admin Login
@@ -20,9 +21,12 @@ router.post("/employee/change_password",changePassword);
 
 router.post("/employee/admin/change_password",adminChangePassword);
 
+
+
+
 //Employee Routes 
 
-router.get("/employee_data",authenticateJWT,verifyUser,adminOnly);
+router.get("/employee_data",getEmployeeData);
 router.get("/employee_data/id",authenticateJWT,verifyUser,adminOnly);
 router.get('/data_employee/pan/',authenticateJWT,verifyUser, adminOnly);
 router.get("/employee_data/name",authenticateJWT,verifyUser);

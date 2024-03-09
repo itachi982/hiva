@@ -20,6 +20,26 @@ const createUserSchema = zod.object({
 });
 
 
+
+const updateUserSchema = zod.object({
+    
+  employee_id:zod.string().min(1),
+  PAN: zod.string().min(10, 'Please Enter Valid PAN Number'),
+  employee_name: zod.string(),
+  username: zod.string(),
+  gender:zod.string().refine(value => value === 'Female' || value === 'Male', {
+      message: 'Value must be either "Female" or "Male"',
+  }),
+  job_title:zod.string().min(1).max(16),
+  photo:zod.optional(),
+  url:zod.string().optional(),
+  join_date:zod.string().optional(),
+  status:zod.string().optional(),
+  access_rights:zod.string(),
+  jobdataid:zod.string().optional()
+});
+
+
 const createAdminSchema = zod.object({
     
     employee_id:zod.string().min(1),
@@ -90,5 +110,6 @@ module.exports={
     createAdminSchema,
     zod,
     changePasswordSchema,
-    changeAdminPasswordSchema
+    changeAdminPasswordSchema,
+    updateUserSchema
 }

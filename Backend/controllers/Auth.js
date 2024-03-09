@@ -28,7 +28,7 @@ const adminLogin = async(req,res)=>{
             return;
         }
 
-        if(admin.status!="Active"){
+        if(admin.status!="active"){
             res.status(403).json({
                 msg:"Your id is Inactive"
             })
