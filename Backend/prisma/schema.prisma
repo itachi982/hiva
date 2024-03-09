@@ -68,6 +68,7 @@ enum AccessRights{
 
 model Deduction {
  id                     Int     @id @default(autoincrement())
+ month                  String
  deduction_amount       Int
  salaryAfterDeduction   Int
  employeeDataId         Int 

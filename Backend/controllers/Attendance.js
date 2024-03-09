@@ -29,9 +29,6 @@ const createAttendance=async(req,res)=>{
         console.log(error)
         res.status(500).json({msg:"INTERNAL SERVER ERROR"});
     }
-
-
-
 }
 
 const updateAttendance=async(req,res)=>{
@@ -122,4 +119,10 @@ const deleteAttendance=async(req,res)=>{
 
 }
 
-module.exports={createAttendance,updateAttendance,getAllAttendance,getAttendanceByID,deleteAttendance};
+module.exports={
+    createAttendance,
+    updateAttendance,
+    getAllAttendance,
+    getAttendanceByID,
+    deleteAttendance
+};
