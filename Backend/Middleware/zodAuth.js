@@ -64,12 +64,12 @@ const changePasswordSchema=zod.object({
 })
 const changeAdminPasswordSchema=zod.object({
 
-    // oldPassword: zod.string().min(8, 'Password must be at least 8 characters long')
-    //   .refine((value) => /[A-Z]/.test(value), {
-    //     message: 'Password must contain at least one capital letter',
-    //   }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
-    //     message: 'Password must contain at least one special character'
-    // }),
+    oldPassword: zod.string().min(8, 'Password must be at least 8 characters long')
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Password must contain at least one capital letter',
+      }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
+        message: 'Password must contain at least one special character'
+    }).optional(),
     newPassword: zod.string().min(8, 'Password must be at least 8 characters long')
       .refine((value) => /[A-Z]/.test(value), {
         message: 'Password must contain at least one capital letter',
@@ -85,10 +85,30 @@ const changeAdminPasswordSchema=zod.object({
 
 })
 
+const jobDataSchema=zod.object({
+
+    employee_id:zod.string().min(1),
+    job_title:zod.string().min(1),
+    base_salary:zod.number().int(),
+    transportation_allowance:zod.number().int().optional(),
+    meal_allowance:zod.number().int().optional()
+})
+
+const jobDataSchemaId=zod.object({
+
+    job_id:zod.number().int(),
+    job_title:zod.string().min(1),
+    base_salary:zod.number().int(),
+    transportation_allowance:zod.number().int().optional(),
+    meal_allowance:zod.number().int().optional()
+})
+
 module.exports={
     createUserSchema,
     createAdminSchema,
     zod,
     changePasswordSchema,
-    changeAdminPasswordSchema
+    changeAdminPasswordSchema,
+    jobDataSchema,
+    jobDataSchemaId
 }

@@ -17,31 +17,22 @@ datasource db {
 model Job {
 
  id                       Int           @id @default(autoincrement())
- job_id                   String
- job_name                 String
+ job_title                String        @unique
  base_salary              Int
  transportation_allowance Int
  meal_allowance           Int?
- userId                   Int
- createdAt                DateTime
- updatedAt                DateTime
- employeeDataId           Int?
- EmployeeData             Employee?     @relation(fields: [employeeDataId],references: [id])
-
+ Employees                Employee[]
 }
 
 model Attendance {
  id             Int      @id @default(autoincrement())
  month          String
- employee_id    String
- employee_name  String
- gender         String
- job_name       String?
  present        Int?
  sick           Int?
  absent         Int?
- createdAt      DateTime
- updatedAt      DateTime
+ employeeDataId Int?
+ EmployeeData   Employee? @relation(fields: [employeeDataId], references: [id])
+
 }
 
 model Employee{
@@ -54,13 +45,21 @@ model Employee{
  gender         String
  job_title      String
  join_date      DateTime?
- status         String?
+ status         Status
  photo          String?
  url            String?
  access_rights  AccessRights
- jobs           Job[]
+ jobdataid      Int?
+ job            Job?  @relation(fields: [jobdataid],references: [id])
+ deductions     Deduction[]
+ attendences    Attendance[]
+
 }
 
+enum Status{
+  active
+  inactive
+}
 
 enum AccessRights{
   user
@@ -68,17 +67,10 @@ enum AccessRights{
 }
 
 model Deduction {
- id               Int     @id @default(autoincrement())
- deduction        String
- deduction_amount Int
- createdAt        DateTime
- updatedAt        DateTime
-}
-// Sessions
-model Session {
- sid        String      @id
- expires    DateTime
- data       String?
- createdAt  DateTime
- updatedAt  DateTime
+ id                     Int     @id @default(autoincrement())
+ month                  String
+ deduction_amount       Int
+ salaryAfterDeduction   Int
+ employeeDataId         Int 
+ EmployeeData           Employee? @relation(fields: [employeeDataId],references: [id])
 }
