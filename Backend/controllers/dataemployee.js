@@ -37,19 +37,20 @@ async function getEmployeeData(req,res) {
 }
 //retrieve employee data by employeeName
 
-async function getEmployeeDataByEmployeeName(req,res) {
+async function getEmployeeDataByEmployee_ID(req,res) {
     
     // Check if the user has the necessary role (e.g., admin) to access the data
     if (req.tokenData.role !== "admin") {return res.status(400).json({msg:"UNAUTHORISED"});}
 
     try {    
         // Get the user ID from the request parameters
-        const { employee_name } = req.params.employee_name;
+        const employee_id = req.params.employeeid;
+        console.log(employee_id);
 
         // If the token is valid and the user is authorized, fetch the employee data
         const employeeData = await prisma.employee.findUnique({
             where:{
-                id:employee_name
+                employee_id:employee_id
             },
             select:{
             id: true,
@@ -78,13 +79,13 @@ async function getEmployeeDataByEmployeeName(req,res) {
 }
 // retreive employee data by PAN
 async function getEmployeeDataByPan(req,res) {
-    
     // Check if the user has the necessary role (e.g., admin) to access the data
     if(req.tokenData.role !== "admin"){return res.status(400).json({msg:"UNAUTHORISED"});}
 
     try {
         // Get the user ID from the request parameters
-        const dpan = req.params.PAN;
+        const dpan = req.params.pan;
+        console.log(dpan);
         // If the token is valid and the user is authorized, fetch the employee data
         const user = await prisma.employee.findUnique({
             where: {
@@ -157,7 +158,7 @@ const updateEmployeeData = async (req, res) => {
     
     const employee = await employee.findOne({
         where: {
-            employee_id: req.params.id
+            employee_id: req.params.employeeid
         }
     });
 
@@ -172,7 +173,7 @@ const updateEmployeeData = async (req, res) => {
     try {
         const updatedEmployee=await prisma.employee.update({    
             where: {
-                id: employee.id
+                employee_id: employee.employee_id
             },
             data:{
                 PAN: updateData.PAN,
@@ -199,19 +200,19 @@ const updateEmployeeData = async (req, res) => {
 // Delete employee data
 const deleteEmployeeData = async (req, res) => {
     if (req.tokenData.role !== "admin") {return res.status(400).json({msg:"UNAUTHORISED"});}
-    const employee = await prisma.employee.findOne({
+    const employee = await prisma.employee.findUnique({
         where: {
-            id: req.params.id
+            employee_id: req.params.employeeid
         }
     });
     if (!employee){return res.status(404).json({ msg: "Employee data not found" });}
     try {
         const deletedEmployee=await prisma.employee.delete({
             where: {
-                id: employee.id
+                employee_id: employee.employee_id
             }
         });
-        res.json({ msg:"Employee data successfully deleted",deletedEmployee});
+        res.json({ msg:"Employee data successfully deleted"});
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg:"INTERNAL SERVER ERROR"});
@@ -220,7 +221,7 @@ const deleteEmployeeData = async (req, res) => {
 
 module.exports = {
     getEmployeeData,
-    getEmployeeDataByEmployeeName,
+    getEmployeeDataByEmployee_ID,
     updateEmployeeData,
     getEmployeeDataByPan,
     getEmployeeDataByUsername,
