@@ -8,16 +8,24 @@ require('dotenv').config();
 const jwtverify=async(req,res,next)=>{
 
     const token=req.header('Authorization');
-    console.log(token)
+    //console.log(token)
     
-
-    if(!token){return res.status(400).json({msg:"Token Missing"});}
-
-    const decoded=jwt.verify(token,process.env.JWTPASS);
-    console.log(decoded);
-    
-    if(!decoded){return res.status(400).json({msg:"Invalid Token"})}
-
+    let decoded="";
+    try {
+        if(!token){return res.status(400).json({msg:"Token Missing"});}
+        decoded=jwt.verify(token,process.env.JWTPASS);
+        console.log(decoded);
+        if(!decoded){return res.status(400).json({msg:"Invalid Token"})}
+    } catch (error) {
+        //console.log(error);
+        if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({ msg: "Unauthorized: Invalid Token" });
+        } else if (error instanceof jwt.TokenExpiredError) {
+            return res.status(401).json({ msg: "Unauthorized: Token Expired" });
+        } else {
+            return res.status(500).json({ msg: "Internal Server Error" });
+        }
+    }
     req.tokenData=decoded;
     next();
 

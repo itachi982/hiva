@@ -26,7 +26,7 @@ router.get("/employee_data",jwtverify,getEmployeeData);
 router.get("/employee_data/:username",jwtverify,getEmployeeDataByUsername);
 router.get('/data_employee/:PAN',jwtverify,getEmployeeDataByPan);
 router.get("/employee_data/:name",jwtverify,getEmployeeDataByEmployeeName);
-router.post("/employee_data",jwtverify);
+router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data/:id",jwtverify,updateEmployeeData);
 router.delete("/employee_data/:id",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password",jwtverify,changePassword);

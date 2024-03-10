@@ -11,6 +11,7 @@ async function getEmployeeData(req,res) {
         if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
         // If the token is valid and the user is authorized, fetch the employee data
         const data = await prisma.employee.findMany({
+            select:{
             id: true,
             employee_id : true,
             employee_name: true,
@@ -24,6 +25,7 @@ async function getEmployeeData(req,res) {
             access_rights: true,
             PAN : true,
             jobdataid:true
+            }  
         });
         res.json({msg:"Success",data});
     } catch (error) {
@@ -33,8 +35,6 @@ async function getEmployeeData(req,res) {
         })
     }
 }
-
-
 //retrieve employee data by employeeName
 
 async function getEmployeeDataByEmployeeName(req,res) {
@@ -49,7 +49,7 @@ async function getEmployeeDataByEmployeeName(req,res) {
         // If the token is valid and the user is authorized, fetch the employee data
         const employeeData = await prisma.employee.findUnique({
             where:{
-                i:employee_name
+                id:employee_name
             },
             select:{
             id: true,
@@ -76,10 +76,7 @@ async function getEmployeeDataByEmployeeName(req,res) {
         res.status(500).json({msg: "internal error"})
     }
 }
-
 // retreive employee data by PAN
-
-
 async function getEmployeeDataByPan(req,res) {
     
     // Check if the user has the necessary role (e.g., admin) to access the data
@@ -117,9 +114,7 @@ async function getEmployeeDataByPan(req,res) {
         res.status(500).json({msg: "INTERNAL SERVER ERROR"})
     }
 }
-
 // retrieve employee data by username
-
 async function getEmployeeDataByUsername(req,res) {
     
     // Check if the user has the necessary role (e.g., admin) to access the data
@@ -156,9 +151,8 @@ async function getEmployeeDataByUsername(req,res) {
         res.status(500).json({msg: "INTERNAL SERVER ERROR"})
     }
 }
-
 // Update employee data
- const updateEmployeeData = async (req, res) => {
+const updateEmployeeData = async (req, res) => {
     if (req.tokenData.role !== "admin"){return res.status(400).json({msg:"UNAUTHORISED"});}
     
     const employee = await employee.findOne({
@@ -202,8 +196,6 @@ async function getEmployeeDataByUsername(req,res) {
         res.status(500).json({ msg:"INTERNAL SERVER ERROR"});
     }
 }
-
-
 // Delete employee data
 const deleteEmployeeData = async (req, res) => {
     if (req.tokenData.role !== "admin") {return res.status(400).json({msg:"UNAUTHORISED"});}
