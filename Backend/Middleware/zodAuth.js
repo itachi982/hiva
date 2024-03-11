@@ -27,10 +27,9 @@ const updateUserSchema = zod.object({
   PAN: zod.string().min(10, 'Please Enter Valid PAN Number'),
   employee_name: zod.string(),
   username: zod.string(),
-  gender:zod.string().refine(value => value === 'Female' || value === 'Male', {
-      message: 'Value must be either "Female" or "Male"',
+  gender:zod.string().refine(value => value === 'female' || value === 'male', {
+      message: 'Value must be either "female" or "male"',
   }),
-  job_title:zod.string().min(1).max(16),
   photo:zod.optional(),
   url:zod.string().optional(),
   join_date:zod.string().optional(),
@@ -52,10 +51,9 @@ const createAdminSchema = zod.object({
       }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
         message: 'Password must contain at least one special character'
     }),
-    gender:zod.string().refine(value => value === 'Female' || value === 'Male', {
-        message: 'Value must be either "Female" or "Male"',
-    }),
-    job_title:zod.string().min(1).max(16),
+    gender:zod.string().refine(value => value === 'female' || value === 'male', {
+        message: 'Value must be either "female" or "male"',
+    })
     
 });
 

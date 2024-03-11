@@ -2,7 +2,6 @@ const {PrismaClient} =require("@prisma/client");
 const prisma=new PrismaClient();
 
 const { jobDataSchema, jobDataSchemaId } = require("../Middleware/zodAuth");
-const { jwt } = require("../Middleware/AuthUser");
 require('dotenv').config();
 
 const createJobData=async(req,res)=>{
