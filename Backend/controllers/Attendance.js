@@ -3,25 +3,33 @@ const prisma=new PrismaClient();
 require('dotenv').config();
 
 const createAttendance=async(req,res)=>{
-
+    const {present,absent,sick}=req.body;
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
-
-    const{
-        dmonth,
-        dpresent,
-        dsick,
-        dabsent,
-        demployeeDataId
-    }=req.body;
+    const days=present+absent+sick;
+    if(present<0 || absent<0||sick<0){return res.json({msg:"Days can not be negative"});}
+    if(days!=30){return res.json({msg:"Incorrect number of days"})}
 
     try {
         const createdAttendance=await prisma.attendance.create({
             data:{
-                month:dmonth,
-                present:dpresent,
-                sick:dsick,
-                absent:dabsent,
-                employeeDataId:demployeeDataId
+                month:req.body.month,
+                present:req.body.present,
+                sick:req.body.sick,
+                absent:req.body.absent,
+                employeeDataId:req.body.employee_id
+            }
+        })
+
+        await prisma.employee.update({
+            where:{
+                employee_id:req.body.employee_id
+            },
+            data:{
+                attendences:{
+                        connect:{
+                            id:createdAttendance.id
+                        }
+                }
             }
         })
         res.json({msg:"Success",createdAttendance})
@@ -34,7 +42,8 @@ const createAttendance=async(req,res)=>{
 const updateAttendance=async(req,res)=>{
 
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
-
+    const days=req.body.present+req.body.absent+req.body.sick;
+    if(days!=30){return res.json({msg:"Incorrect number of days"})}
     const{
         dmonth,
         dpresent,
@@ -108,7 +117,7 @@ const deleteAttendance=async(req,res)=>{
     try {
         const deleted=await prisma.attendance.delete({
             where:{
-                id:req.params.id
+                id:parseInt(req.params.id)
             }
         })
         res.json({msg:"Success",deleted})
@@ -119,10 +128,203 @@ const deleteAttendance=async(req,res)=>{
 
 }
 
+const createDeduction=async(req,res)=>{
+
+    if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+
+    async function calculateandupdate(){
+        let response=[];
+        try {
+            const employee=await prisma.employee.findUnique({
+                where:{
+                    username:req.params.username
+                },
+                select:{
+                    employee_id:true,
+                    employee_name:true,
+                    username:true,
+                    gender:true,
+                    join_date:true,
+                    access_rights:true,
+                    job:true,
+                    attendences:true
+                }            
+            })
+        
+            for(const attendance of employee.attendences){
+                const {month}=attendance
+
+                //calculate
+                const{deduction,salaryAmount}=await calculate(employee.job,attendance,month);
+
+                //update
+                const result = await updateDeduction(employee.employee_id,month,deduction,salaryAmount);
+                response.push(result);
+            }
+            res.json({msg:"Success",response})
+        }catch(error){
+            console.log(error)
+            res.status(500).json({msg:"INTERNAL SERVER ERROR"})
+        }
+    }
+
+    async function calculate(job,attendance,month){
+
+        const {sick,absent}=attendance;
+        const {base_salary}=job
+
+        const sickD=(sick*(base_salary/30))/2;
+        const absentD=absent*(base_salary/30);
+
+        const deduction=sickD+absentD;
+        const salaryAmount=job.base_salary-deduction;
+
+        return {deduction,salaryAmount};
+
+    }
+
+    async function updateDeduction(emp_id,month,deductionAmount,salaryAmount){
+        try {
+            const existingDeduction=await prisma.deduction.findFirst({
+                where:{
+                    employeeDataId:emp_id,
+                    month:month
+                }
+            })
+
+            //console.log(existingDeduction);
+
+            //if exist update 
+        if(existingDeduction){
+            const update=await prisma.deduction.update({
+                where:{
+                    id:existingDeduction.id
+                },
+                data:{
+                    deduction_amount:deductionAmount,
+                    salaryAfterDeduction:salaryAmount
+                }
+            })
+            return `Deduction updated for month ${month}`;
+        }
+        else{
+            const create=await prisma.deduction.create({
+                data:{
+                    month:month,
+                    deduction_amount:deductionAmount,
+                    salaryAfterDeduction:salaryAmount,
+                    employeeDataId:emp_id
+                }
+            })
+            return `Deduction created for month ${month}`;
+        }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({msg:"INTERNAL SERVER ERROR"})
+        }
+
+        
+
+
+    }
+
+    calculateandupdate();
+
+}
+
+const getDeductionData=async(req,res)=>{
+    
+    const dusername=req.params.username;
+    const month=req.query.month;
+    console.log(dusername,month);
+    if(!dusername){return res.status(300).json({msg:"BAD REQUEST"})}
+
+
+    if(!month){
+        try {
+            const deduction=await prisma.deduction.findMany({
+                where:{
+                    EmployeeData:{
+                        username:dusername
+                    } 
+                }
+            })
+    
+            if(!deduction){
+                return res.status(404).json({msg:"No Data Found"})
+            }
+            res.json({msg:"Success",deduction});
+        } catch (error) {  
+            res.status(500).json({msg:"INTERNAL SERVER ERROR"})
+        }
+    }else{
+       try {
+        const deduction=await prisma.deduction.findFirst({
+            where:{
+                EmployeeData:{
+                    username:dusername
+                },
+                month:month
+            }
+        })
+        if(!deduction){
+            return res.status(404).json({msg:"No Data Found"})
+        }
+        res.json({msg:"Success",deduction});
+       } catch (error) {
+        console.log(error);
+        res.status(500).json({msg:"INTERNAL SERVER ERROR"})
+       }
+
+    }
+
+}
+
+const deleteDeductionData=async(req,res)=>{
+
+    const dusername=req.params.username;
+    const month=req.query.month;
+    if(!dusername||!month){return res.status(300).json({msg:"BAD REQUEST"})}
+    if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+
+    try {
+
+        const emloyee=await prisma.employee.findUnique({
+            where:{
+                username:dusername
+            },
+            include:{
+                deductions:{
+                    where:{
+                        month:month
+                    }
+                }
+            }
+        })
+
+        if(!emloyee){return res.json({msg:"No data Found"})}
+
+        const deletedDeduction=await prisma.deduction.delete({
+            where:{
+                id:emloyee.deductions[0].id
+            }
+        })
+        res.json({msg:"Success",deletedDeduction})
+    } 
+    catch (error) {
+        console.log(error);
+        res.status(500).json({msg:"INTERNAL SERVER ERROR"})
+    }
+
+}
+
 module.exports={
     createAttendance,
     updateAttendance,
     getAllAttendance,
     getAttendanceByID,
-    deleteAttendance
+    deleteAttendance,
+    createDeduction,
+    getDeductionData,
+    deleteDeductionData
 };

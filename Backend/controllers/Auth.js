@@ -202,7 +202,7 @@ const changePassword=async(req,res)=>{
 
 const adminChangePassword=async(req,res)=>{
 
-    const changePass=req.body;
+    let changePass=req.body;
     if(!changePass){
         res.status(400).json({
             msg:"Bad Request please enter old,new,confirm password"
@@ -211,9 +211,11 @@ const adminChangePassword=async(req,res)=>{
     }
 
 
-    const authenticatedChangePass=changeAdminPasswordSchema.safeParse(changePass);
+    const validationResult=changeAdminPasswordSchema.safeParse(changePass);
 
-    if(authenticatedChangePass.success){
+    if(validationResult.success){
+
+        changePass=validationResult.data;
 
         if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
 
@@ -221,28 +223,20 @@ const adminChangePassword=async(req,res)=>{
             res.status(300).json({
                 msg:"New password and Confirm password should be same",
             })
-            
             return;
         }
             
-        const user=await prisma.employee.findUnique({
-            where:{
-                username:req.tokenData.username,
-                employee_id:req.tokenData.employee_id,
-            }
-        })
-        if(req.tokenData.role!="admin"){
-            res.status(403).json({
-                msg:"UNAUTHORISED"
-            })
-            return;
-        }
-        
         try{
+            const user=await prisma.employee.findUnique({
+                where:{
+                    username:changePass.username,
+                }
+            })
+
             await prisma.employee.update({
                 where:{
-                    username:req.tokenData.username,
-                    employee_id:req.tokenData.employee_id,
+                    username:user.username,
+                    employee_id:user.employee_id,
                 },
                 data:{
                     password:await argon2.hash(changePass.newPassword),

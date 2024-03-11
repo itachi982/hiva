@@ -26,13 +26,13 @@ model Job {
 
 model Attendance {
  id             Int      @id @default(autoincrement())
- month          String
+ month          Months
  present        Int?
  sick           Int?
  absent         Int?
- employeeDataId Int?
- EmployeeData   Employee? @relation(fields: [employeeDataId], references: [id])
-
+ employeeDataId String
+ EmployeeData   Employee? @relation(fields: [employeeDataId], references: [employee_id])
+ @@unique([employeeDataId, month], name: "unique_employee_attendance_month")
 }
 
 model Employee{
@@ -42,8 +42,7 @@ model Employee{
  employee_name  String
  username       String  @unique
  password       String
- gender         String
- job_title      String
+ gender         Gender
  join_date      DateTime?
  status         Status
  photo          String?
@@ -56,6 +55,37 @@ model Employee{
 
 }
 
+model Deduction {
+ id                     Int     @id @default(autoincrement())
+ month                  Months
+ deduction_amount       Int
+ salaryAfterDeduction   Int
+ employeeDataId         String 
+ EmployeeData           Employee? @relation(fields: [employeeDataId],references: [employee_id])
+ @@unique([employeeDataId, month], name: "unique_employee_month")
+}
+
+enum Months{
+
+  janurary
+  feburary
+  march
+  april
+  may
+  june
+  july
+  august
+  September
+  october
+  november
+  december
+
+}
+enum Gender{
+  male
+  female
+}
+
 enum Status{
   active
   inactive
@@ -64,13 +94,4 @@ enum Status{
 enum AccessRights{
   user
   admin
-}
-
-model Deduction {
- id                     Int     @id @default(autoincrement())
- month                  String
- deduction_amount       Int
- salaryAfterDeduction   Int
- employeeDataId         Int 
- EmployeeData           Employee? @relation(fields: [employeeDataId],references: [id])
 }

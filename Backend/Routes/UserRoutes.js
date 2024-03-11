@@ -1,13 +1,12 @@
 const express=require("express");
-const {jwtverify } = require("../Middleware/AuthUser");
+const {jwtverify, jwt } = require("../Middleware/AuthUser");
 const { adminLogin, userlogin, changePassword, adminChangePassword } = require("../controllers/Auth");
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
-const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance } = require("../controllers/Attendance");
-const { getEmployeeData, getEmployeeDataByEmployeeName, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData, getEmployeeDataByEmployee_ID } = require("../controllers/dataemployee");
+const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
 const router=express.Router();
 
-//admin Login
+//admin Login.
 router.get("/admin/login",adminLogin);
 //user login
 router.get("/user/login",userlogin);
@@ -18,18 +17,18 @@ router.post("/employee/create",jwtverify,userCreate);
 //change password
 router.post("/employee/change_password",jwtverify,changePassword);
 //change password for admin
-router.post("/employee/admin/change_password",jwtverify,adminChangePassword);
+router.post("/employee/admin/change_password",adminChangePassword);
 
 //Employee Routes 
 
-router.get('/employee_data/pan/:pan',jwtverify,getEmployeeDataByPan);
-router.get("/employee_data/username/:username",jwtverify,getEmployeeDataByUsername);
-router.get("/employee_data/id/:employeeid",jwtverify,getEmployeeDataByEmployee_ID);
-router.get("/employee_data",jwtverify,getEmployeeData);
-router.post("/employee_data",jwtverify,userCreate);
-router.patch("/employee_data/:employeeid",jwtverify,updateEmployeeData);
-router.delete("/employee_data/:employeeid",jwtverify,deleteEmployeeData);
-router.patch("/employee_data/change_password",jwtverify,changePassword);
+router.get("/employee_data",jwtverify,);
+router.get("/employee_data/id",jwtverify);
+router.get('/data_employee/pan/',jwtverify);
+router.get("/employee_data/name",jwtverify);
+router.post("/employee_data",jwtverify);
+router.patch("/employee_data",jwtverify);
+router.delete("/employee_data",jwtverify);
+router.patch("/employee_data/change_password/",jwtverify);
 
 
 
@@ -47,14 +46,16 @@ router.get("/attendance_data",jwtverify,getAllAttendance);
 router.get("/attendance_data/:id",jwtverify,getAttendanceByID);
 router.post("/attendance_data",jwtverify,createAttendance);
 router.patch("/attendance_data/update/:id",jwtverify,updateAttendance);
-router.delete("/attendance_data",jwtverify,deleteAttendance);
+router.delete("/attendance_data/:id",jwtverify,deleteAttendance);
 
 //Deduction_data Routes
 
-router.get("/deduction_data");
-router.get("/deduction_data");
-router.post("/deduction_data");
-router.patch("/deduction_data/update");
+router.get("/deduction_data/:username",jwtverify,getDeductionData);
+router.post("/deduction_data/:username",jwtverify,createDeduction);
+router.delete("/deduction_data/:username",jwtverify,deleteDeductionData);
+
+//no need for patch above req will automatically update or create data
+//router.patch("/deduction_data/update");
 
 // Emplopyee_salary_data Routes
 router.get("/employee_salary_data");
