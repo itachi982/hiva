@@ -17,11 +17,13 @@ datasource db {
 model Job {
 
  id                       Int           @id @default(autoincrement())
- job_title                String        @unique
+ job_title                String        
  base_salary              Int
  transportation_allowance Int
  meal_allowance           Int?
  Employees                Employee[]
+ 
+ 
 }
 
 model Attendance {
@@ -52,6 +54,7 @@ model Employee{
  job            Job?  @relation(fields: [jobdataid],references: [id])
  deductions     Deduction[]
  attendences    Attendance[]
+ @@unique([employee_id, jobdataid], name: "unique_employee_job")
 
 }
 
@@ -63,6 +66,7 @@ model Deduction {
  employeeDataId         String 
  EmployeeData           Employee? @relation(fields: [employeeDataId],references: [employee_id])
  @@unique([employeeDataId, month], name: "unique_employee_month")
+ 
 }
 
 enum Months{

@@ -4,11 +4,9 @@ const { adminLogin, userlogin, changePassword, adminChangePassword } = require("
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
-<<<<<<< Updated upstream
-=======
 const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
 const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
->>>>>>> Stashed changes
+
 const router=express.Router();
 
 //admin Login.
@@ -64,8 +62,8 @@ router.delete("/deduction_data/:username",jwtverify,deleteDeductionData);
 
 // Emplopyee_salary_data Routes
 router.get("/employee_salary_data",jwtverify,salaryData);
-router.get("/employee_salary_data/:name",jwtverify,salaryDatabyName);
-router.get("/employee_salary_data/:month",jwtverify,salaryDatabyMonth);
+router.get("/employee_salary_data/:username",jwtverify,salaryDatabyName);
+router.get("/employee_salary_data/month/:month",jwtverify,salaryDatabyMonth);
 //router.get("/employee_salary_data/year/");   
 
 
