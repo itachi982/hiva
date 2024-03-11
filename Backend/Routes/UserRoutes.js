@@ -4,6 +4,11 @@ const { adminLogin, userlogin, changePassword, adminChangePassword } = require("
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
+<<<<<<< Updated upstream
+=======
+const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
+const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
+>>>>>>> Stashed changes
 const router=express.Router();
 
 //admin Login.
@@ -21,14 +26,14 @@ router.post("/employee/admin/change_password",adminChangePassword);
 
 //Employee Routes 
 
-router.get("/employee_data",jwtverify,);
-router.get("/employee_data/id",jwtverify);
-router.get('/data_employee/pan/',jwtverify);
-router.get("/employee_data/name",jwtverify);
-router.post("/employee_data",jwtverify);
-router.patch("/employee_data",jwtverify);
-router.delete("/employee_data",jwtverify);
-router.patch("/employee_data/change_password/",jwtverify);
+router.get("/employee_data",jwtverify,getEmployeeData);
+router.get("/employee_data/id",jwtverify,getEmployeeDataByEmployee_ID);
+router.get('/data_employee/pan/',jwtverify,getEmployeeDataByPan);
+router.get("/employee_data/name",jwtverify,getEmployeeDataByUsername);
+router.post("/employee_data",jwtverify,userCreate);
+router.patch("/employee_data",jwtverify,updateEmployeeData);
+router.delete("/employee_data",jwtverify,deleteEmployeeData);
+router.patch("/employee_data/change_password/",jwtverify,changePassword);
 
 
 
