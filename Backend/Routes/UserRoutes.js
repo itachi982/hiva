@@ -63,9 +63,10 @@ router.delete("/deduction_data/:username",jwtverify,deleteDeductionData);
 //router.patch("/deduction_data/update");
 
 // Emplopyee_salary_data Routes
-router.get("/employee_salary_data");
-router.get("/employee_salary_data/month");
-router.get("/employee_salary_data/year/");   
+router.get("/employee_salary_data",jwtverify,salaryData);
+router.get("/employee_salary_data/:name",jwtverify,salaryDatabyName);
+router.get("/employee_salary_data/:month",jwtverify,salaryDatabyMonth);
+//router.get("/employee_salary_data/year/");   
 
 
 // report Routes
