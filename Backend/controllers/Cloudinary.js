@@ -1,11 +1,14 @@
 
-import {v2 as cloudinary} from 'cloudinary';
-import fs from "fs";
+const cloudinary =require('cloudinary').v2;
+const fs =require('fs');
+require('dotenv').config();
+const {PrismaClient} =require("@prisma/client");
+const prisma=new PrismaClient();
 
 cloudinary.config({ 
-  cloud_name: process.env.Cloudinary_cloud_name,
-  api_key: process.env.Cloudinary_api_key,
-  api_secret: process.env.Cloudinary_api_secret
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
 });
 
 const uploadOnCloudinary= async (localfilepath)=>{
@@ -15,23 +18,25 @@ const uploadOnCloudinary= async (localfilepath)=>{
         }
         const response=await cloudinary.uploader.upload(localfilepath,{
             localfilepath,
-                resource_type: "image"
+            resource_type: "image"
 
-            });
-            console.log("file is upladed in cloudinary",
-            response.url);
-            return response;
+        });
+
+        console.log("file is uploded in cloudinary",response.secure_url);
+        return response;
     }
     catch(error){
         fs.unlinkSync(localfilepath)// removes the localy save temp file as the upload ops got failed
-        return resizeBy.json({
-            msg: " temporary file was removed"
+        return res.json({
+            msg: "temporary file was removed"
         });
     }
 }
 
 async function upload (req, res) {
     try {
+
+        const emp_id=req.params.employeeid;
         // Check if file was uploaded
         if (!req.file) {
             return res.status(400).json({ error: "No file uploaded" });
@@ -40,13 +45,28 @@ async function upload (req, res) {
         // Upload file to Cloudinary
         const response = await uploadOnCloudinary(req.file.path);
 
+        //save url to db
+
+        const updatedpic=await prisma.employee.update({
+            where:{
+                employee_id:emp_id
+            },
+            data:{
+                url:response.secure_url
+            }
+        })
+
+        if(!updatedpic){
+            return res.json({msg:"Something went wrong"})
+        }
         // Remove the temporary file
         fs.unlinkSync(req.file.path);
 
         // Send response back to client
-        res.status(200).json({ message: "File uploaded successfully", cloudinaryResponse: response });
+        res.status(200).json({ message: "File uploaded successfully",link:response.secure_url });
     } catch (error) {
         console.error("Upload failed:", error);
+        fs.unlinkSync(req.file.path);
         res.status(500).json({ error: "Upload failed" });
     }
 }

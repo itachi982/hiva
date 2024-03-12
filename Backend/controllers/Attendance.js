@@ -7,8 +7,7 @@ const createAttendance=async(req,res)=>{
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
     const days=present+absent+sick;
     if(present<0 || absent<0||sick<0){return res.json({msg:"Days can not be negative"});}
-    console.log(days);
-    if(days>30){return res.json({msg:"Incorrect number of days"})}
+    if(days!=30){return res.json({msg:"Incorrect number of days"})}
 
     try {
         const createdAttendance=await prisma.attendance.create({

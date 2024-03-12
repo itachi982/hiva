@@ -1,11 +1,14 @@
 const express=require("express");
-const {jwtverify, jwt } = require("../Middleware/AuthUser");
+const {jwtverify} = require("../Middleware/AuthUser");
 const { adminLogin, userlogin, changePassword, adminChangePassword } = require("../controllers/Auth");
 const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
 const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
 const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
+const uploader = require("../Middleware/multer");
+const {upload}=require('../controllers/Cloudinary');
+
 
 const router=express.Router();
 
@@ -21,6 +24,10 @@ router.post("/employee/create",jwtverify,userCreate);
 router.post("/employee/change_password",jwtverify,changePassword);
 //change password for admin
 router.post("/employee/admin/change_password",adminChangePassword);
+
+//cloudinary route
+
+router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
 
 //Employee Routes 
 
