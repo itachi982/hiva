@@ -1,5 +1,6 @@
 
 const cloudinary =require('cloudinary').v2;
+const multer= require ("multer");
 const fs =require('fs');
 require('dotenv').config();
 const {PrismaClient} =require("@prisma/client");
@@ -70,9 +71,25 @@ async function upload (req, res) {
         res.status(500).json({ error: "Upload failed" });
     }
 }
+
+const storage= multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,"../Backend/public")
+    },
+    filename: function (req,file,cb){
+        const uniqueSuffix=Date.now();
+        cb(null,file.originalname+'-'+uniqueSuffix)
+    }
+})
+
+const uploader=multer({storage})
+
+
+
 module.exports={
     upload,
-    uploadOnCloudinary
+    uploadOnCloudinary,
+    uploader
 };
 
 

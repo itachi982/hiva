@@ -6,8 +6,7 @@ const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData 
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
 const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
 const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
-const uploader = require("../Middleware/multer");
-const {upload}=require('../controllers/Cloudinary');
+const {upload,uploader}=require('../controllers/profilePic');
 
 
 const router=express.Router();
@@ -24,13 +23,9 @@ router.post("/employee/create",jwtverify,userCreate);
 router.post("/employee/change_password",jwtverify,changePassword);
 //change password for admin
 router.post("/employee/admin/change_password",adminChangePassword);
-
-//cloudinary route
-
+//Profile pic upload on cloudinary
 router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
-
 //Employee Routes 
-
 router.get("/employee_data",jwtverify,getEmployeeData);
 router.get("/employee_data/id",jwtverify,getEmployeeDataByEmployee_ID);
 router.get('/data_employee/pan/',jwtverify,getEmployeeDataByPan);
@@ -39,31 +34,22 @@ router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
 router.delete("/employee_data",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password/",jwtverify,changePassword);
-
-
-
 //JOB Positions Routes
 router.get("/job_positions",jwtverify,getJobData);
 router.get("/job_positions/:id",jwtverify,getJobDataByID);
 router.post("/job_positions",jwtverify,createJobData);
 router.patch("/job_positions/:id",jwtverify,updateJobData);
 router.delete("/job_positions/:id",jwtverify,deleteJobData);
-
-
 //Attendance Data Routes
-
 router.get("/attendance_data",jwtverify,getAllAttendance);
 router.get("/attendance_data/:id",jwtverify,getAttendanceByID);
 router.post("/attendance_data",jwtverify,createAttendance);
 router.patch("/attendance_data/update/:id",jwtverify,updateAttendance);
 router.delete("/attendance_data/:id",jwtverify,deleteAttendance);
-
 //Deduction_data Routes
-
 router.get("/deduction_data/:username",jwtverify,getDeductionData);
 router.post("/deduction_data/:username",jwtverify,createDeduction);
 router.delete("/deduction_data/:username",jwtverify,deleteDeductionData);
-
 //no need for patch above req will automatically update or create data
 //router.patch("/deduction_data/update");
 
