@@ -217,7 +217,7 @@ const adminChangePassword=async(req,res)=>{
 
         changePass=validationResult.data;
 
-        if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+        //if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
 
         if(changePass.newPassword!=changePass.confirmPassword){
             res.status(300).json({
