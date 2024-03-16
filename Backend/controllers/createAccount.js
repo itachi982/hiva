@@ -71,6 +71,7 @@ const adminCreate = async (req, res) => {
 
     const validationResult= createAdminSchema.safeParse(adminDetails);
     //console.log(validationResult.error.errors);
+    console.log(validationResult)
     
 
     if (validationResult.success) {

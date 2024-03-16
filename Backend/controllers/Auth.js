@@ -10,6 +10,7 @@ const adminLogin = async(req,res)=>{
     try{
         const dusername=req.body.username;
         const dpassword=req.body.password;
+        console.log(dusername,dpassword)
 
         //prisma check
         

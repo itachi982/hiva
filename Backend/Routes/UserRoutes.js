@@ -12,7 +12,7 @@ const {upload,uploader}=require('../controllers/profilePic');
 const router=express.Router();
 
 //admin Login.
-router.get("/admin/login",adminLogin);
+router.post("/admin/login",adminLogin);
 //user login
 router.get("/user/login",userlogin);
 //admin creation
