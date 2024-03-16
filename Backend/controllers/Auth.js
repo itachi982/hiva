@@ -20,6 +20,8 @@ const adminLogin = async(req,res)=>{
             }
         })
 
+        console.log(admin)
+
         if(!admin){
             res.status(404).json({
                 msg:"Incorrect Username Or password"
