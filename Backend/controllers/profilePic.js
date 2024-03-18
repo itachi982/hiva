@@ -4,7 +4,8 @@ const multer= require ("multer");
 const fs =require('fs');
 require('dotenv').config();
 const {PrismaClient} =require("@prisma/client");
-const prisma=new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 
 cloudinary.config({ 
   cloud_name: process.env.cloud_name,
@@ -54,7 +55,8 @@ async function upload (req, res) {
             },
             data:{
                 url:response.secure_url
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
 
         if(!updatedpic){

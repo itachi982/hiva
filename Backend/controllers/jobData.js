@@ -1,5 +1,6 @@
 const {PrismaClient} =require("@prisma/client");
-const prisma=new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 
 const { jobDataSchema, jobDataSchemaId } = require("../Middleware/zodAuth");
 require('dotenv').config();
@@ -29,7 +30,8 @@ const createJobData=async(req,res)=>{
                     base_salary:jobdata.base_salary,
                     transportation_allowance:jobdata.transportation_allowance,
                     meal_allowance:jobdata.meal_allowance
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })  
             console.log(createdJob);    
             //connect the job to a employee
@@ -43,7 +45,8 @@ const createJobData=async(req,res)=>{
                             id:createdJob.id
                         }
                     }
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
             res.json({
                 msg:`Job created Successfully for user `
@@ -81,7 +84,8 @@ const updateJobData=async(req,res)=>{
             const job=await prisma.job.findUnique({
                 where:{
                     id:req.job_id
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             if(!job){
@@ -98,7 +102,8 @@ const updateJobData=async(req,res)=>{
                     base_salary:data.base_salary,
                     transportation_allowance:data.transportation_allowance,
                     meal_allowance:data.meal_allowance
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             res.json({msg:"Job updated Successfully"});
@@ -124,7 +129,8 @@ const getJobData = async(req,res)=>{
                         access_rights:true
                     }
                 }
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         });
         if(!jobdata){
             res.status(500).json({msg:"No Job Data Found"})
@@ -165,7 +171,8 @@ const getJobDataByID=async(req,res)=>{
                         access_rights:true
                     }
                 }
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({job});
     }
@@ -190,7 +197,8 @@ const deleteJobData=async(req,res)=>{
         const deletedJob =await prisma.job.delete({
             where:{
                 id:parseInt(djob_id)
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Job deleted Successfully",deletedJob});
     }

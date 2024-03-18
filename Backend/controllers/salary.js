@@ -1,5 +1,6 @@
 const {PrismaClient} =require("@prisma/client");
-const prisma=new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 require('dotenv').config();
 
 
@@ -21,7 +22,8 @@ if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"}
                     meal_allowance: true,
                   },
                 },
-            }, 
+            },
+            cacheStrategy: { swr: 60, ttl: 60 } 
         })
         res.json({msg:"Success",salaryData});
         
@@ -56,7 +58,8 @@ const salaryDatabyName=async(req,res)=>{
                     meal_allowance: true,
                   },
                 },
-            }, 
+            },
+            cacheStrategy: { swr: 60, ttl: 60 } 
         })
         res.json({msg:"Success",salaryData});
         
@@ -108,6 +111,7 @@ const salaryDatabyMonth=async(req,res)=>{
                   },
                 },
               },
+              cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Success",salaryData});
         

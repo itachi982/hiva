@@ -1,9 +1,11 @@
 const argon2=require('argon2');
 require('dotenv').config();
 const {PrismaClient} =require("@prisma/client");
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 const { jwt } = require('../Middleware/AuthUser');
 const { changePasswordSchema, changeAdminPasswordSchema } = require('../Middleware/zodAuth');
-const prisma=new PrismaClient();
+
 
 const adminLogin = async(req,res)=>{
 
@@ -17,7 +19,8 @@ const adminLogin = async(req,res)=>{
         const admin=await prisma.employee.findUnique({
             where:{
                 username:dusername,
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
 
         console.log(admin)
@@ -90,7 +93,8 @@ const userlogin=async(req,res)=>{
        const user=await prisma.employee.findUnique({
             where:{
                 username:dusername,
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         console.log(user);
         
@@ -169,7 +173,8 @@ const changePassword=async(req,res)=>{
             where:{
                 username:req.tokenData.username,
                 employee_id:req.tokenData.employee_id,
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
     
         const verifyPassword=await argon2.verify(user.password,changePass.oldPassword);
@@ -183,7 +188,8 @@ const changePassword=async(req,res)=>{
                 },
                 data:{
                     password:await argon2.hash(changePass.newPassword),
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             res.json({msg:"Password updated Successfully"})
@@ -233,7 +239,8 @@ const adminChangePassword=async(req,res)=>{
             const user=await prisma.employee.findUnique({
                 where:{
                     username:changePass.username,
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             await prisma.employee.update({
@@ -243,7 +250,8 @@ const adminChangePassword=async(req,res)=>{
                 },
                 data:{
                     password:await argon2.hash(changePass.newPassword),
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             res.json({

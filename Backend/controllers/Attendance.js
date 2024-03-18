@@ -1,5 +1,6 @@
 const {PrismaClient} =require("@prisma/client");
-const prisma=new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 require('dotenv').config();
 
 const createAttendance=async(req,res)=>{
@@ -17,7 +18,8 @@ const createAttendance=async(req,res)=>{
                 sick:req.body.sick,
                 absent:req.body.absent,
                 employeeDataId:req.body.employee_id
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
 
         await prisma.employee.update({
@@ -30,7 +32,8 @@ const createAttendance=async(req,res)=>{
                             id:createdAttendance.id
                         }
                 }
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Success",createdAttendance})
     } catch (error) {
@@ -64,7 +67,8 @@ const updateAttendance=async(req,res)=>{
                 sick:dsick,
                 absent:dabsent,
                 employeeDataId:demployeeDataId
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Success",attendance});
     } catch (error) {
@@ -82,7 +86,8 @@ const getAllAttendance=async(req,res)=>{
         const AllAttendance=await prisma.attendance.findMany({
             include:{
                 EmployeeData:true
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         });
         if(!AllAttendance){return res.status(404).json({msg:"No Data Found"});}
         res.json({msg:"Success",AllAttendance})
@@ -101,7 +106,8 @@ const getAttendanceByID=async(req,res)=>{
             const data=await prisma.employee.findUnique({
                 where:{
                     id:req.params.id
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
             res.json({msg:"Success",data});
         } catch (error) {
@@ -118,7 +124,8 @@ const deleteAttendance=async(req,res)=>{
         const deleted=await prisma.attendance.delete({
             where:{
                 id:parseInt(req.params.id)
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Success",deleted})
     } catch (error) {
@@ -148,7 +155,8 @@ const createDeduction=async(req,res)=>{
                     access_rights:true,
                     job:true,
                     attendences:true
-                }            
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }            
             })
         
             for(const attendance of employee.attendences){
@@ -189,7 +197,8 @@ const createDeduction=async(req,res)=>{
                 where:{
                     employeeDataId:emp_id,
                     month:month
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
 
             //console.log(existingDeduction);
@@ -203,7 +212,8 @@ const createDeduction=async(req,res)=>{
                 data:{
                     deduction_amount:deductionAmount,
                     salaryAfterDeduction:salaryAmount
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
             return `Deduction updated for month ${month}`;
         }
@@ -214,7 +224,8 @@ const createDeduction=async(req,res)=>{
                     deduction_amount:deductionAmount,
                     salaryAfterDeduction:salaryAmount,
                     employeeDataId:emp_id
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
             return `Deduction created for month ${month}`;
         }
@@ -247,7 +258,8 @@ const getDeductionData=async(req,res)=>{
                     EmployeeData:{
                         username:dusername
                     } 
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
     
             if(!deduction){
@@ -265,7 +277,8 @@ const getDeductionData=async(req,res)=>{
                     username:dusername
                 },
                 month:month
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         if(!deduction){
             return res.status(404).json({msg:"No Data Found"})
@@ -299,7 +312,8 @@ const deleteDeductionData=async(req,res)=>{
                         month:month
                     }
                 }
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
 
         if(!emloyee){return res.json({msg:"No data Found"})}
@@ -307,7 +321,8 @@ const deleteDeductionData=async(req,res)=>{
         const deletedDeduction=await prisma.deduction.delete({
             where:{
                 id:emloyee.deductions[0].id
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         res.json({msg:"Success",deletedDeduction})
     } 

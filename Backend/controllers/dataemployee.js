@@ -1,7 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 const { updateUserSchema } = require("../Middleware/zodAuth");
-const prisma = new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 require('dotenv').config();
 
 
@@ -24,7 +25,8 @@ async function getEmployeeData(req,res) {
             access_rights: true,
             PAN : true,
             jobdataid:true
-            }  
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }  
         });
         res.json({msg:"Success",data});
     } catch (error) {
@@ -63,7 +65,8 @@ async function getEmployeeDataByEmployee_ID(req,res) {
             url: true,
             access_rights: true,
             PAN : true,
-            jobdataid:true}
+            jobdataid:true},
+            cacheStrategy: { swr: 60, ttl: 60 }
         });
 
         if(!employeeData){return res.status(404).json({msg:"Data not Found"});}
@@ -102,7 +105,8 @@ async function getEmployeeDataByPan(req,res) {
                 access_rights: true,
                 PAN : true,
                 jobdataid:true
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         if(!user){return res.status(404).json({msg: "Employee data not found "});}
         return res.json({user});
@@ -138,7 +142,8 @@ async function getEmployeeDataByUsername(req,res) {
                 access_rights: true,
                 PAN : true,
                 jobdataid:true
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })
         if(!user){return res.status(404).json({msg: "Employee data not found "});}
         return res.json({user});
@@ -155,7 +160,8 @@ const updateEmployeeData = async (req, res) => {
     const employee = await employee.findOne({
         where: {
             employee_id: req.params.employeeid
-        }
+        },
+        cacheStrategy: { swr: 60, ttl: 60 }
     });
 
     if (!employee){return res.staus(404).json({ msg: "Employee data not found" });}
@@ -183,7 +189,8 @@ const updateEmployeeData = async (req, res) => {
                 status: updateData.status,
                 access_rights: updateData.ccess_rights,
                 jobdataid: updateData.jobdataid
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         })     
     res.status(200).json({ msg: "Employee data successfully updated",updatedEmployee});
     } 
@@ -205,7 +212,8 @@ const deleteEmployeeData = async (req, res) => {
         const deletedEmployee=await prisma.employee.delete({
             where: {
                 employee_id: employee.employee_id
-            }
+            },
+            cacheStrategy: { swr: 60, ttl: 60 }
         });
         res.json({ msg:"Employee data successfully deleted"});
     } catch (error) {

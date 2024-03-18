@@ -1,7 +1,8 @@
 
 const {PrismaClient} =require("@prisma/client");
 const { createUserSchema,createAdminSchema } = require("../Middleware/zodAuth");
-const prisma =new PrismaClient();
+const { withAccelerate } = require('@prisma/extension-accelerate')
+const prisma = new PrismaClient().$extends(withAccelerate())
 require('dotenv').config();
 const argon2 = require("argon2");
 
@@ -37,7 +38,8 @@ const userCreate = async (req, res) => {
                     job_title: validatedUserDetails.job_title,
                     access_rights:"user",
                     status:"active"
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             });
 
             res.json({
@@ -84,7 +86,8 @@ const adminCreate = async (req, res) => {
                     employee_id:validatedUserDetails.employee_id,
                     username:validatedUserDetails.username,
                     
-                }
+                },
+                cacheStrategy: { swr: 60, ttl: 60 }
             })
             console.log(userExist);
             if(!userExist){
@@ -99,7 +102,8 @@ const adminCreate = async (req, res) => {
                         job_title: validatedUserDetails.job_title,
                         access_rights:"admin",
                         status:"active"
-                    }
+                    },
+                    cacheStrategy: { swr: 60, ttl: 60 }
                 });
     
                 res.json({
