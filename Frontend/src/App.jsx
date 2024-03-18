@@ -5,6 +5,8 @@ import { Signin } from './pages/Signin'
 import { Signup } from './pages/Signup'
 import { BrowserRouter, Route,Routes } from 'react-router-dom'
 import { ContactUs } from './pages/Contactus'
+import { Dashboard } from './pages/Dashboard'
+import { Home } from './pages/Home'
 
 
 function App() {
@@ -15,12 +17,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Signin/>} />
-          {/* <Route path="/about-us" element={<Signin/>} /> */}
+          <Route path="/home" element={<Home/>} />
           {/* <Route path="/contact-us" element={<Signin/>} /> */}
           <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/dashboard" element={<Signup/>} />
           <Route path="/Contact-us" element={<ContactUs/>}/>
+          <Route path="/dashboard" element={<Dashboard/>} />
           
         </Routes>
       </BrowserRouter>
