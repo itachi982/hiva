@@ -27,7 +27,6 @@ export const Signin=()=>{
 
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
-    const [showPassword, setShowPassword] = useState(false);
 
     return(
         
@@ -38,14 +37,11 @@ export const Signin=()=>{
                 <Heading title={"Sign in"}></Heading>
                 <SubHeading label={"Please sign in with username and password"}></SubHeading>
                 <InputBox onChange={e=>{setUsername(e.target.value)}} placeholder={"Username"}></InputBox>
-                <input type={showPassword ? "text" : "password"} placeholder="Password" className="rounded-md w-auto px-2 py-1 m-1 border-slate-200 mb-5"/>
-                {/* <button onClick={e=>{setShowPassword(!showPassword)}}>click</button> */}
+                <InputBox  type={"password"} onChange={e=>setPassword(e.target.value)} placeholder={"Password"}></InputBox>
                 <Button func={login} label={"Sign in"}></Button>
                 <Notification/>
                 <BottomWarning label={"Dont have a account?"} buttonText={"Create Account"} to={"/signup"}></BottomWarning>
-              
-
-
+            
             </div>
         </div>
         

@@ -60,7 +60,7 @@ const userCreate = async (req, res) => {
 
 const adminCreate = async (req, res) => {
     const adminDetails = req.body;
-    console.log(adminDetails);
+   
 
     if (!adminDetails) {
         res.status(400).json({
@@ -69,32 +69,47 @@ const adminCreate = async (req, res) => {
         return;
     }
 
+    
     const validationResult= createAdminSchema.safeParse(adminDetails);
     //console.log(validationResult.error.errors);
     console.log(validationResult)
     
-
+    
     if (validationResult.success) {
         const validatedUserDetails = validationResult.data;
-
+        
         try {
-            await prisma.employee.create({
-                data: {
+            const userExist=await prisma.employee.findUnique({
+                where:{
                     employee_id:validatedUserDetails.employee_id,
-                    PAN: validatedUserDetails.PAN,
-                    employee_name: validatedUserDetails.employee_name,
-                    username: validatedUserDetails.username,
-                    password: await argon2.hash(validatedUserDetails.password),
-                    gender: validatedUserDetails.gender,
-                    job_title: validatedUserDetails.job_title,
-                    access_rights:"admin",
-                    status:"active"
+                    username:validatedUserDetails.username,
+                    
                 }
-            });
-
-            res.json({
-                msg: "Admin Created Successfully",
-            });
+            })
+            console.log(userExist);
+            if(!userExist){
+                await prisma.employee.create({
+                    data: {
+                        employee_id:validatedUserDetails.employee_id,
+                        PAN: validatedUserDetails.PAN,
+                        employee_name: validatedUserDetails.employee_name,
+                        username: validatedUserDetails.username,
+                        password: await argon2.hash(validatedUserDetails.password),
+                        gender: validatedUserDetails.gender,
+                        job_title: validatedUserDetails.job_title,
+                        access_rights:"admin",
+                        status:"active"
+                    }
+                });
+    
+                res.json({
+                    msg: "Admin Created Successfully",
+                });
+                
+            }
+            else{
+                res.status(300).json({msg:"user already exists"})
+            }
         } catch (err) {
             console.error(err);
             res.status(500).json({
@@ -104,7 +119,7 @@ const adminCreate = async (req, res) => {
     }
     else{
         return res.status(400).json({
-            message: "Validation error",
+            msg: "Validation error",
             errors: validationResult.error.errors,
         });
     }

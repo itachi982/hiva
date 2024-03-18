@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Button, Heading, InputBox, SubHeading } from "../components/SigninHelper"
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Notification, { errorNotification, successNotification } from "../components/Notification";
-
+import {useNavigate } from 'react-router-dom';
 
 
 export const Signup=()=>{
+    const navigate=useNavigate();
 
     async function createAccount(){
 
         try{
+            
             const response=await axios.post("http://localhost:3000/admin/create",{
                 employee_id,
                 PAN,
@@ -18,13 +20,19 @@ export const Signup=()=>{
                 password,
                 gender
             })
-            successNotification(response.data.msg);
+
+            successNotification(response.data.msg+" Redirecting to Login Page");
+            setTimeout(()=>{
+                navigate("/signin")
+            },3000);
+            
             
         }
-        catch(error){
-            //console.log(error)
-            errorNotification("Admin not created : "+error.response.data.msg);
+        catch(AxiosError){
+            console.log(AxiosError)
+            errorNotification("Admin not created : "+AxiosError.response.data.msg);
         }
+       
       
     }
 
