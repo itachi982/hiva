@@ -2,6 +2,7 @@ import { useState } from "react"
 import { BottomWarning, Button, Heading, InputBox, SubHeading ,Logo} from "../components/SigninHelper"
 import Notification, { successNotification,errorNotification } from "../components/Notification";
 import axios from "axios";
+import { Navbar } from "../components/Navbar";
 
 export const Signin=()=>{
 
@@ -31,6 +32,7 @@ export const Signin=()=>{
     return(
         
         <div className="bg-slate-300 h-screen flex justify-center">
+
             
             <div className="bg-slate-100 p-7 rounded-lg h-100 mt-10 mb-10 flex flex-col justify-center">
                 <Logo></Logo>
