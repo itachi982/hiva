@@ -12,7 +12,7 @@ export const AdminDashboard = ()=>{
         
         <div className="h-screen bg-slate-300">
             <AdminNavbar/>
-            {/* <Sidebar/> */}
+            <Sidebar/>
             <div className='flex justify-center space-x-5 mt-20 mr-7'>
                 <Card1 number={"3"}/>
                 <Card2 number={"4"}/>

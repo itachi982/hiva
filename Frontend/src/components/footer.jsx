@@ -1,4 +1,4 @@
-import { Button, Heading, InputBox, SubHeading } from "../components/SigninHelper"
+import { Button, Heading, InputBox, SubHeading } from "./SigninHelper"
 import logo from "../assets/logo.png"
 
 export const Footer=()=> {
