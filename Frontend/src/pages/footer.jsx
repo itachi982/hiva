@@ -1,7 +1,7 @@
 import { Button, Heading, InputBox, SubHeading } from "../components/SigninHelper"
 import logo from "../assets/logo.png"
 
-export const ContactUs=()=> {
+export const Footer=()=> {
     return <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-900">
     <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
