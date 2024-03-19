@@ -5,7 +5,7 @@ import Notification, { errorNotification, successNotification } from "../compone
 import {useNavigate } from 'react-router-dom';
 
 
-export const Signup=()=>{
+export const AdminSignup=()=>{
     const navigate=useNavigate();
 
     async function createAccount(){
@@ -23,7 +23,7 @@ export const Signup=()=>{
 
             successNotification(response.data.msg+" Redirecting to Login Page");
             setTimeout(()=>{
-                navigate("/signin")
+                navigate("/admin/signin")
             },3000);
             
             
@@ -48,7 +48,7 @@ export const Signup=()=>{
         <div className="bg-slate-300 h-screen flex justify-center">
             
             <div className="bg-slate-100 p-7 rounded-lg h-100 mt-10 mb-10 flex flex-col justify-center">
-                <Heading title={"Sign up"}></Heading>
+                <Heading title={"Admin Sign up"}></Heading>
                 <SubHeading label={"Please fill up all information to create a admin account"}></SubHeading>
                 <InputBox onChange={e=>{setEmployeeName(e.target.value);}} placeholder={"Employee Name"} ></InputBox>
                 <InputBox onChange={e=>{setEmployeeId(e.target.value)}} placeholder={"Employee ID"} ></InputBox>

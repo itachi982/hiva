@@ -8,7 +8,7 @@ export const Sidebar=()=>{
 
         <div className="grid grid-cols-5 h-screen">
 
-            <div className='col-span-1 bg-slate-300 ' >
+            <div className='col-span-1  ' >
 
                 <Navigation
                 // you can use your own router's api to get pathname
