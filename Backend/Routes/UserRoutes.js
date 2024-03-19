@@ -14,7 +14,7 @@ const router=express.Router();
 //admin Login.
 router.post("/admin/login",adminLogin);
 //user login
-router.get("/user/login",userlogin);
+router.post("/user/login",userlogin);
 //admin creation
 router.post("/admin/create",adminCreate);
 //usercreation
@@ -26,10 +26,10 @@ router.post("/employee/admin/change_password",adminChangePassword);
 //Profile pic upload on cloudinary
 router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
 //Employee Routes 
+router.get("/employee_data/",jwtverify,getEmployeeDataByUsername);
+router.get("/employee_data/",jwtverify,getEmployeeDataByEmployee_ID);
+router.get('/employee_data/',jwtverify,getEmployeeDataByPan);
 router.get("/employee_data",jwtverify,getEmployeeData);
-router.get("/employee_data/id",jwtverify,getEmployeeDataByEmployee_ID);
-router.get('/data_employee/pan/',jwtverify,getEmployeeDataByPan);
-router.get("/employee_data/name",jwtverify,getEmployeeDataByUsername);
 router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
 router.delete("/employee_data",jwtverify,deleteEmployeeData);

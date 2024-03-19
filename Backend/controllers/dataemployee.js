@@ -45,7 +45,7 @@ async function getEmployeeDataByEmployee_ID(req,res) {
 
     try {    
         // Get the user ID from the request parameters
-        const employee_id = req.params.employeeid;
+        const employee_id = req.query.employeeid;
         console.log(employee_id);
 
         // If the token is valid and the user is authorized, fetch the employee data
@@ -85,7 +85,7 @@ async function getEmployeeDataByPan(req,res) {
 
     try {
         // Get the user ID from the request parameters
-        const dpan = req.params.pan;
+        const dpan = req.query.pan;
         console.log(dpan);
         // If the token is valid and the user is authorized, fetch the employee data
         const user = await prisma.employee.findUnique({
@@ -118,12 +118,14 @@ async function getEmployeeDataByPan(req,res) {
 }
 // retrieve employee data by username
 async function getEmployeeDataByUsername(req,res) {
+
+    console.log("entry")
     
     // Check if the user has the necessary role (e.g., admin) to access the data
-    if (req.tokenData.role !== "admin"){return res.status(400).json({msg:"No token provided"});}
+    //if (req.tokenData.role !== "admin"){return res.status(400).json({msg:"No token provided"});}
     try {       
         // Get the user ID from the request parameters
-        const name = req.params.username;
+        const name = req.query.username;
         // If the token is valid and the user is authorized, fetch the employee data
         const user = await prisma.employee.findUnique({
             where : {

@@ -1,29 +1,32 @@
 import { useState } from 'react'
 import './App.css'
 
-import { Signin } from './pages/Signin'
-import { Signup } from './pages/Signup'
+import { UserSignin } from './pages/UserSignin'
+import { AdminSignup } from './pages/AdminSignup'
 import { BrowserRouter, Route,Routes } from 'react-router-dom'
 import { ContactUs } from './pages/Contactus'
-import { Dashboard } from './pages/Dashboard'
+import { AdminDashboard } from './pages/AdminDashboard'
 import { Home } from './pages/Home'
+import { AdminSignin } from './pages/AdminSignin'
+import { Navigate } from 'react-router-dom'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   
   return(
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Signin/>} />
+          <Route path="/" element={<Home/>} />
           <Route path="/home" element={<Home/>} />
-          {/* <Route path="/contact-us" element={<Signin/>} /> */}
-          <Route path="/signin" element={<Signin/>} />
-          <Route path="/signup" element={<Signup/>} />
-          <Route path="/dashboard" element={<Signup/>} />
+          <Route path="/admin/signin" element={<AdminSignin setIsAdmin={setIsAdmin}/>} />
+          <Route path="/admin/signup" element={<AdminSignup/>} />            
+          <Route path="/admin/dashboard" element={isAdmin ? <AdminDashboard /> : <Navigate to="/admin/signin" />} />
+          <Route path="/employee/signin" element={<UserSignin setIsUser={setIsUser}/>} />
+          <Route path="/employee/dashboard" element={isUser ? <AdminDashboard /> : <Navigate to="/employee/signin" />} />
           <Route path="/Contact-us" element={<ContactUs/>}/>
-          <Route path="/dashboard" element={<Dashboard/>} />
           
         </Routes>
       </BrowserRouter>
