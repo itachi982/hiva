@@ -19,34 +19,37 @@ export const AdminSignin=({setIsAdmin})=>{
             
             successNotification(response.data.msg);
             localStorage.setItem("token",response.data.token);
+            if(response.data.token){
+                try {
+                    const AdminData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
+                        headers:{
+                            'Authorization':localStorage.getItem("token")
+                        }
+                    });
+        
+                    
+        
+                    if(AdminData.data.user.access_rights=='admin'){
+                        setIsAdmin(true);
+                        setTimeout(()=>{
+                            navigate("/admin/dashboard")
+                        },3000)
+                    }
+                    
+                } catch (error) {
+        
+                    console.log(error)
+                    if(error){errorNotification(error.response.data.msg)}
+                }
+        
+            }
         } catch (error) {
             //console.log(error)
             localStorage.removeItem("token");
             errorNotification(error.response.data.msg);
         }
 
-        try {
-            const AdminData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
-                headers:{
-                    'Authorization':localStorage.getItem("token")
-                }
-            });
-
-            
-
-            if(AdminData.data.user.access_rights=='admin'){
-                setIsAdmin(true);
-                setTimeout(()=>{
-                    navigate("/admin/dashboard")
-                },3000)
-            }
-            
-        } catch (error) {
-
-            console.log(error)
-            if(error){errorNotification(error.response.data.msg)}
-        }
-
+        
     }
 
     const [username,setUsername]=useState("");

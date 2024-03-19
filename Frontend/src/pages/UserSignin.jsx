@@ -17,30 +17,34 @@ export const UserSignin=({setIsUser})=>{
             })
             
             successNotification(response.data.msg);
-            localStorage.setItem("token",response.data.token);     
+            localStorage.setItem("token",response.data.token);
+            
+            if(response.data.token){
+                try {
+                    const EmployeeData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
+                        headers:{
+                            'Authorization':localStorage.getItem("token")
+                        }
+                    });
+                    if(EmployeeData.data.user.access_rights=='user'){
+                        setIsUser(true);
+                        setTimeout(()=>{
+                            navigate("/employee/dashboard")
+                        },3000)
+                    }     
+                } catch (error) {
+        
+                    console.log(error)
+                    if(error){errorNotification(error.response.data.msg)}
+                }
+            }
         } catch (error) {
             //console.log(error)
             localStorage.removeItem("token");
             errorNotification(error.response.data.msg);
         }
 
-        try {
-            const EmployeeData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
-                headers:{
-                    'Authorization':localStorage.getItem("token")
-                }
-            });
-            if(EmployeeData.data.user.access_rights=='user'){
-                setIsUser(true);
-                setTimeout(()=>{
-                    navigate("/employee/dashboard")
-                },3000)
-            }     
-        } catch (error) {
-
-            console.log(error)
-            if(error){errorNotification(error.response.data.msg)}
-        }
+      
 
 
     }
