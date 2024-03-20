@@ -31,6 +31,7 @@ export const AdminSignin=({setIsAdmin})=>{
         
                     if(AdminData.data.user.access_rights=='admin'){
                         setIsAdmin(true);
+                        localStorage.setItem("IsAdmin",'true');
                         setTimeout(()=>{
                             navigate("/admin/dashboard")
                         },3000)
