@@ -1,7 +1,7 @@
 import { BottomWarning, Heading, SubHeading } from "../components/SigninHelper"
 import pic from '../assets/vect.png'
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
-import { Footer } from "./footer"
+import { Footer } from '../components/Footer';
 
 export const UserDashboard = () => {
     return (
