@@ -8,18 +8,18 @@ export const UserDashboard = () => {
         <div className="flex flex-col min-h-screen">
             <UserNavbar />
 
-            <div className="flex-grow bg-slate-200 shadow-lg flex flex-col justify-between">
+            <div className="flex-grow bg-slate-300 shadow-lg flex flex-col justify-between">
                 <div>
                     <div className="text-4xl p-8 text-center text-yellow-900 ">
                         Dashboard
                     </div>
-                    <div className="text-green-700 h-14 w-100 ml-40 text-sm m-10 pb-4">
+                    <div className="text-cyan-700 h-14 w-100 ml-60 text-sm m-10 pb-4">
                         Welcome to Hiva, you are logged in as an employee.
                     </div>
-                    <div className="text-xl ml-60 m-10">
+                    <div className="text-xl ml-60 m-2">
                         Employee data
                     </div>
-                    <div className="flex p-8 ml-40 space-x-40">
+                    <div className="flex p-8 ml-40 space-x-80">
                         <div>
                             <img src={pic} className="w-full md:w-80 h-64 rounded-md filter saturate-200 contrast=125 flex space-x-4" alt="pic" />
                         </div>
