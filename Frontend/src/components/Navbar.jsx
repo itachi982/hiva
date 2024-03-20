@@ -6,7 +6,7 @@ export const Navbar=()=>{
 
     return(
 
-        <div className="flex justify-between pr-10 pl-10 py-2 bg-slate-300">
+        <div className="flex justify-between pr-10 pl-10 py-2 bg-slate-200">
             
             <Link to="/home">
                 <button><img className="size-8 w-auto " src={logo} alt="hiva logo"/></button>
