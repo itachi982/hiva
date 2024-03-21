@@ -9,6 +9,7 @@ import { AdminDashboard } from './pages/AdminDashboard'
 import { UserHome } from './pages/UserHome'
 import { AdminSignin } from './pages/AdminSignin'
 import { Navigate } from 'react-router-dom'
+import { CompanyDrop } from './components/Dropdown/Companydrop'
 import { AdminHome } from './pages/AdminHome'
 import { EmployeeData } from './pages/EmployeeData'
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
@@ -22,8 +23,7 @@ function App() {
       <RecoilRoot>
         <Paths/>
       </RecoilRoot>
-    </>
-
+   </>
   )  
 }
 

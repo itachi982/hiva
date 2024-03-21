@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
-export const CompanyDrop = () => {
+export const ReportDrop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   return (
-        <div className="">
+        <div>
         
         <button
               className=" w-100 justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900"
@@ -18,7 +18,7 @@ export const CompanyDrop = () => {
               onClick={toggleMenu}
             >
               <div>
-                company
+                Reports
               </div>
 
                 <path
@@ -45,7 +45,7 @@ export const CompanyDrop = () => {
                   tabIndex="-1"
                   id="menu-item-0"
                 >
-                  Employee Data
+                  Attendance
                 </a>
                 <a
                   href="#"
@@ -54,7 +54,16 @@ export const CompanyDrop = () => {
                   tabIndex="-1"
                   id="menu-item-1"
                 >
-                  Job Data
+                  Salary Data
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-700 block px-4 py-2 text-sm"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="menu-item-1"
+                >
+                  Deduction Data
                 </a>
               </div>
             </div>
