@@ -3,11 +3,16 @@ import { BottomWarning, Button, Heading, InputBox, SubHeading ,Logo} from "../co
 import Notification, { successNotification,errorNotification } from "../components/Notification";
 import axios from "axios";
 import {useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from "recoil";
+import { AdminAtom } from "../Atoms/AuthAtom";
 
 
-export const AdminSignin=({setIsAdmin})=>{
+export const AdminSignin=()=>{
 
     const navigate=useNavigate();
+    const [username,setUsername]=useState("");
+    const [password,setPassword]=useState("");
+    const setAdminAtom=useSetRecoilState(AdminAtom);
     async function login(){
 
         try {    
@@ -30,8 +35,7 @@ export const AdminSignin=({setIsAdmin})=>{
                     
         
                     if(AdminData.data.user.access_rights=='admin'){
-                        setIsAdmin(true);
-                        localStorage.setItem("IsAdmin",'true');
+                        setAdminAtom(true);
                         setTimeout(()=>{
                             navigate("/admin/dashboard")
                         },3000)
@@ -52,9 +56,9 @@ export const AdminSignin=({setIsAdmin})=>{
 
         
     }
+    
 
-    const [username,setUsername]=useState("");
-    const [password,setPassword]=useState("");
+    
 
     return(
         

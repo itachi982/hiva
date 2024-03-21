@@ -10,40 +10,50 @@ import { UserHome } from './pages/UserHome'
 import { AdminSignin } from './pages/AdminSignin'
 import { Navigate } from 'react-router-dom'
 import { AdminHome } from './pages/AdminHome'
+import { EmployeeData } from './pages/EmployeeData'
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { AdminAtom, UserAtom } from './Atoms/AuthAtom'
 
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isUser, setIsUser] = useState(false);
-
-
-  useEffect(()=>{
-    const IsAdmin=localStorage.getItem("IsAdmin");
-    if(IsAdmin=='true'){setIsAdmin(true)}
-  },[])
-
   
   return(
     <>
-      <BrowserRouter>
+      <RecoilRoot>
+        <Paths/>
+      </RecoilRoot>
+    </>
+
+  )  
+}
+
+const Paths=()=>{
+
+  const AdminValue= useRecoilValue(AdminAtom);
+  const UserValue=useRecoilValue(UserAtom);
+
+  console.log(AdminValue)
+
+  return(
+    <BrowserRouter>
         <Routes>
           <Route path="/" element={<UserHome/>} />
           <Route path="/home" element={<UserHome/>} />
 
           <Route path="/admin" element={<AdminHome/>} />
-          <Route path="/admin/signin" element={<AdminSignin setIsAdmin={setIsAdmin}/>} />
+          <Route path="/admin/signin" element={<AdminSignin/>} />
           <Route path="/admin/signup" element={<AdminSignup/>} />            
-          <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
-          {/* <Route path="/admin/dashboard" element={isAdmin ? <AdminDashboard /> : <Navigate to="/admin/signin" />} /> */}
+          {/* <Route path="/admin/dashboard" element={<AdminDashboard/>}/> */}
+          <Route path="/admin/employeedata" element={<EmployeeData/>}/>
+          <Route path="/admin/dashboard" element={AdminValue ? <AdminDashboard /> : <Navigate to="/admin/signin" />} />
           
-          <Route path="/employee/signin" element={<UserSignin setIsUser={setIsUser}/>} />
-          <Route path="/employee/dashboard" element={isUser ? <AdminDashboard /> : <Navigate to="/employee/signin" />} />
+          <Route path="/employee/signin" element={<UserSignin/>} />
+          <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} />
           
         </Routes>
       </BrowserRouter>
-    </>
+  )
 
-  )  
 }
 
 export default App

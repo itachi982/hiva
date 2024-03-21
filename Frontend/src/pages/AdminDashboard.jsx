@@ -27,7 +27,7 @@ export const AdminDashboard = ()=>{
             <div className=' mt-18 shadow-lg'>
                 <div className='grid grid-cols-2 justify-between ml-40 space-x-20 '>
 
-                    <div className='px-5 col-span-1'>
+                    <div className='px-10 col-span-1'>
                         <Chart1/>
                     </div>
                     <div  style={{maxWidth:'300px' }}>
