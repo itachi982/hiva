@@ -10,6 +10,7 @@ import { AdminDashboard } from './pages/AdminDashboard'
 import { Home } from './pages/Home'
 import { AdminSignin } from './pages/AdminSignin'
 import { Navigate } from 'react-router-dom'
+import { CompanyDrop } from './components/Dropdown/Companydrop'
 
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
           <Route path="/employee/dashboard" element={isUser ? <AdminDashboard /> : <Navigate to="/employee/signin" />} />
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/footer" element={<Footer/>}/>
+          <Route path="/Companydrop" element={<CompanyDrop/>}/>
+          <Route path="/Userdashboard" element={<UserDashboard/>}/>
           
         </Routes>
       </BrowserRouter>
