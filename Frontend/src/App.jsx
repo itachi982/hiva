@@ -48,8 +48,8 @@ const Paths=()=>{
           <Route path="/admin/dashboard" element={AdminValue ? <AdminDashboard /> : <Navigate to="/admin/signin" />} />
           
           <Route path="/employee/signin" element={<UserSignin/>} />
-          <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} />
-          
+          { /*<Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} />  */}
+          <Route path="/userdashboard" element={<UserDashboard/>}/>
         </Routes>
       </BrowserRouter>
   )
