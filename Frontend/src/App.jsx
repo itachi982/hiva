@@ -14,6 +14,7 @@ import { AdminHome } from './pages/AdminHome'
 import { EmployeeData } from './pages/EmployeeData'
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { AdminAtom, UserAtom } from './Atoms/AuthAtom'
+import { SalaryData } from './pages/Salarydata'
 
 
 function App() {
@@ -50,6 +51,7 @@ const Paths=()=>{
           <Route path="/employee/signin" element={<UserSignin/>} />
           { /*<Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} />  */}
           <Route path="/userdashboard" element={<UserDashboard/>}/>
+          <Route path="/Salarydata" element={<SalaryData/>}/>
         </Routes>
       </BrowserRouter>
   )

@@ -1,28 +1,43 @@
 import { BottomWarning, Heading, SubHeading } from "../components/SigninHelper"
 import pic from '../assets/vect.png'
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
-import { Footer } from '../components/Footer';
+import { Footer } from "../components/Footer"
+import { useState } from "react";
+import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
 
 export const UserDashboard = () => {
+    const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
+   
+    const closeAllMenus=()=>{
+      setReportsMenuOpen(false);
+    
+    }
     return (    
         <div>
-            <div className="h-screen border-slate-300">
+            <div className="h-screen bg-slate-300">
                 <UserNavbar />
-                    <div className="flex-grow bg-slate-200 shadow-lg flex flex-col justify-between">
-                         <div className="text-4xl p-4 text-center text-cyan-900 ">
-                            Dashboard
-                         </div> 
+                <div>
+            <div className="flex justify-center space-x-10 pl-10 pt-4 bg-yellow-120 shadow-lg text-gray-500">
+        <div className="relative">
+          <div>
+            <ReportsDrop
+              isOpen={ReportsMenuOpen}
+              setIsOpen={setReportsMenuOpen}
+              closeAllMenus={closeAllMenus}
+            />
+            </div>
+          </div>
+        </div>
+          </div>
+                    <div className="ml-10 font-medium text-gray-500 text-2xl">
+                       Employee Dashboard
                     </div>
-                    <div className="flex-grow bg-slate-100 shadow-lg rounded-lg flex justify-between" >
-                         <div className="text-stone-700 mt-2 ml-60 text-sm pb-1">
+                    <div className="flex-grow bg-slate-300 shadow-lg rounded-lg" >
+                         <div className="text-stone-700 text-center text-sm">
                             Welcome to Hiva, you are logged in as an employee.
                         </div>
                     </div>
-                    <div className="flex-grow shadow-inner bg-slate-400 ">
-                        <div className="text-2xl text-pretty p-2 text-green-200 text-center">
-                            Employee data
-                        </div>
-                    </div>
+                    
                     <div className="flex p-10 bg-slate-300 space-x-40">
                         <div>
                             <img src={pic} className="w-full md:w-80 h-100 ml-40 rounded-md filter saturate-200 contrast=125 flex space-x-4" alt="pic" />

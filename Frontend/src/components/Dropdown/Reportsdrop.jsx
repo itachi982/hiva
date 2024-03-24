@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
-export const ReportDrop = () => {
+export const ReportsDrop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  
   return (
-        <div>
-        
+        <div className="">
+          
+        <button onClick={"/Userdashboard"}
+        className="w-100 justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">
+          Home 
+        </button>
         <button
               className=" w-100 justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900"
               id="menu-button"
               onClick={toggleMenu}
-            >
+            >     
               <div>
                 Reports
               </div>
@@ -45,7 +49,7 @@ export const ReportDrop = () => {
                   tabIndex="-1"
                   id="menu-item-0"
                 >
-                  Attendance
+                Salary Data
                 </a>
                 <a
                   href="#"
@@ -54,16 +58,7 @@ export const ReportDrop = () => {
                   tabIndex="-1"
                   id="menu-item-1"
                 >
-                  Salary Data
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-700 block px-4 py-2 text-sm"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="menu-item-1"
-                >
-                  Deduction Data
+                Attendance Data
                 </a>
               </div>
             </div>

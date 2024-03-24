@@ -2,16 +2,21 @@ import React, { useState } from "react";
 
 export const UserDropDown = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false); // State for submenu
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleSubMenu = () => {
+    setIsSubMenuOpen(!isSubMenuOpen);
   };
 
   return (
     <div className="relative inline-block text-left">
       <div>
         <button
-          className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-slate-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-offset-0 ring-gray-300 hover:bg-blue-100"
+          className=""
           id="menu-button"
           onClick={toggleMenu}
         >
@@ -22,19 +27,6 @@ export const UserDropDown = () => {
               alt="Default avatar"
             />
           </div>
-          <svg
-            className="-mr-1 h-5 w-5 text-gray-400"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
         </button>
       </div>
 
@@ -47,33 +39,50 @@ export const UserDropDown = () => {
           tabIndex="-1"
         >
           <div className="py-1" role="none">
-            <a
-              href="#"
-              className="text-gray-700 block px-4 py-2 text-sm"
+            <button
+              onClick={toggleSubMenu}
+              className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
               role="menuitem"
               tabIndex="-1"
-              id="menu-item-0"
             >
               Account settings
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 block px-4 py-2 text-sm"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-1"
-            >
-              Support
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 block px-4 py-2 text-sm"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-2"
-            >
-              License
-            </a>
+              <svg
+                className="ml-2 h-5 w-5 inline"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 12a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 9.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4A1 1 0 0 1 10 12z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            {isSubMenuOpen && ( // Rendering submenu if isSubMenuOpen is true
+              <div
+                className="py-1"
+                role="none"
+              >
+                <button
+                  onClick={() => alert("Change Password")}
+                  className="text-gray-500 block pl-8 text-center text-sm"
+                  role="menuitem"
+                  tabIndex="-1"
+                >
+                 - Change Password
+                </button>
+                <button
+                  onClick={() => alert("Profile Edit")}
+                  className="text-gray-500 block pl-8 text-center text-sm"
+                  role="menuitem"
+                  tabIndex="-1"
+                >
+                 - Profile Edit
+                </button>
+              </div>
+            )}
             <form method="POST" action="#" role="none">
               <button
                 type="submit"
