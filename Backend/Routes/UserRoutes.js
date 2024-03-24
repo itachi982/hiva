@@ -27,15 +27,15 @@ router.post("/employee/admin/change_password",adminChangePassword);
 router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
 //Employee Routes 
 router.get("/employee_data/",jwtverify,getEmployeeDataByUsername);
-router.get("/employee_data/",jwtverify,getEmployeeDataByEmployee_ID);
-router.get('/employee_data/',jwtverify,getEmployeeDataByPan);
-router.get("/employee_data",jwtverify,getEmployeeData);
+router.get("/employee_data/all/",jwtverify,getEmployeeData);
+router.get("/employee_data/empid",jwtverify,getEmployeeDataByEmployee_ID);
+router.get('/employee_data/pan',jwtverify,getEmployeeDataByPan);
 router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
 router.delete("/employee_data",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password/",jwtverify,changePassword);
 //JOB Positions Routes
-router.get("/job_positions",jwtverify,getJobData);
+router.get("/job_positions/all",jwtverify,getJobData);
 router.get("/job_positions/:id",jwtverify,getJobDataByID);
 router.post("/job_positions",jwtverify,createJobData);
 router.patch("/job_positions/:id",jwtverify,updateJobData);

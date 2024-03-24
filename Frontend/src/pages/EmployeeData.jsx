@@ -12,7 +12,7 @@ export const EmployeeData=()=>{
                 Employee's Data
             </div>
             <div>
-                
+                        
             </div>
 
         </div>

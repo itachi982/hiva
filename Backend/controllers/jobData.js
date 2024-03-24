@@ -125,7 +125,7 @@ const getJobData = async(req,res)=>{
                     select:{
                         employee_id:true,
                         username:true,
-                        job_title:true,
+                       // job_title:true,
                         access_rights:true
                     }
                 }

@@ -3,6 +3,7 @@ import logo from "../../assets/logo.png";
 import { useState } from "react";
 import { CompanyDrop } from "../Dropdown/Companydrop";
 import { TransactionDrop } from "../Dropdown/Transaction";
+import { ReportDrop } from "../Dropdown/Reportdrop";
 
 
 export const AdminNavbar = () => {
@@ -42,28 +43,18 @@ export const AdminNavbar = () => {
       <div className="flex justify-center space-x-10 pl-10 pt-4 bg-yellow-120 shadow-lg text-gray-500">
         <div className="relative">
           <div>
-            <CompanyDrop
-              isOpen={companyMenuOpen}
-              setIsOpen={setCompanyMenuOpen}
-              closeAllMenus={closeAllMenus}
-            />
+            <CompanyDrop/>
           </div>
         </div>
 
         <div>
           <TransactionDrop
-            isOpen={transactionMenuOpen}
-            setIsOpen={setTransactionMenuOpen}
-            closeAllMenus={closeAllMenus}
           />
         </div>
 
-        <div>
-          <ReportsDrop
-            isOpen={reportMenuOpen}
-            setIsOpen={setReportMenuOpen}
-            closeAllMenus={closeAllMenus}
-          />
+        <div> 
+          <ReportDrop
+                      />
         </div>
 
         <div></div>
@@ -71,3 +62,4 @@ export const AdminNavbar = () => {
     </div>
   );
 };
+//vishal

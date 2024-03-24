@@ -9,6 +9,7 @@ require('dotenv').config();
 //retrieve employee data
 async function getEmployeeData(req,res) {
     try {
+        console.log("all")
         if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
         // If the token is valid and the user is authorized, fetch the employee data
         const data = await prisma.employee.findMany({
@@ -30,7 +31,7 @@ async function getEmployeeData(req,res) {
         });
         res.json({msg:"Success",data});
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).json({
             msg: "INTERNAL SERVER ERROR"
         })

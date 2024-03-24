@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { UserNavbar } from "../components/UserPanel/Usernavbar";
 import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
 import { Footer } from "../components/Footer";
-import { effect } from "zod";
 
 
 export const SalaryData=()=>{
