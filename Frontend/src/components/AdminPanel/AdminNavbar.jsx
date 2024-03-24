@@ -3,17 +3,19 @@ import logo from "../../assets/logo.png";
 import { useState } from "react";
 import { CompanyDrop } from "../Dropdown/Companydrop";
 import { TransactionDrop } from "../Dropdown/Transaction";
-import { ReportDrop } from "../Dropdown/Reportdrop";
+
 
 export const AdminNavbar = () => {
   const [companyMenuOpen, setCompanyMenuOpen] = useState(false);
   const [transactionMenuOpen, setTransactionMenuOpen] = useState(false);
-  const [reportMenuOpen, setReportMenuOpen] = useState(false);
+  const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
+  
 
   const closeAllMenus = () => {
     setCompanyMenuOpen(false);
     setTransactionMenuOpen(false);
-    setReportMenuOpen(false);
+    setReportsMenuOpen(false);
+    
   };
 
   return (
@@ -57,7 +59,7 @@ export const AdminNavbar = () => {
         </div>
 
         <div>
-          <ReportDrop
+          <ReportsDrop
             isOpen={reportMenuOpen}
             setIsOpen={setReportMenuOpen}
             closeAllMenus={closeAllMenus}
