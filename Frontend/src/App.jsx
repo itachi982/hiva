@@ -13,6 +13,8 @@ import { EmployeeData } from './pages/EmployeeData'
 import { RecoilRoot, useRecoilValue } from 'recoil'
 import { AdminAtom, UserAtom } from './Atoms/AuthAtom'
 import { SalaryData } from './pages/Salarydata'
+import { UserChangePassword } from './pages/Userchangepassword'
+import { AdminChangePassword } from './pages/Adminchangepassword'
 
 
 
@@ -50,6 +52,8 @@ const Paths=()=>{
           <Route path="/userdashboard" element={<UserDashboard/>}/>
           <Route path="/Salarydata" element={<SalaryData/>}/>
           {/* <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} /> */}
+          <Route path="/UserChangePassword" element={<UserChangePassword/>}/>
+          <Route path="/AdminChangePassword" element={<AdminChangePassword/>}/>
           
         </Routes>
       </BrowserRouter>
