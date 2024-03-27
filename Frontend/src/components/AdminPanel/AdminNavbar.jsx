@@ -4,20 +4,13 @@ import { useState } from "react";
 import { CompanyDrop } from "../Dropdown/Companydrop";
 import { TransactionDrop } from "../Dropdown/Transaction";
 import { ReportDrop } from "../Dropdown/Reportdrop";
-
+import { UsernameAtom } from "../../Atoms/AdminState";
+import { useRecoilValue } from "recoil";
 
 export const AdminNavbar = () => {
-  const [companyMenuOpen, setCompanyMenuOpen] = useState(false);
-  const [transactionMenuOpen, setTransactionMenuOpen] = useState(false);
-  const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
-  
 
-  const closeAllMenus = () => {
-    setCompanyMenuOpen(false);
-    setTransactionMenuOpen(false);
-    setReportsMenuOpen(false);
-    
-  };
+  const username=useRecoilValue(UsernameAtom);
+
 
   return (
     <div className="grid grid-rows-2 relative">
@@ -29,7 +22,7 @@ export const AdminNavbar = () => {
         </Link>
 
         <div className="flex justify-end ">
-          <div className="mr-6 mt-2">username</div>
+          <div className="mr-6 mt-2">{username}</div>
           <div>
             <img
               className="w-10 h-10 rounded-full"

@@ -1,5 +1,13 @@
 import { atom } from "recoil"
 
+export const UsernameAtom=atom({
+
+    key:"UsernameAtom",
+    default:""
+
+})
+
+
 export const AdminAtom=atom({
 
     key:"AdminAtom",

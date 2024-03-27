@@ -1,6 +1,3 @@
-import { useEffect, useMemo, useState } from 'react'
-import './App.css'
-
 import { UserSignin } from './pages/UserSignin'
 import { AdminSignup } from './pages/AdminSignup'
 import { BrowserRouter, Route,Routes } from 'react-router-dom'
@@ -9,10 +6,11 @@ import { AdminDashboard } from './pages/AdminDashboard'
 import { UserHome } from './pages/UserHome'
 import { AdminSignin } from './pages/AdminSignin'
 import { AdminHome } from './pages/AdminHome'
-import { EmployeeData } from './pages/EmployeeData'
+import { EmployeeData } from './pages/Dropdown/EmployeeData'
 import { RecoilRoot, useRecoilValue } from 'recoil'
 import { AdminAtom, UserAtom } from './Atoms/AuthAtom'
 import { SalaryData } from './pages/Salarydata'
+
 
 
 
@@ -50,7 +48,6 @@ const Paths=()=>{
           <Route path="/userdashboard" element={<UserDashboard/>}/>
           <Route path="/Salarydata" element={<SalaryData/>}/>
           {/* <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} /> */}
-          
         </Routes>
       </BrowserRouter>
   )

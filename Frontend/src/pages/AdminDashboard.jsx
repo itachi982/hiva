@@ -102,7 +102,7 @@ export const AdminDashboard = ()=>{
                 <Card1 number={card1}/>
                 <Card2 number={card2}/>
                 <Card3 number={card3}/>
-                <Card4 number={"4"}/>    
+                {/* <Card4 number={card4}/>     */}
             </div>
             <div className=' mt-18 shadow-lg'>
                 <div className='grid grid-cols-2 justify-between ml-40 space-x-20 '>
