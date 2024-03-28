@@ -39,21 +39,21 @@ export const UserChangePassword=()=>{
                          <div className="bg-slate-300 pt-20">
                             Enter your old password :
                          <div>                  
-                        <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>  
+                        <input type="text" placeholder="Enter old passord" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>  
             
                     </div>
                     <div className="pt-5">
                        Enter new password :
                             <div>
                                     
-                        <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/> 
+                        <input type="text" placeholder="enter password" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/> 
                         </div>
                     </div>
                       <div className="pt-5">
                                 Retype to confirm new password :
                         <div>
                                     
-                            <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>
+                            <input type="text" placeholder="retype password" className="border  border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>
                             
                       </div>
                                 
