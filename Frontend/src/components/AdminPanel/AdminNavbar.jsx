@@ -15,7 +15,7 @@ export const AdminNavbar = () => {
   return (
     <div className="grid grid-rows-2 relative">
       <div className="flex justify-between pr-10 pl-10 py-2 bg-slate-200 border shadow-lg">
-        <Link to="/home">
+        <Link to="/admin">
           <button>
             <img className="size-8 w-auto " src={logo} alt="hiva logo" />
           </button>
