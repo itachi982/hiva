@@ -11,6 +11,12 @@ import { SalaryData } from './pages/Salarydata'
 import { UserChangePassword } from './pages/Userchangepassword'
 import { AdminChangePassword } from './pages/Adminchangepassword'
 import { DataEmployeeForAdmin } from './pages/Dataemployeeforadmin'
+import { DataRole } from './pages/Datarole'
+import { AboutContent } from './pages/About'
+import { PrivacyPolicyContent } from './pages/Privacypolicy'
+import { LicensingContent } from './pages/Licensing'
+import { ContactUsContent } from './pages/Contactus'
+import { AttendanceData } from './pages/Ateendancedata'
 
 
 
@@ -52,8 +58,12 @@ const Paths=()=>{
           <Route path="/Userchangepassword" element={<UserChangePassword/>}/>
           <Route path="/adminchangepassword" element={<AdminChangePassword/>}/>
           <Route path="/Dataemployeeforadmin" element={<DataEmployeeForAdmin/>}/>
-          
-          
+          <Route path="/Datarole" element={<DataRole/>}/>
+          <Route path="/About" element={<AboutContent/>}/>      
+          <Route path="/Privacypolicy" element={<PrivacyPolicyContent/>}/>
+          <Route path="/Licensing" element={<LicensingContent/>}/>
+          <Route path="/Contactus" element={<ContactUsContent/>}/>
+          <Route path="/Attendancedata" element={<AttendanceData/>}/>
         </Routes>
       </BrowserRouter>
   )
