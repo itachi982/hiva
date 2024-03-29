@@ -5,8 +5,8 @@ const { userCreate,adminCreate } = require("../controllers/createAccount");
 const { createJobData, updateJobData, getJobData, getJobDataByID, deleteJobData } = require("../controllers/jobData");
 const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance, deleteAttendance, createDeduction, getDeductionData, deleteDeductionData } = require("../controllers/Attendance");
 const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
-const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData } = require("../controllers/dataemployee");
-const {upload,uploader}=require('../controllers/profilePic');
+const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData, username } = require("../controllers/dataemployee");
+const {upload,uploader, url}=require('../controllers/profilePic');
 
 
 const router=express.Router();
@@ -25,6 +25,7 @@ router.post("/employee/change_password",jwtverify,changePassword);
 router.post("/employee/admin/change_password",adminChangePassword);
 //Profile pic upload on cloudinary
 router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
+router.get('/profile/url',jwtverify,url)
 //Employee Routes 
 router.get("/employee_data/",jwtverify,getEmployeeDataByUsername);
 router.get("/employee_data/all/",jwtverify,getEmployeeData);
@@ -34,6 +35,7 @@ router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
 router.delete("/employee_data",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password/",jwtverify,changePassword);
+router.get("/employee/username",jwtverify,username)
 //JOB Positions Routes
 router.get("/job_positions/all",jwtverify,getJobData);
 router.get("/job_positions/:id",jwtverify,getJobDataByID);

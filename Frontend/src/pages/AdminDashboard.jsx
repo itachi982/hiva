@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { AdminAtom } from '../Atoms/AuthAtom';
 import { errorNotification } from '../components/Notification';
-import { Card1Atom,Card2Atom,Card3Atom,Card4Atom, JobPositionAtom } from '../Atoms/AdminState';
+import { Card1Atom,Card2Atom,Card3Atom,Card4Atom, JobPositionAtom, UsernameAtom } from '../Atoms/AdminState';
 
 
 
