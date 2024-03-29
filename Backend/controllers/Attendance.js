@@ -85,7 +85,11 @@ const getAllAttendance=async(req,res)=>{
     try {
         const AllAttendance=await prisma.attendance.findMany({
             include:{
-                EmployeeData:true
+                EmployeeData:{
+                    select:{
+                        username:true,
+                    }
+                }
             },
             cacheStrategy: { swr: 60, ttl: 60 }
         });

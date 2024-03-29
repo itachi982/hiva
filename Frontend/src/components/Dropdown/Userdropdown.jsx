@@ -1,8 +1,60 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { successNotification } from "../Notification";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { AdminAtom } from "../../Atoms/AuthAtom";
+import { UsernameAtom } from "../../Atoms/AdminState";
+import { urlAtom } from "../../Atoms/EmployeeData";
+import { useEffect } from "react";
+import { errorNotification } from "../Notification";
+import axios from "axios";
 
 export const UserDropDown = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false); // State for submenu
+  const [username,setUsername]=useRecoilState(UsernameAtom);
+  const [url,seturl]=useRecoilState(urlAtom);
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const dusername = await axios.get("http://localhost:3000/employee/username", {
+                headers: {
+                    'Authorization': localStorage.getItem("token")
+                }
+            });
+            console.log(dusername.data.msg)
+            setUsername(dusername.data.msg);
+        } catch (error) {
+            console.error(error);
+            if (error) {
+                errorNotification(error.response.data.msg);
+            }
+        }
+    };
+    fetchData();
+    
+
+    const fetchurl=async()=>{
+      try {
+        const durl = await axios.get("http://localhost:3000/profile/url?username="+username, {
+            headers: {
+                'Authorization': localStorage.getItem("token")
+            }
+        });
+       
+        seturl(durl.data.durl.url);
+    } catch (error) {
+        console.error(error);
+        if (error) {
+            errorNotification(error.response.data.msg);
+        }
+    }
+    }
+    fetchurl();
+
+    
+}, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -11,6 +63,14 @@ export const UserDropDown = () => {
   const toggleSubMenu = () => {
     setIsSubMenuOpen(!isSubMenuOpen);
   };
+
+  const Signout=()=>{
+
+    console.log("OK")
+    localStorage.removeItem("token");
+    successNotification("Logged out")
+  }
+  
 
   return (
     <div className="relative inline-block text-left">
@@ -23,7 +83,7 @@ export const UserDropDown = () => {
           <div>
             <img
               className="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={url}
               alt="Default avatar"
             />
           </div>
@@ -83,17 +143,18 @@ export const UserDropDown = () => {
                 </button>
               </div>
             )}
-            <form method="POST" action="#" role="none">
-              <button
+            <Link to="/admin">
+            <button
                 type="submit"
                 className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
                 role="menuitem"
                 tabIndex="-1"
                 id="menu-item-3"
+                onClick={Signout}
               >
                 Sign out
               </button>
-            </form>
+            </Link>
           </div>
         </div>
       )}
