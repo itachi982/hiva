@@ -1,11 +1,11 @@
 import { useRecoilState, useRecoilValue } from "recoil"
 import { AdminNavbar } from "../../components/AdminPanel/AdminNavbar"
 import { Button } from "../../components/SigninHelper"
-import { UserNavbar } from "../../components/UserPanel/Usernavbar"
+
 import { EmployeeDataAtom, currentPageAtom } from "../../Atoms/EmployeeData"
 import axios from "axios"
 import { useEffect } from "react"
-import React from "react"
+
 
 export const EmployeeData=()=>{
 
