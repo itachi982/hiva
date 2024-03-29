@@ -3,35 +3,40 @@ import { BottomWarning, Heading, SubHeading } from "../components/SigninHelper"
 import pic from '../assets/vect.png'
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
 import { Footer } from "../components/Footer"
-import { useState } from "react";
-import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
 
-export const AboutContent = () => {
-    const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
-   
-    const closeAllMenus=()=>{
-      setReportsMenuOpen(false);
-    
-    }
+
+export const ContactUsContent = () => {
+      
     return (    
     <div>
             <div className="h-screen bg-slate-300">
                 <UserNavbar />
                     <div className="text-gray-500 flex justify-center mt-10 text-center font-medium text-5xl">
-                         About
+                         Contact
                     </div>
             
-                         <p className="text-gray-700 mt-20 text-center">
-                        links of social media which includes github and linkedin
-                        link of the project github
-                        Hiva is bascially devloped in nodejs at the backend part and we had used
-                        react tailwind in the frontend. 
-                        Hiva helps an employer to manage the employee details such as task management,status,attendance and 
-                        salary data which includes 
-                        deductions incurred from various metrics like deduction and allowances.
-                        </p>
+                                            <div className="border border-gray-300 rounded-lg p-4 mt-8">
+                            <p className="font-bold">Contact Us</p>
+                            <p>If you have any questions, feedback, or inquiries, please don't hesitate to reach out to us. We're here to help!</p>
+                            <p>Here's how you can contact us:</p>
+                            
+                            <ul className="list-disc ml-8 mb-4">
+                                <li>Email: support@example.com</li>
+                                <li>Phone: +1234567890</li>
+                                <li>Address: 123 Main Street, City, Country</li>
+                            </ul>
+                            
+                            <p>We also encourage you to follow us on social media for updates and announcements:</p>
+                            
+                            <ul className="list-disc ml-8">
+                                <li>Twitter: <a href="https://twitter.com/example" className="text-blue-500">example</a></li>
+                                <li>Facebook: <a href="https://facebook.com/example" className="text-blue-500">example</a></li>
+                                <li>Instagram: <a href="https://instagram.com/example" className="text-blue-500">example</a></li>
+                            </ul>
+                        </div>
 
-                    <div className="grid grid-cols-3 justify-center ml-40 mt-60">
+
+                    <div className="grid grid-cols-3 justify-center ml-40 mt-40">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
                             <path fill="#0288D1" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"></path><path fill="#FFF" d="M12 19H17V36H12zM14.485 17h-.028C12.965 17 12 15.888 12 14.499 12 13.08 12.995 12 14.514 12c1.521 0 2.458 1.08 2.486 2.499C17 15.887 16.035 17 14.485 17zM36 36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698-1.501 0-2.313 1.012-2.707 1.99C24.957 25.543 25 26.511 25 27v9h-5V19h5v2.616C25.721 20.5 26.85 19 29.738 19c3.578 0 6.261 2.25 6.261 7.274L36 36 36 36z"></path>
                         </svg>
