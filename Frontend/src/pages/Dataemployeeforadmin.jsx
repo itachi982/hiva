@@ -74,7 +74,7 @@ export const DataEmployeeForAdmin = () => {
 
                 <div className="mt-10 p-1">
                     {/* Render employee data for the current page */}
-                    {currentEmployeeData.map((employeeData, index) => (
+                    {Array.isArray(currentEmployeeData) &&currentEmployeeData.map((employeeData, index) => (
                         <div key={index} className="border grid row-span-1 p-2">
                             {/* Adjust the rendering based on your data structure */}
                             <div className="flex justify-between">

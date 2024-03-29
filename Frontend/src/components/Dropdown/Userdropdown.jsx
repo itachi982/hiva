@@ -33,28 +33,27 @@ export const UserDropDown = () => {
         }
     };
     fetchData();
-    
-
-    const fetchurl=async()=>{
-      try {
-        const durl = await axios.get("http://localhost:3000/profile/url?username="+username, {
-            headers: {
-                'Authorization': localStorage.getItem("token")
-            }
-        });
-       
-        seturl(durl.data.durl.url);
-    } catch (error) {
-        console.error(error);
-        if (error) {
-            errorNotification(error.response.data.msg);
-        }
-    }
-    }
-    fetchurl();
-
-    
 }, []);
+
+useEffect(()=>{
+  const fetchurl=async()=>{
+    try {
+      const durl = await axios.get("http://localhost:3000/profile/url?username="+username, {
+          headers: {
+              'Authorization': localStorage.getItem("token")
+          }
+      });
+     
+      seturl(durl.data.durl.url);
+  } catch (error) {
+      console.error(error);
+      if (error) {
+          errorNotification(error.response.data.msg);
+      }
+  }
+  }
+  fetchurl();
+},[username])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
