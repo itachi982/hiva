@@ -18,7 +18,7 @@ export const AdminHome=()=>{
                 
                 <div className="flex justify-end ">
 
-                    <Link to="/employee/signin">
+                    <Link to="/admin/signin">
                         <button type="button" className="text-gray-900 bg-slate-100 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-2.5 py-1 me-2 mb-2 ">Admin Sign in</button>
                     </Link>
 
