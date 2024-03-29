@@ -27,7 +27,7 @@ export const AdminNavbar = () => {
           <div>
             <div>
               <UserDropDown/>
-                       </div>
+            </div>
           </div>
         </div>
       </div>
