@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { successNotification } from "../Notification";
 
 export const UserDropDown = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +13,14 @@ export const UserDropDown = () => {
   const toggleSubMenu = () => {
     setIsSubMenuOpen(!isSubMenuOpen);
   };
+
+  const Signout=()=>{
+
+    console.log("OK")
+    localStorage.removeItem("token");
+    successNotification("Logged out")
+  }
+  
 
   return (
     <div className="relative inline-block text-left">
@@ -83,17 +93,18 @@ export const UserDropDown = () => {
                 </button>
               </div>
             )}
-            <form method="POST" action="#" role="none">
-              <button
+            <Link to="/admin">
+            <button
                 type="submit"
                 className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
                 role="menuitem"
                 tabIndex="-1"
                 id="menu-item-3"
+                onClick={Signout}
               >
                 Sign out
               </button>
-            </form>
+            </Link>
           </div>
         </div>
       )}

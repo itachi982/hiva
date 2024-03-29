@@ -11,10 +11,7 @@ import { SalaryData } from './pages/Salarydata'
 import { UserChangePassword } from './pages/Userchangepassword'
 import { AdminChangePassword } from './pages/Adminchangepassword'
 import { DataEmployeeForAdmin } from './pages/Dataemployeeforadmin'
-
-
-
-
+import { DataRole } from './pages/Datarole'
 
 
 function App() {
@@ -40,6 +37,9 @@ const Paths=()=>{
           <Route path="/admin/signin" element={<AdminSignin/>} />
           <Route path="/admin/signup" element={<AdminSignup/>} />            
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
+          <Route path="/admin/EmployeeData" element={<DataEmployeeForAdmin/>}/>\
+          <Route path="/admin/jobs" element={<DataRole/>}/>
+
           <Route path="/user/dashboard" element={<UserDashboard/>}/>
           
           {/* <Route path="/admin/dashboard" element={AdminValue ? <AdminDashboard /> : <Navigate to="/admin/signin" />} /> */}

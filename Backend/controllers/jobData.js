@@ -120,15 +120,11 @@ const getJobData = async(req,res)=>{
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
     try {
         const jobdata=await prisma.job.findMany({
-            include:{
-                Employees:{
-                    select:{
-                        employee_id:true,
-                        username:true,
-                       // job_title:true,
-                        access_rights:true
-                    }
-                }
+            select: {
+                job_title: true,
+                base_salary: true,
+                transportation_allowance: true,
+                meal_allowance: true
             },
             cacheStrategy: { swr: 60, ttl: 60 }
         });

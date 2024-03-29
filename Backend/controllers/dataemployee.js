@@ -25,7 +25,11 @@ async function getEmployeeData(req,res) {
             url: true,
             access_rights: true,
             PAN : true,
-            jobdataid:true
+            job: {
+                select: {
+                    job_title: true
+                }
+            }
             },
             cacheStrategy: { swr: 60, ttl: 60 }  
         });

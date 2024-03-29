@@ -31,15 +31,17 @@ export const AdminDashboard = ()=>{
                     'Authorization':localStorage.getItem("token")
                 }
             })
-            //console.log(allEmp.data.data)
+            console.log(allEmp.data.data)
 
             const job=await axios.get("http://localhost:3000/job_positions/all",{
                 headers:{
                     'Authorization':localStorage.getItem("token")
                 }
             })
+            //console.log(allEmp);
             if(allEmp.data.data.length>0){
                 setAdminState(allEmp.data.data)
+                
             }
             if(job.data.jobdata.length>0){
                 setjobdata(job.data.jobdata);
@@ -83,8 +85,8 @@ export const AdminDashboard = ()=>{
         AdminData();
         
     },[])
-
     UpdateState();
+    
 
 
 
