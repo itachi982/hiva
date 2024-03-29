@@ -50,12 +50,9 @@ const Paths=()=>{
           <Route path="/userdashboard" element={<UserDashboard/>}/>
           <Route path="/Salarydata" element={<SalaryData/>}/>
           {/* <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} /> */}
-<<<<<<< HEAD
-=======
           <Route path="/UserChangePassword" element={<UserChangePassword/>}/>
           <Route path="/AdminChangePassword" element={<AdminChangePassword/>}/>
           
->>>>>>> chitresh-27/-15-00
         </Routes>
       </BrowserRouter>
   )
