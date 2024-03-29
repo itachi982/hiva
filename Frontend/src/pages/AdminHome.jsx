@@ -12,7 +12,7 @@ export const AdminHome=()=>{
         <div>
             <div className="flex justify-between pr-10 pl-10 pt-5 bg-slate-200">
             
-                <Link to="/admin/home">
+                <Link to="/admin">
                     <button><img className="size-8 w-auto " src={logo} alt="hiva logo"/></button>
                 </Link>
                 
