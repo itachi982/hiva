@@ -6,6 +6,7 @@ import { TransactionDrop } from "../Dropdown/Transaction";
 import { ReportDrop } from "../Dropdown/Reportdrop";
 import { UsernameAtom } from "../../Atoms/AdminState";
 import { useRecoilValue } from "recoil";
+import { UserDropDown } from "../Dropdown/Userdropdown";
 
 export const AdminNavbar = () => {
 
@@ -24,11 +25,9 @@ export const AdminNavbar = () => {
         <div className="flex justify-end ">
           <div className="mr-6 mt-2">{username}</div>
           <div>
-            <img
-              className="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Default avatar"
-            />
+            <div>
+              <UserDropDown/>
+                       </div>
           </div>
         </div>
       </div>
