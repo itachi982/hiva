@@ -3,6 +3,7 @@ import { BottomWarning, Button, Heading, InputBox, SubHeading ,Logo} from "../co
 import Notification, { successNotification,errorNotification } from "../components/Notification";
 import axios from "axios";
 import {useNavigate } from 'react-router-dom';
+import { EmployeeDataAtom } from "../Atoms/EmployeeData";
 
 
 export const UserSignin=({setIsUser})=>{
@@ -28,8 +29,9 @@ export const UserSignin=({setIsUser})=>{
                     }
                 });
                 if(EmployeeData.data.user.access_rights=='user'){
-                    console.log("vishal")
+                   // console.log("vishal")
                     //setIsUser(true);
+                    console.log()
                     setTimeout(()=>{
                         navigate("/user/dashboard")
                     },3000)
@@ -38,14 +40,12 @@ export const UserSignin=({setIsUser})=>{
                 
             }
         }catch (error) {
-            console.log(error)
+           // console.log(error)
             //localStorage.removeItem("token");
-            errorNotification(error.response);
+            errorNotification("Incorrect Username or Password")
+
+
         }
-
-      
-
-
     }
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");

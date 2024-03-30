@@ -7,6 +7,11 @@ import { Button } from "../components/SigninHelper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../components/Notification";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useRecoilValue } from "recoil";
+import { roleAtom } from "../Atoms/AdminState";
+
 
 export const UserChangePassword=()=>{
     const [UserMenuOpen,setUserMenuOpen]=useState(false);
@@ -14,6 +19,7 @@ export const UserChangePassword=()=>{
     const [oldPassword,setoldPassword]=useState("");
     const [confirmPassword,setconfirmPassword]=useState("");
     const [newPassword,setnewPassword]=useState("");
+    const role=useRecoilValue(roleAtom);
     const navigate=useNavigate();
 
 
@@ -32,21 +38,27 @@ export const UserChangePassword=()=>{
                     }
                 }
             )
-            console.log(response.status)
-           if(response.status==200){alert(response.data.msg)}
+            
+            
+            console.log(response.data.msg)
+            if(response.status==200){alert("Password Changed Successfully")}
 
-           localStorage.removeItem('token')
+           localStorage.removeItem("token")
 
            setTimeout(()=>{
-            navigate("/employee/signin")
-           },1000)
+            if(role=="user"){
+                navigate("/employee/signin")
+            }else{
+                navigate("/admin/signin")
+            }
+           },1500)
               
         
         } catch (error) {
-            console.error(error);
-            // if (error) {
-            //     errorNotification(response.data.msg);
-            // }
+            console.error("hi");
+             if (error) {
+                 errorNotification("Something went wrong Please Login Again");
+             }
         }
 
         

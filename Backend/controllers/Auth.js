@@ -94,7 +94,7 @@ const userlogin=async(req,res)=>{
             where:{
                 username:dusername,
             },
-            cacheStrategy: { swr: 60, ttl: 60 }
+            cacheStrategy: { swr: 10, ttl: 10 }
         })
         console.log(user);
         

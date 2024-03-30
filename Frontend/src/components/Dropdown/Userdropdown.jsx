@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { successNotification } from "../Notification";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AdminAtom } from "../../Atoms/AuthAtom";
-import { UsernameAtom } from "../../Atoms/AdminState";
+import { UsernameAtom, roleAtom } from "../../Atoms/AdminState";
 import { urlAtom } from "../../Atoms/EmployeeData";
 import { useEffect } from "react";
 import { errorNotification } from "../Notification";
@@ -15,17 +15,19 @@ export const UserDropDown = () => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false); // State for submenu
   const [username,setUsername]=useRecoilState(UsernameAtom);
   const [url,seturl]=useRecoilState(urlAtom);
+  const [role,setrole]=useRecoilState(roleAtom);
 
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const dusername = await axios.get("http://localhost:3000/employee/username", {
+            const response = await axios.get("http://localhost:3000/employee/username", {
                 headers: {
                     'Authorization': localStorage.getItem("token")
                 }
             });
            
-            setUsername(dusername.data.msg);
+            setUsername(response.data.username);
+            setrole(response.data.role)
         } catch (error) {
             console.error(error);
             if (error) {
@@ -68,9 +70,9 @@ useEffect(()=>{
 
   const Signout=()=>{
 
-    console.log("OK")
+    //console.log("OK")
     localStorage.removeItem("token");
-    successNotification("Logged out")
+    alert("Logged out")
   }
   
 
@@ -146,7 +148,7 @@ useEffect(()=>{
                 </button>
               </div>
             )}
-            <Link to="/admin">
+            <Link to={role=="user"?"/employee/signin":"/admin/signin"}>
             <button
                 type="submit"
                 className="text-gray-700 block w-full px-4 py-2 text-left text-sm"

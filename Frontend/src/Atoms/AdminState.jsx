@@ -7,6 +7,11 @@ export const UsernameAtom=atom({
 
 })
 
+export const roleAtom=atom({
+    key:"roleAtom",
+    default:""
+})
+
 
 export const AdminAtom=atom({
 
