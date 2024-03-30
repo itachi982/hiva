@@ -17,38 +17,36 @@ export const UserSignin=({setIsUser})=>{
             })
             
             successNotification(response.data.msg);
+            
             localStorage.setItem("token",response.data.token);
             
             if(response.data.token){
-                try {
-                    const EmployeeData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
-                        headers:{
-                            'Authorization':localStorage.getItem("token")
-                        }
-                    });
-                    if(EmployeeData.data.user.access_rights=='user'){
-                        setIsUser(true);
-                        setTimeout(()=>{
-                            navigate("/employee/dashboard")
-                        },3000)
-                    }     
-                } catch (error) {
-        
-                    console.log(error)
-                    if(error){errorNotification(error.response.data.msg)}
-                }
+                
+                const EmployeeData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
+                    headers:{
+                        'Authorization':localStorage.getItem("token")
+                    }
+                });
+                if(EmployeeData.data.user.access_rights=='user'){
+                    console.log("vishal")
+                    //setIsUser(true);
+                    setTimeout(()=>{
+                        navigate("/user/dashboard")
+                    },3000)
+                    
+                }     
+                
             }
-        } catch (error) {
+        }catch (error) {
             //console.log(error)
-            localStorage.removeItem("token");
-            errorNotification(error.response.data.msg);
+            //localStorage.removeItem("token");
+            errorNotification(error.response);
         }
 
       
 
 
     }
-
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
 

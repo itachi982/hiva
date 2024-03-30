@@ -55,7 +55,6 @@ const Paths=()=>{
           
           <Route path="/employee/signin" element={<UserSignin/>} />
           { /*<Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} />  */}
-          <Route path="/userdashboard" element={<UserDashboard/>}/>
           <Route path="/Salarydata" element={<SalaryData/>}/>
           {/* <Route path="/employee/dashboard" element={UserValue ? <UserDashboard /> : <Navigate to="/employee/signin" />} /> */}
           <Route path="/Userchangepassword" element={<UserChangePassword/>}/>
