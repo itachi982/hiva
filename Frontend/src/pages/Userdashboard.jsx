@@ -4,13 +4,72 @@ import { UserNavbar } from "../components/UserPanel/Usernavbar"
 import { Footer } from "../components/Footer"
 import { useState } from "react";
 import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
-import { useRecoilValue } from "recoil";
-import { urlAtom } from "../Atoms/EmployeeData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { EmployeeDataAtom, urlAtom } from "../Atoms/EmployeeData";
+import { UsernameAtom } from "../Atoms/AdminState";
+import { useEffect } from "react";
+import { errorNotification } from "../components/Notification";
+import axios from "axios";
 
 export const UserDashboard = () => {
     const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
     const pic=useRecoilValue(urlAtom);
-   
+    const [username,setUsername]=useRecoilState(UsernameAtom);
+    const [employeeData,setemployeeData]=useRecoilState(EmployeeDataAtom);
+
+    useEffect(()=>{
+      
+      const fetchUsername=async()=>{
+
+        try {
+          const dusername = await axios.get("http://localhost:3000/employee/username", {
+                headers: {
+                    'Authorization': localStorage.getItem("token")
+                }
+          });
+          setUsername(dusername.data.msg);
+          
+        } catch (error) {
+          console.log(error);
+          errorNotification(error.response.data.msg)
+          
+        }
+
+      }
+
+      fetchUsername();
+      
+
+    },[])
+
+    useEffect(()=>{
+
+      const fetchData=async()=>{
+
+        try {
+          
+          const data = await axios.get("http://localhost:3000/employee_data?username="+username, {
+                headers: {
+                    'Authorization': localStorage.getItem("token")
+                }
+          });
+          setemployeeData(data.data.user)
+
+          console.log(employeeData.job.job_title)
+
+
+        } catch(error){
+          //console.log(error);
+          errorNotification(error.response.data.msg)
+        }
+
+      }
+
+      fetchData();
+
+    },[username])
+
+
     const closeAllMenus=()=>{
       setReportsMenuOpen(false);
     
@@ -41,15 +100,36 @@ export const UserDashboard = () => {
                         </div>
                     </div>
                     
-                    <div className="flex p-10 bg-slate-300 space-x-40">
+                    <div className="flex p-10 bg-slate-300 space-x-40 justify-center">
                         <div>
                             <img src={pic} className="rounded-lg shadow-lg ml-10 w-70 h-60 mt-10" alt="pic" />
                         </div>
-                        <div className="p-10">
-                            <div className="h-16 w-24 text-pretty text-gray-600">Job Role :</div>
-                            <div className="h-16 w-24 text-pretty text-gray-600">PAN :</div>
-                            <div className="h-16 w-30 text-pretty text-gray-600">Employee Name :</div>
-                            <div className="h-16 w-24 text-pretty text-gray-600">D.O.J :</div>
+                        <div className="pt-20 text-xl flex-col">
+                           <div className="flex justify-between space-x-3">
+                              <div className="font-semibold">Employee Name:</div>
+                              <div className="text-gray-600">{employeeData.employee_name}</div>
+
+                           </div>
+                           <div className="flex justify-between space-x-3">
+                              <div className="font-semibold">Employee ID:</div>
+                              <div className="text-gray-600">{employeeData.employee_id}</div>
+
+                           </div>
+                           <div className="flex justify-between space-x-3">
+                              <div className="font-semibold">PAN:</div>
+                              <div className="text-gray-600">{employeeData.PAN}</div>
+
+                           </div>
+                           <div className="flex justify-between space-x-3">
+                              <div className="font-semibold">Role :</div>
+                              <div className="text-gray-600">{employeeData.job?employeeData.job.job_title:"No Positions"}</div>
+
+                           </div>
+                           <div className="flex justify-between space-x-3">
+                              <div className="font-semibold">Join Date:</div>
+                              <div className="text-gray-600">{employeeData.join_date}</div>
+
+                           </div>
                         </div>
                     </div>
                     <div>
