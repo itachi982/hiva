@@ -7,6 +7,7 @@ import { UsernameAtom } from "../../Atoms/AdminState";
 import { urlAtom } from "../../Atoms/EmployeeData";
 import { useEffect } from "react";
 import { errorNotification } from "../Notification";
+import defaultPic from "../../assets/vect.png"
 import axios from "axios";
 
 export const UserDropDown = () => {
@@ -84,7 +85,7 @@ useEffect(()=>{
           <div>
             <img
               className="w-10 h-10 rounded-full"
-              src={url}
+              src={url?url:defaultPic}
               alt="Default avatar"
             />
           </div>
@@ -126,14 +127,15 @@ useEffect(()=>{
                 className="py-1"
                 role="none"
               >
-                <button
-                  onClick={() => alert("Change Password")}
-                  className="text-gray-500 block pl-8 text-center text-sm"
-                  role="menuitem"
-                  tabIndex="-1"
-                >
-                 - Change Password
-                </button>
+                <Link to="/Userchangepassword">
+                  <button
+                    className="text-gray-500 block pl-8 text-center text-sm"
+                    role="menuitem"
+                    tabIndex="-1"
+                  >
+                  - Change Password
+                  </button>
+                </Link>
                 <button
                   onClick={() => alert("Profile Edit")}
                   className="text-gray-500 block pl-8 text-center text-sm"

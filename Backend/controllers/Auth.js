@@ -174,7 +174,7 @@ const changePassword=async(req,res)=>{
                 username:req.tokenData.username,
                 employee_id:req.tokenData.employee_id,
             },
-            cacheStrategy: { swr: 60, ttl: 60 }
+            
         })
     
         const verifyPassword=await argon2.verify(user.password,changePass.oldPassword);
