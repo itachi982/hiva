@@ -31,7 +31,7 @@ export const AdminDashboard = ()=>{
                     'Authorization':localStorage.getItem("token")
                 }
             })
-            console.log(allEmp.data.data)
+            //console.log(allEmp.data.data)
 
             const job=await axios.get("http://localhost:3000/job_positions/all",{
                 headers:{

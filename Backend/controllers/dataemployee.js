@@ -31,7 +31,7 @@ async function getEmployeeData(req,res) {
                 }
             }
             },
-            cacheStrategy: { swr: 60, ttl: 60 }  
+            // cacheStrategy: { swr: 5, ttl: 5 }  
         });
         res.json({msg:"Success",data});
     } catch (error) {
@@ -213,18 +213,33 @@ const updateEmployeeData = async (req, res) => {
 // Delete employee data
 const deleteEmployeeData = async (req, res) => {
     if (req.tokenData.role !== "admin") {return res.status(400).json({msg:"UNAUTHORISED"});}
+    console.log(req.query.username);
     const employee = await prisma.employee.findUnique({
         where: {
-            employee_id: req.params.employeeid
+            username: req.query.username
         }
     });
+    
     if (!employee){return res.status(404).json({ msg: "Employee data not found" });}
     try {
+
+        const deleteAttendance=await prisma.attendance.deleteMany({
+            where:{
+                employeeDataId:employee.employee_id
+            }
+        })
+
+        const deletededuction=await prisma.deduction.deleteMany({
+            where:{
+                employeeDataId:employee.employee_id
+            }
+        })
+
         const deletedEmployee=await prisma.employee.delete({
             where: {
                 employee_id: employee.employee_id
             },
-            cacheStrategy: { swr: 60, ttl: 60 }
+            
         });
         res.json({ msg:"Employee data successfully deleted"});
     } catch (error) {

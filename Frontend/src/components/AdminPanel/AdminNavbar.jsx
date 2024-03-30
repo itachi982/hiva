@@ -11,7 +11,7 @@ import { UserDropDown } from "../Dropdown/Userdropdown";
 export const AdminNavbar = () => {
 
   const username=useRecoilValue(UsernameAtom);
-  console.log(username)
+  //console.log(username)
 
 
   return (

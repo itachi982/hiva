@@ -33,7 +33,7 @@ router.get("/employee_data/empid",jwtverify,getEmployeeDataByEmployee_ID);
 router.get('/employee_data/pan',jwtverify,getEmployeeDataByPan);
 router.post("/employee_data",jwtverify,userCreate);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
-router.delete("/employee_data",jwtverify,deleteEmployeeData);
+router.delete("/employee_data/delete",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password/",jwtverify,changePassword);
 router.get("/employee/username",jwtverify,username)
 //JOB Positions Routes

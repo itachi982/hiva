@@ -17,6 +17,7 @@ import { PrivacyPolicyContent } from './pages/Privacypolicy'
 import { LicensingContent } from './pages/Licensing'
 import { ContactUsContent } from './pages/Contactus'
 import { AttendanceData } from './pages/Ateendancedata'
+import { UserEdit } from './pages/UserEdit'
 
 
 
@@ -50,6 +51,7 @@ const Paths=()=>{
           <Route path="/admin/jobs" element={<DataRole/>}/>
 
           <Route path="/user/dashboard" element={<UserDashboard/>}/>
+          <Route path='/user/edit' element={<UserEdit/>}/>
           
           {/* <Route path="/admin/dashboard" element={AdminValue ? <AdminDashboard /> : <Navigate to="/admin/signin" />} /> */}
           
