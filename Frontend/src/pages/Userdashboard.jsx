@@ -7,6 +7,7 @@ import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { EmployeeDataAtom, urlAtom } from "../Atoms/EmployeeData";
 import { UsernameAtom } from "../Atoms/AdminState";
+import defaultPic from "../assets/vect.png"
 import { useEffect } from "react";
 import { errorNotification } from "../components/Notification";
 import axios from "axios";
@@ -55,12 +56,12 @@ export const UserDashboard = () => {
           });
           setemployeeData(data.data.user)
 
-          console.log(employeeData.job.job_title)
+          //console.log(employeeData.job.job_title)
 
 
         } catch(error){
           //console.log(error);
-          errorNotification(error.response.data.msg)
+          //errorNotification(error.response.data.msg)
         }
 
       }
@@ -102,7 +103,7 @@ export const UserDashboard = () => {
                     
                     <div className="flex p-10 bg-slate-300 space-x-40 justify-center">
                         <div>
-                            <img src={pic} className="rounded-lg shadow-lg ml-10 w-70 h-60 mt-10" alt="pic" />
+                            <img src={pic?pic:defaultPic} className="rounded-lg shadow-lg ml-10 w-70 h-60 mt-10" alt="pic" />
                         </div>
                         <div className="pt-20 text-xl flex-col">
                            <div className="flex justify-between space-x-3">
@@ -127,7 +128,7 @@ export const UserDashboard = () => {
                            </div>
                            <div className="flex justify-between space-x-3">
                               <div className="font-semibold">Join Date:</div>
-                              <div className="text-gray-600">{employeeData.join_date}</div>
+                              <div className="text-gray-600">{employeeData.join_date?employeeData.join_date:"Date Not Available"}</div>
 
                            </div>
                         </div>

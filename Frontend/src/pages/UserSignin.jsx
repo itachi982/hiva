@@ -38,7 +38,7 @@ export const UserSignin=({setIsUser})=>{
                 
             }
         }catch (error) {
-            //console.log(error)
+            console.log(error)
             //localStorage.removeItem("token");
             errorNotification(error.response);
         }
