@@ -23,7 +23,7 @@ export const UserDropDown = () => {
                     'Authorization': localStorage.getItem("token")
                 }
             });
-            console.log(dusername.data.msg)
+           
             setUsername(dusername.data.msg);
         } catch (error) {
             console.error(error);
@@ -38,11 +38,13 @@ export const UserDropDown = () => {
 useEffect(()=>{
   const fetchurl=async()=>{
     try {
+      
       const durl = await axios.get("http://localhost:3000/profile/url?username="+username, {
           headers: {
               'Authorization': localStorage.getItem("token")
           }
       });
+      //console.log(durl)
      
       seturl(durl.data.durl.url);
   } catch (error) {

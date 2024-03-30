@@ -1,12 +1,15 @@
 import { BottomWarning, Heading, SubHeading } from "../components/SigninHelper"
-import pic from '../assets/vect.png'
+
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
 import { Footer } from "../components/Footer"
 import { useState } from "react";
 import { ReportsDrop } from "../components/Dropdown/Reportsdrop";
+import { useRecoilValue } from "recoil";
+import { urlAtom } from "../Atoms/EmployeeData";
 
 export const UserDashboard = () => {
     const [ReportsMenuOpen,setReportsMenuOpen]=useState(false);
+    const pic=useRecoilValue(urlAtom);
    
     const closeAllMenus=()=>{
       setReportsMenuOpen(false);
@@ -40,7 +43,7 @@ export const UserDashboard = () => {
                     
                     <div className="flex p-10 bg-slate-300 space-x-40">
                         <div>
-                            <img src={pic} className="w-full md:w-80 h-100 ml-40 rounded-md filter saturate-200 contrast=125 flex space-x-4" alt="pic" />
+                            <img src={pic} className="rounded-lg shadow-lg ml-10 w-70 h-60 mt-10" alt="pic" />
                         </div>
                         <div className="p-10">
                             <div className="h-16 w-24 text-pretty text-gray-600">Job Role :</div>

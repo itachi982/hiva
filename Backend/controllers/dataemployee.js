@@ -230,7 +230,7 @@ const deleteEmployeeData = async (req, res) => {
 }
 
 const username=async (req,res)=>{
-    if (req.tokenData.role !== "admin") {return res.status(400).json({msg:"UNAUTHORISED"});}
+    if (!req.tokenData) {return res.status(400).json({msg:"UNAUTHORISED"});}
 
 
     res.json({msg:req.tokenData.username})

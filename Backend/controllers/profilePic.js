@@ -90,8 +90,9 @@ const uploader=multer({storage})
 async function url(req,res){
 
     const username=req.query.username;
+    console.log("hello")
     
-    if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+    //if(!req.tokenData){return res.status(300).json({msg:"UNAUTHORISED"});}
 
     if(!username){return res.status(300).json({msg:"Username Missing"});}
     
@@ -106,6 +107,7 @@ async function url(req,res){
         },
         cacheStrategy: { swr: 60, ttl: 60 }
     })
+    console.log(durl)
     if(!durl){return res.status(400).json({msg:"Profile pic not uploaded"})}
     return res.json({durl})
    } catch (error) {

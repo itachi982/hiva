@@ -24,8 +24,8 @@ router.post("/employee/change_password",jwtverify,changePassword);
 //change password for admin
 router.post("/employee/admin/change_password",adminChangePassword);
 //Profile pic upload on cloudinary
-router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
 router.get('/profile/url',jwtverify,url)
+router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
 //Employee Routes 
 router.get("/employee_data/",jwtverify,getEmployeeDataByUsername);
 router.get("/employee_data/all/",jwtverify,getEmployeeData);

@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { UserDropDown } from "../Dropdown/Userdropdown";
+import { useRecoilValue } from "recoil";
+import { UsernameAtom } from "../../Atoms/AdminState";
 
 
 export const UserNavbar = () => {
+  const username=useRecoilValue(UsernameAtom);
   const [UserMenuOpen,setUserMenuOpen]=useState(false);
   const closeAllMenus=()=>{
     setUserMenuOpen(false);
@@ -19,7 +22,7 @@ export const UserNavbar = () => {
                   </Link>
 
       <div className="flex justify-end">
-                <div className="mr-6 mt-2">username</div>                 
+                <div className="mr-6 mt-2">{username}</div>                 
                   <div className="flex justify-center shadow-lg ">
                        <div className="relative">
                           <div>
