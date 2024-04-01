@@ -167,8 +167,9 @@ async function getEmployeeDataByUsername(req,res) {
 // Update employee data
 const updateEmployeeData = async (req, res) => {
     if (req.tokenData.role !== "admin"){return res.status(400).json({msg:"UNAUTHORISED"});}
+
     
-    const employee = await employee.findOne({
+    const employee = await prisma.employee.findFirst({
         where: {
             employee_id: req.params.employeeid
         },
@@ -176,17 +177,17 @@ const updateEmployeeData = async (req, res) => {
     });
 
     if (!employee){return res.staus(404).json({ msg: "Employee data not found" });}
-    const updateData= req.body;
+    let updateData= req.body;
     
     const validationResult=updateUserSchema.safeParse(updateData);
-
     if(!validationResult.success){return res.status(300).json({msg:"invalid Data"});}
 
     updateData=validationResult.data
+    console.log(employee)
     try {
         const updatedEmployee=await prisma.employee.update({    
             where: {
-                employee_id: employee.employee_id
+                PAN:employee.PAN
             },
             data:{
                 PAN: updateData.PAN,
@@ -194,12 +195,7 @@ const updateEmployeeData = async (req, res) => {
                 employee_name: updateData.employee_name,
                 username: updateData.username,
                 gender: updateData.gender,
-                photo: updateData.photo,
-                url:updateData.url,
-                join_date: updateData.join_date,
-                status: updateData.status,
-                access_rights: updateData.ccess_rights,
-                jobdataid: updateData.jobdataid
+               
             },
             cacheStrategy: { swr: 60, ttl: 60 }
         })     

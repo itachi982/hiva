@@ -29,12 +29,12 @@ const updateUserSchema = zod.object({
   username: zod.string(),
   gender:zod.string().refine(value => value === 'female' || value === 'male', {
       message: 'Value must be either "female" or "male"',
-  }),
+  }).optional(),
   photo:zod.optional(),
   url:zod.string().optional(),
   join_date:zod.string().optional(),
   status:zod.string().optional(),
-  access_rights:zod.string(),
+  access_rights:zod.string().optional(),
   jobdataid:zod.string().optional()
 });
 
@@ -82,7 +82,6 @@ const changePasswordSchema=zod.object({
 })
 const changeAdminPasswordSchema=zod.object({
 
-    username: zod.string(),
     newPassword: zod.string().min(8, 'Password must be at least 8 characters long')
       .refine((value) => /[A-Z]/.test(value), {
         message: 'Password must contain at least one capital letter',
@@ -123,5 +122,6 @@ module.exports={
     changePasswordSchema,
     changeAdminPasswordSchema,
     jobDataSchema,
-    jobDataSchemaId
+    jobDataSchemaId,
+    updateUserSchema
 }
