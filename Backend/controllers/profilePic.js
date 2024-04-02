@@ -9,9 +9,9 @@ const prisma = new PrismaClient().$extends(withAccelerate());
 
 // Cloudinary configuration
 cloudinary.config({ 
-    cloud_name: process.env.CLOUD_NAME, // Corrected environment variable
-    api_key: process.env.API_KEY,       // Corrected environment variable
-    api_secret: process.env.API_SECRET  // Corrected environment variable
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret
 });
 
 // Multer storage configuration

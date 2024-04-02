@@ -7,14 +7,16 @@ export const UploadFile = () => {
     const submitImage = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("image", image);
-
+        formData.append("file", image);
+        console.log(image)
         try {
             const result = await axios.post(
-                "http://localhost:3000/upload", // Update with your backend endpoint
-                formData,
+                "http://localhost:3000/profile_pic/upload/a-80012", // Update with your backend endpoint
+                {formData},
                 {
-                    headers: { 'Content-Type': 'multipart/form-data' }
+                    hheaders: { 
+                        'Authorization':localStorage.getItem('token'),
+                        'Content-Type': 'multipart/form-data' }
                 }
             );
             console.log(result.data);
