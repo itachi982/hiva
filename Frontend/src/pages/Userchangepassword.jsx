@@ -93,15 +93,15 @@ export const UserChangePassword=()=>{
                     </div>
 
                     <div className="bg-slate-300 p-4 grid justify-center shadow-md ">
-                         <div className="bg-slate-300 pt-20">
+                        <div className="bg-slate-300 pt-20">
                             Enter your old password :
                          <div>                  
                         <input onChange={e=>{setoldPassword(e.target.value)}} type="text" placeholder="Enter old passord" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>  
             
-                    </div>
-                    <div className="pt-5">
-                       Enter new password :
-                            <div>
+                            </div>
+                            <div className="pt-5">
+                                Enter new password :
+                                <div>
                                     
                         <input onChange={e=>{setnewPassword(e.target.value)}} type="text" placeholder="enter password" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/> 
                         </div>
@@ -112,7 +112,7 @@ export const UserChangePassword=()=>{
                                     
                             <input onChange={e=>{setconfirmPassword(e.target.value)}} type="text" placeholder="retype password" className="border  border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>
                             
-                      </div>
+                                </div>
                                 
                      </div>
 

@@ -51,7 +51,7 @@ useEffect(()=>{
      
       seturl(durl.data.durl.url);
   } catch (error) {
-      console.error(error);
+      console.log(error);
       if (error) {
           errorNotification(error.response.data.msg);
       }

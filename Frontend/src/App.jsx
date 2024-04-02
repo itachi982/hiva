@@ -18,6 +18,8 @@ import { LicensingContent } from './pages/Licensing'
 import { ContactUsContent } from './pages/Contactus'
 import { AttendanceData } from './pages/Ateendancedata'
 import { UserEdit } from './pages/UserEdit'
+import { ProfileEdit } from './pages/Profileedit'
+
 
 
 
@@ -68,6 +70,7 @@ const Paths=()=>{
           <Route path="/Licensing" element={<LicensingContent/>}/>
           <Route path="/Contactus" element={<ContactUsContent/>}/>
           <Route path="/Attendancedata" element={<AttendanceData/>}/>
+          <Route path="/Profileedit" element={<ProfileEdit/>}/>
         </Routes>
       </BrowserRouter>
   )
