@@ -22,7 +22,7 @@ router.post("/employee/create",jwtverify,userCreate);
 //change password
 router.post("/employee/change_password",jwtverify,changePassword);
 //change password for admin
-router.post("/employee/admin/change_password",adminChangePassword);
+router.post("/employee/admin/change_password",jwtverify,adminChangePassword);
 //Profile pic upload on cloudinary
 router.get('/profile/url',jwtverify,url)
 router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)

@@ -212,6 +212,7 @@ const changePassword=async(req,res)=>{
 const adminChangePassword=async(req,res)=>{
 
     let changePass=req.body;
+    console.log(req.tokenData)
     if(!changePass){
         res.status(400).json({
             msg:"Bad Request please enter old,new,confirm password"
@@ -221,12 +222,13 @@ const adminChangePassword=async(req,res)=>{
 
 
     const validationResult=changeAdminPasswordSchema.safeParse(changePass);
+    //console.log(validationResult.error)
 
     if(validationResult.success){
 
         changePass=validationResult.data;
 
-        //if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+        if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
 
         if(changePass.newPassword!=changePass.confirmPassword){
             res.status(300).json({
@@ -238,7 +240,7 @@ const adminChangePassword=async(req,res)=>{
         try{
             const user=await prisma.employee.findUnique({
                 where:{
-                    username:changePass.username,
+                    username:req.query.username,
                 },
                 cacheStrategy: { swr: 60, ttl: 60 }
             })
@@ -268,8 +270,8 @@ const adminChangePassword=async(req,res)=>{
     }
     else{
         return res.status(400).json({
-            message: "Validation error",
-            errors: authenticatedChangePass.error.errors,
+            msg: "Validation error",
+           errors: validationResult.error.errors,
         })
     }
 }
