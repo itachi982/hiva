@@ -1,72 +1,77 @@
-
-const cloudinary =require('cloudinary').v2;
-const multer= require ("multer");
-const fs =require('fs');
+// Import necessary modules
+const cloudinary = require('cloudinary').v2;
+const multer = require("multer");
+const fs = require('fs');
 require('dotenv').config();
-const {PrismaClient} =require("@prisma/client");
-const { withAccelerate } = require('@prisma/extension-accelerate')
-const prisma = new PrismaClient().$extends(withAccelerate())
+const { PrismaClient } = require("@prisma/client");
+const { withAccelerate } = require('@prisma/extension-accelerate');
+const prisma = new PrismaClient().$extends(withAccelerate());
 
+// Cloudinary configuration
 cloudinary.config({ 
-  cloud_name: process.env.cloud_name,
-  api_key: process.env.api_key,
-  api_secret: process.env.api_secret
+    cloud_name: process.env.CLOUD_NAME, // Corrected environment variable
+    api_key: process.env.API_KEY,       // Corrected environment variable
+    api_secret: process.env.API_SECRET  // Corrected environment variable
 });
 
-const uploadOnCloudinary= async (localfilepath)=>{
-    try{
-        if(!localfilepath) {
-        return {msg: " no path found"};
-        }
-        const response=await cloudinary.uploader.upload(localfilepath,{
-            localfilepath,
-            resource_type: "image"
-
-        });
-
-        console.log("file is uploded in cloudinary",response.secure_url);
-        return response;
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./public"); // Adjusted destination path
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, file.originalname + '-' + uniqueSuffix);
     }
-    catch(error){
-        fs.unlinkSync(localfilepath)// removes the localy save temp file as the upload ops got failed
-        return res.json({
-            msg: "temporary file was removed"
-        });
-    }
-}
+});
 
-async function upload (req, res) {
+// Multer uploader middleware
+const uploader = multer({ storage });
+
+// Function to upload image to Cloudinary
+const uploadOnCloudinary = async (localFilePath) => {
     try {
+        if (!localFilePath) {
+            return { msg: "No path found" };
+        }
+        const response = await cloudinary.uploader.upload(localFilePath, {
+            resource_type: "image"
+        });
+        console.log("File is uploaded to Cloudinary", response.secure_url);
+        return response;
+    } catch (error) {
+        fs.unlinkSync(localFilePath);
+        console.error("Error uploading to Cloudinary:", error);
+        return { msg: "Temporary file was removed" };
+    }
+};
 
-        const emp_id=req.params.employeeid;
-        // Check if file was uploaded
+// Endpoint handler for uploading
+async function upload(req, res) {
+    try {
         if (!req.file) {
             return res.status(400).json({ error: "No file uploaded" });
         }
 
-        // Upload file to Cloudinary
         const response = await uploadOnCloudinary(req.file.path);
 
-        //save url to db
-
-        const updatedpic=await prisma.employee.update({
-            where:{
-                employee_id:emp_id
+        const updatedPic = await prisma.employee.update({
+            where: {
+                employee_id: req.params.employeeid
             },
-            data:{
-                url:response.secure_url
+            data: {
+                url: response.secure_url
             },
             cacheStrategy: { swr: 60, ttl: 60 }
-        })
+        });
 
-        if(!updatedpic){
-            return res.json({msg:"Something went wrong"})
+        if (!updatedPic) {
+            return res.json({ msg: "Something went wrong" });
         }
-        // Remove the temporary file
+
         fs.unlinkSync(req.file.path);
 
-        // Send response back to client
-        res.status(200).json({ message: "File uploaded successfully",link:response.secure_url });
+        res.status(200).json({ message: "File uploaded successfully", link: response.secure_url });
     } catch (error) {
         console.error("Upload failed:", error);
         fs.unlinkSync(req.file.path);
@@ -74,53 +79,31 @@ async function upload (req, res) {
     }
 }
 
-const storage= multer.diskStorage({
-    destination: function(req,file,cb){
-        cb(null,"../Backend/public")
-    },
-    filename: function (req,file,cb){
-        const uniqueSuffix=Date.now();
-        cb(null,file.originalname+'-'+uniqueSuffix)
+// Endpoint handler for retrieving URL
+async function url(req, res) {
+    const username = req.query.username;
+
+    if (!username) {
+        return res.status(400).json({ msg: "Username missing" });
     }
-})
 
-const uploader=multer({storage})
+    try {
+        const durl = await prisma.employee.findFirst({
+            where: { username: username },
+            select: { url: true },
+            cacheStrategy: { swr: 60, ttl: 60 }
+        });
 
+        if (!durl) {
+            return res.status(400).json({ msg: "Profile pic not uploaded" });
+        }
 
-async function url(req,res){
-
-    const username=req.query.username;
-    console.log("hello")
-    
-    //if(!req.tokenData){return res.status(300).json({msg:"UNAUTHORISED"});}
-
-    if(!username){return res.status(300).json({msg:"Username Missing"});}
-    
-
-   try {
-    const durl=await prisma.employee.findFirst({
-        where:{
-            username:username
-        },
-        select:{
-            url:true
-        },
-        cacheStrategy: { swr: 60, ttl: 60 }
-    })
-    console.log(durl)
-    if(!durl){return res.status(400).json({msg:"Profile pic not uploaded"})}
-    return res.json({durl})
-   } catch (error) {
-        return res.status(500).json({msg:"INTENAL SERVER ERROR"})
-   }
-
+        return res.json(durl);
+    } catch (error) {
+        console.error("Internal server error:", error);
+        return res.status(500).json({ msg: "Internal server error" });
+    }
 }
 
-module.exports={
-    upload,
-    uploadOnCloudinary,
-    uploader,
-    url
-};
-
-
+// Export the modules
+module.exports = { upload, uploadOnCloudinary, uploader, url };
