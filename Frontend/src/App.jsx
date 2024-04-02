@@ -19,7 +19,7 @@ import { ContactUsContent } from './pages/Contactus'
 import { AttendanceData } from './pages/Ateendancedata'
 import { UserEdit } from './pages/UserEdit'
 import { ProfileEdit } from './pages/Profileedit'
-
+import { UploadFile } from './components/Uploadfile'
 
 
 
@@ -71,6 +71,7 @@ const Paths=()=>{
           <Route path="/Contactus" element={<ContactUsContent/>}/>
           <Route path="/Attendancedata" element={<AttendanceData/>}/>
           <Route path="/Profileedit" element={<ProfileEdit/>}/>
+          <Route path="/Uploadfile" element={<UploadFile/>}/>
         </Routes>
       </BrowserRouter>
   )
