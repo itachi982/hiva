@@ -27,3 +27,8 @@ export const OpenDropdownAtom = atom({
   key: 'openDropdown',
   default: "",
 });
+
+export const AdminDropdownAtom=atom({
+  key:"AdminDropdownAtom",
+  default:""
+})

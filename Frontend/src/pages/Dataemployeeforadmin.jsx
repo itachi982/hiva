@@ -8,12 +8,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { AdminAtom } from "../Atoms/AuthAtom";
 import { errorNotification, successNotification } from "../components/Notification";
 import { selectedUserAtom } from "../Atoms/Gender";
+import { AdminDropdown } from "./Dropdown/AdminDropdown";
+import { AdminDropdownAtom } from "../Atoms/DropDown";
 
 export const DataEmployeeForAdmin = () => {
     const [employeeData, setEmployeeData] = useRecoilState(AdminAtom);
     const [currentPage, setCurrentPage] = useState(1);
     const [deleteEntry,setdelete]=useState("")
     const [selectedUser,setSelectedUser]=useRecoilState(selectedUserAtom);
+    const [role,setRole]=useRecoilState(AdminDropdownAtom);
     const pageSize = 4; // Number of items per page
 
     useEffect(() => {
@@ -84,6 +87,7 @@ export const DataEmployeeForAdmin = () => {
                         <div key={index} className="border grid row-span-1 p-2 ">
                             {/* Adjust the rendering based on your data structure */}
                             <div className="flex justify-between">
+                               
                                 <img className="rounded-full size-20" src={employeeData.url?employeeData.url:defaultpic} alt="profilepic" />
                                 <p>{employeeData.PAN}</p>
                                 <p>{employeeData.username}</p>
@@ -91,6 +95,7 @@ export const DataEmployeeForAdmin = () => {
                                 <p>{employeeData.join_date?employeeData.join_date:"Not Available"}</p>
                                 <p>{employeeData.status}</p>
                                 <p>{employeeData.access_rights}</p>
+                                {/* <div>{<AdminDropdown role={employeeData.access_rights}/>}</div> */}
                                 
                                 <div className="flex justify-between space-x-2">
                                     
@@ -109,6 +114,13 @@ export const DataEmployeeForAdmin = () => {
                                                 setdelete(employeeData.username)}}>
                                         <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                     </button>
+                                    <Link to='/user/report'>
+                                        <button className="pt-6" onClick={()=>{setSelectedUser(employeeData.username)}}>
+                                            <svg class="h-8 w-8 text-green-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                            </svg>
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

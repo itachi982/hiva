@@ -140,7 +140,7 @@ const deleteAttendance=async(req,res)=>{
 }
 
 const createDeduction=async(req,res)=>{
-
+    
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
 
     async function calculateandupdate(){
@@ -148,7 +148,7 @@ const createDeduction=async(req,res)=>{
         try {
             const employee=await prisma.employee.findUnique({
                 where:{
-                    username:req.params.username
+                    username:req.query.username
                 },
                 select:{
                     employee_id:true,
@@ -237,10 +237,6 @@ const createDeduction=async(req,res)=>{
             console.log(error);
             res.status(500).json({msg:"INTERNAL SERVER ERROR"})
         }
-
-        
-
-
     }
 
     calculateandupdate();
@@ -251,7 +247,7 @@ const getDeductionData=async(req,res)=>{
     
     const dusername=req.params.username;
     const month=req.query.month;
-    console.log(dusername,month);
+    //console.log(dusername,month);
     if(!dusername){return res.status(300).json({msg:"BAD REQUEST"})}
 
 

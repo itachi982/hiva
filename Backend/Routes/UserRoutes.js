@@ -7,7 +7,7 @@ const { getAllAttendance, getAttendanceByID, createAttendance, updateAttendance,
 const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controllers/salary");
 const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData, username } = require("../controllers/dataemployee");
 const {upload,uploader, url}=require('../controllers/profilePic');
-
+const {salaryDatamain}=require('../controllers/Report');
 
 const router=express.Router();
 
@@ -49,8 +49,8 @@ router.post("/attendance_data",jwtverify,createAttendance);
 router.patch("/attendance_data/update/:id",jwtverify,updateAttendance);
 router.delete("/attendance_data/:id",jwtverify,deleteAttendance);
 //Deduction_data Routes
+router.get("/deduction_data/create",jwtverify,createDeduction);
 router.get("/deduction_data/:username",jwtverify,getDeductionData);
-router.post("/deduction_data/:username",jwtverify,createDeduction);
 router.delete("/deduction_data/:username",jwtverify,deleteDeductionData);
 //no need for patch above req will automatically update or create data
 //router.patch("/deduction_data/update");
@@ -64,20 +64,20 @@ router.get("/employee_salary_data/month/:month",jwtverify,salaryDatabyMonth);
 
 // report Routes
 
-//employee salary
-router.get("/report/salary");
-router.get("/report/salary/name/");
-router.get("report/salary/month/");
-router.get("/report.salary/year/");
+// //employee salary
+// router.get("/report/salary");
+// router.get("/report/salary/name/");
+// router.get("report/salary/month/");
+// router.get("/report.salary/year/");
 
-//emloyee attendance
-router.get("/report/attendance/month/");
-router.get("/report/salary/year/");
+// //emloyee attendance
+// router.get("/report/attendance/month/");
+// router.get("/report/salary/year/");
 
 //employee salary slips
-router.get("/report/salary_slip/name/");
-router.get("/report/salary_slip/month/");
-router.get("/report/salary_slip/year/");
+router.get("/report/salaryData",jwtverify,salaryDatamain);
+router.get("/report/attendanceData");
+router.get("/report/deductionData");
 
 
 //different Dashboard for {Usersadmins}
