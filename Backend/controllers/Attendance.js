@@ -141,7 +141,7 @@ const deleteAttendance=async(req,res)=>{
 
 const createDeduction=async(req,res)=>{
     
-    if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+    if(!req.tokenData){return res.status(300).json({msg:"UNAUTHORISED"});}
 
     async function calculateandupdate(){
         let response=[];

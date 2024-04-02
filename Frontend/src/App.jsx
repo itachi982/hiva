@@ -21,6 +21,7 @@ import { UserEdit } from './pages/UserEdit'
 import { ProfileEdit } from './pages/Profileedit'
 import { UploadFile } from './components/Uploadfile'
 import { Report } from './pages/Report'
+import { UserReport } from './pages/UserReport'
 
 
 
@@ -56,6 +57,7 @@ const Paths=()=>{
           <Route path="/user/dashboard" element={<UserDashboard/>}/>
           <Route path='/user/edit' element={<UserEdit/>}/>
           <Route path="/user/report" element={<Report/>} />
+          <Route path="/report" element={<UserReport/>} />
           
           {/* <Route path="/admin/dashboard" element={AdminValue ? <AdminDashboard /> : <Navigate to="/admin/signin" />} /> */}
           

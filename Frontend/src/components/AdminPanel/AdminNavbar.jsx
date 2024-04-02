@@ -40,10 +40,10 @@ export const AdminNavbar = () => {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <TransactionDrop
           />
-        </div>
+        </div> */}
 
         {/* <div> 
           <ReportDrop

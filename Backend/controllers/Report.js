@@ -6,7 +6,7 @@ const prisma = new PrismaClient().$extends(withAccelerate())
 const axios =require('axios');
 
 const salaryDatamain = async(req,res)=>{
-    if (req.tokenData.role !== "admin"){return res.status(400).json({msg:"UNAUTHORISED"});}
+    if (!req.tokenData){return res.status(400).json({msg:"UNAUTHORISED"});}
     console.log(req.query.username)
     let response=[{}];
         

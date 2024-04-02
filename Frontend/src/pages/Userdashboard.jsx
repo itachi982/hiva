@@ -1,5 +1,4 @@
-import { BottomWarning, Heading, SubHeading } from "../components/SigninHelper"
-
+import { Link } from "react-router-dom";
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
 import { Footer } from "../components/Footer"
 import { useState } from "react";
@@ -28,7 +27,9 @@ export const UserDashboard = () => {
                     'Authorization': localStorage.getItem("token")
                 }
           });
-          setUsername(dusername.data.msg);
+
+          setUsername(dusername.data.username);
+          //console.log(pic)
           
         } catch (error) {
           console.log(error);
@@ -83,11 +84,14 @@ export const UserDashboard = () => {
             <div className="flex justify-center space-x-10 pl-10 pt-4 bg-yellow-120 shadow-lg text-gray-500">
         <div className="relative">
           <div>
-            <ReportsDrop
+            {/* <ReportsDrop
               isOpen={ReportsMenuOpen}
               setIsOpen={setReportsMenuOpen}
               closeAllMenus={closeAllMenus}
-            />
+            /> */}
+              <Link to='/report'>
+                <button>Reports</button>
+              </Link>
             </div>
           </div>
         </div>

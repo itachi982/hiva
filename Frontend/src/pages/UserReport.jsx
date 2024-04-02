@@ -7,22 +7,23 @@ import { useRecoilState, useRecoilValue } from "recoil"
 import { ReportAtom } from "../Atoms/ReportAtom"
 import { useEffect } from "react"
 import axios from "axios"
-import { selectedUserAtom } from "../Atoms/Gender"
+import { UsernameAtom } from "../Atoms/AdminState"
 import { SalaryAtom,AttendanceAtom,DeductionAtom } from "../Atoms/ReportAtom"
-export const Report=()=>{
+import { UserNavbar } from "../components/UserPanel/Usernavbar"
+export const UserReport=()=>{
 
     const [reportData,setReportData]=useRecoilState(ReportAtom);
     const [salaryData,setSalaryData]=useRecoilState(SalaryAtom);
     const [attendanceData,setAttendanceData]=useRecoilState(AttendanceAtom);
     const [deduction,setDeduction]=useRecoilState(DeductionAtom);
-    const selectedUser=useRecoilValue(selectedUserAtom);
+    const username=useRecoilValue(UsernameAtom);
 
     useEffect(()=>{
 
         async function Data(){
 
             try {
-                const response=await axios.get("http://localhost:3000/report/salaryData?username="+selectedUser,{
+                const response=await axios.get("http://localhost:3000/report/salaryData?username="+username,{
                     headers:{
                         'Authorization':localStorage.getItem('token')
                     }
@@ -46,7 +47,7 @@ export const Report=()=>{
 
     return(
         <div className="h-screen bg-slate-300">
-            <AdminNavbar/>
+            <UserNavbar/>
             <div className="flex justify-center pt-10 space-x-10 ">
                 <div>
                     <img className="w-45 h-45 rounded-md" src={image} alt="background" />
@@ -54,11 +55,7 @@ export const Report=()=>{
                 <div>
                 <div className="flex justify-center space-x-10 pt-10">
                     <div className="">  
-                        <Link to="/admin/addEmployee">
-                            <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-12 pl-12" >
-                                Edit Salary +
-                            </button>
-                        </Link>
+                      
                     </div>
                     <div>
                         <SalaryCard/>
@@ -66,11 +63,7 @@ export const Report=()=>{
                 </div>
                 <div className="flex justify-center space-x-10 pt-10">
                     <div className="">  
-                        <Link to="/admin/addEmployee">
-                            <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-5 pl-5" >
-                                Edit Attendance +
-                            </button>
-                        </Link>
+                      
                     </div>
                     <div>
                         <AttendanceCard/>
@@ -78,11 +71,7 @@ export const Report=()=>{
                 </div>
                 <div className="flex justify-center space-x-10 pt-10">
                     <div className="">  
-                        <Link to="/admin/addEmployee">
-                            <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-5 pl-5" >
-                                Edit Deductions +
-                            </button>
-                        </Link>
+                     
                     </div>
                     <div>
                         <DeductionCard/>
