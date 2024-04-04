@@ -86,7 +86,7 @@ export const Report=()=>{
                         <AttendanceCard/>
                     </div>
                     <div className="">  
-                        <Link to="/admin/addEmployee">
+                        <Link to="/EditAttendance">
                             <button className="text-white text-2xl text-center mt-4 rounded-md bg-black p-2 pr-5 pl-5" >
                                 Edit Attendance +
                             </button>
