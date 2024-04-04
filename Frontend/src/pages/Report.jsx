@@ -72,6 +72,7 @@ export const Report=()=>{
                         <Link to="/admin/addEmployee">
                             <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-12 pl-12" >
                                 Edit Salary +
+
                             </button>
                         </Link>
                     </div> */}

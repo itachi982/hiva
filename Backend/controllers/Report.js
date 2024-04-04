@@ -22,7 +22,7 @@ const salaryDatamain = async(req,res)=>{
 
         const jobData=await prisma.job.findMany({
             where:{
-                id:data.jobdataid     
+                id:data.jobdataid     //error 21
             }
         })
         response.push({
