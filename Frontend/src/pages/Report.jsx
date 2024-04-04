@@ -27,12 +27,7 @@ export const Report=()=>{
                         'Authorization':localStorage.getItem('token')
                     }
                 })
-                if(response.data){
-                    setReportData(response.data);
-                }
-                else{
-                    setReportData("");
-                }
+
                 if(response.data[1].Salary){
                     setSalaryData(response.data[1].Salary);
                 }
