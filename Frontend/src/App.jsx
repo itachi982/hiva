@@ -24,6 +24,7 @@ import { Report } from './pages/Report'
 import { UserReport } from './pages/UserReport'
 import { AddEmployee } from './pages/AddEmployee'
 import { AddJobData } from './pages/AddJobData'
+import { EditAttendance } from './pages/Editattendance'
 
 
 
@@ -81,6 +82,7 @@ const Paths=()=>{
           <Route path="/Attendancedata" element={<AttendanceData/>}/>
           <Route path="/Profileedit" element={<ProfileEdit/>}/>
           <Route path="/Uploadfile" element={<UploadFile/>}/>
+          <Route path="/EditAttendance" element={<EditAttendance/>}/>
         </Routes>
       </BrowserRouter>
   )
