@@ -6,16 +6,16 @@ export const ReportAtom=atom({
 
 export const AttendanceAtom=atom({
     key:"AttendanceAtom",
-    default:['0']
+    default:""
     
 })
 
 export const SalaryAtom=atom({
     key:"SalaryAtom",
-    default: ['0']
+    default:""
 })
 
 export const DeductionAtom=atom({
     key:"DeductionAtom",
-    default:['0']
+    default:""
 })

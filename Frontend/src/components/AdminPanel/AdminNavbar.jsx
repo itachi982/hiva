@@ -34,6 +34,12 @@ export const AdminNavbar = () => {
       </div>
 
       <div className="flex justify-center space-x-10 pl-10 pt-4 bg-yellow-120 shadow-lg text-gray-500">
+
+        <div className="font-semibold text-black pt-2 text-sm">
+          <Link to={'/admin/dashboard'}> 
+            <button>Dashboard</button>
+          </Link>
+        </div>
         <div className="relative">
           <div>
             <CompanyDrop/>

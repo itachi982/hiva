@@ -35,7 +35,7 @@ const userCreate = async (req, res) => {
                     username: validatedUserDetails.username,
                     password: await argon2.hash(validatedUserDetails.password),
                     gender: validatedUserDetails.gender,
-                    job_title: validatedUserDetails.job_title,
+                    jobdataid: validatedUserDetails.jobdataid,
                     access_rights:"user",
                     status:"active"
                 },

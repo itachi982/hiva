@@ -27,13 +27,33 @@ export const Report=()=>{
                         'Authorization':localStorage.getItem('token')
                     }
                 })
-                setReportData(response.data);
-                setSalaryData(response.data[1].Salary);
-                setAttendanceData(response.data[2].attendances);
-                setDeduction(response.data[3].deductions);
-                console.log(attendanceData);
+                if(response.data){
+                    setReportData(response.data);
+                }
+                else{
+                    setReportData("");
+                }
+                if(response.data[1].Salary){
+                    setSalaryData(response.data[1].Salary);
+                }
+                else{
+                    setSalaryData("");
+                }
+                if(response.data[2].attendances){
+                    setAttendanceData(response.data[2].attendances);
+                }
+                else{
+                    setAttendanceData("");
+                }
+                if(response.data[3].deductions){
+
+                    setDeduction(response.data[3].deductions);
+                }else{
+                    setDeduction("");
+                }
+                //console.log(attendanceData +"Report.jsx");
             } catch (error) {
-                console.log(error)
+                //console.log(error)
             }
 
         }
@@ -53,37 +73,38 @@ export const Report=()=>{
                 </div>
                 <div>
                 <div className="flex justify-center space-x-10 pt-10">
-                    <div className="">  
+                    {/* <div className="">  
                         <Link to="/admin/addEmployee">
                             <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-12 pl-12" >
                                 Edit Salary +
                             </button>
                         </Link>
-                    </div>
-                    <div>
+                    </div> */}
+                    <div className="">
                         <SalaryCard/>
                     </div>
                 </div>
-                <div className="flex justify-center space-x-10 pt-10">
+                <div className="flex pl-60 space-x-10 pt-10">
+                    
+                    <div>
+                        <AttendanceCard/>
+                    </div>
                     <div className="">  
                         <Link to="/admin/addEmployee">
-                            <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-5 pl-5" >
+                            <button className="text-white text-2xl text-center mt-4 rounded-md bg-black p-2 pr-5 pl-5" >
                                 Edit Attendance +
                             </button>
                         </Link>
                     </div>
-                    <div>
-                        <AttendanceCard/>
-                    </div>
                 </div>
                 <div className="flex justify-center space-x-10 pt-10">
-                    <div className="">  
+                    {/* <div className="">  
                         <Link to="/admin/addEmployee">
                             <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-5 pl-5" >
                                 Edit Deductions +
                             </button>
                         </Link>
-                    </div>
+                    </div> */}
                     <div>
                         <DeductionCard/>
                     </div>

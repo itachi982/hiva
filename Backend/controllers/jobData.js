@@ -8,7 +8,7 @@ require('dotenv').config();
 const createJobData=async(req,res)=>{
 
     let jobdata=req.body;
-    console.log(jobdata);
+    console.log("vishal");
 
     if(!jobdata){
         return res.status(400).json({
@@ -20,6 +20,7 @@ const createJobData=async(req,res)=>{
     if(validationResult.success){
 
         if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
+        const emp_id=req.tokenData.employee_id;
         
         jobdata=validationResult.data;
 
@@ -31,25 +32,25 @@ const createJobData=async(req,res)=>{
                     transportation_allowance:jobdata.transportation_allowance,
                     meal_allowance:jobdata.meal_allowance
                 },
-                cacheStrategy: { swr: 60, ttl: 60 }
+                cacheStrategy: { swr: 10, ttl: 10 }
             })  
             console.log(createdJob);    
             //connect the job to a employee
-            await prisma.employee.update({
-                where:{
-                    employee_id:jobdata.employee_id
-                },
-                data:{
-                    job:{
-                        connect:{
-                            id:createdJob.id
-                        }
-                    }
-                },
-                cacheStrategy: { swr: 60, ttl: 60 }
-            })
+            // await prisma.employee.update({
+            //     where:{
+            //         employee_id:emp_id
+            //     },
+            //     data:{
+            //         job:{
+            //             connect:{
+            //                 id:createdJob.id
+            //             }
+            //         }
+            //     },
+            //     cacheStrategy: { swr: 60, ttl: 60 }
+            // })
             res.json({
-                msg:`Job created Successfully for user `
+                msg:`Job created Successfully `
             })
         }
         catch(err){
@@ -85,7 +86,7 @@ const updateJobData=async(req,res)=>{
                 where:{
                     id:req.job_id
                 },
-                cacheStrategy: { swr: 60, ttl: 60 }
+                cacheStrategy: { swr: 10, ttl: 10 }
             })
 
             if(!job){
@@ -103,7 +104,7 @@ const updateJobData=async(req,res)=>{
                     transportation_allowance:data.transportation_allowance,
                     meal_allowance:data.meal_allowance
                 },
-                cacheStrategy: { swr: 60, ttl: 60 }
+                cacheStrategy: { swr: 10, ttl: 10 }
             })
 
             res.json({msg:"Job updated Successfully"});
@@ -121,13 +122,15 @@ const getJobData = async(req,res)=>{
     try {
         const jobdata=await prisma.job.findMany({
             select: {
+                id:true,
                 job_title: true,
                 base_salary: true,
                 transportation_allowance: true,
                 meal_allowance: true
             },
-            cacheStrategy: { swr: 60, ttl: 60 }
+            cacheStrategy: { swr: 10, ttl: 10 }
         });
+        console.log(jobdata)
         if(!jobdata){
             res.status(500).json({msg:"No Job Data Found"})
         }

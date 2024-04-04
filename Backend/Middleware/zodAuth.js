@@ -12,10 +12,10 @@ const createUserSchema = zod.object({
       }).refine((value) => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), {
         message: 'Password must contain at least one special character'
     }),
-    gender:zod.string().refine(value => value === 'Female' || value === 'Male', {
-        message: 'Value must be either "Female" or "Male"',
+    gender:zod.string().refine(value => value === 'female' || value === 'male', {
+        message: 'Value must be either "female" or "male"',
     }),
-    job_title:zod.string().min(1).max(16),
+    jobdataid:zod.number().int()
     
 });
 
@@ -99,7 +99,6 @@ const changeAdminPasswordSchema=zod.object({
 
 const jobDataSchema=zod.object({
 
-    employee_id:zod.string().min(1),
     job_title:zod.string().min(1),
     base_salary:zod.number().int(),
     transportation_allowance:zod.number().int().optional(),

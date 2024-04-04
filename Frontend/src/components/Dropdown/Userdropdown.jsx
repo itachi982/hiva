@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { successNotification } from "../Notification";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AdminAtom } from "../../Atoms/AuthAtom";
-import { UsernameAtom, roleAtom } from "../../Atoms/AdminState";
+import { UsernameAtom, roleAtom,EmpIDAtom } from "../../Atoms/AdminState";
 import { urlAtom } from "../../Atoms/EmployeeData";
 import { useEffect } from "react";
 import { errorNotification } from "../Notification";
@@ -16,6 +16,7 @@ export const UserDropDown = () => {
   const [username,setUsername]=useRecoilState(UsernameAtom);
   const [url,seturl]=useRecoilState(urlAtom);
   const [role,setrole]=useRecoilState(roleAtom);
+  const [EmpID,setEmpID]=useRecoilState(EmpIDAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +29,7 @@ export const UserDropDown = () => {
            
             setUsername(response.data.username);
             setrole(response.data.role)
+            setEmpID(response.data.empId)
         } catch (error) {
             console.error(error);
             if (error) {
@@ -51,7 +53,7 @@ useEffect(()=>{
      
       seturl(durl.data.durl.url);
   } catch (error) {
-      console.log(error);
+      //console.log(error);
       if (error) {
           errorNotification(error.response.data.msg);
       }
@@ -138,14 +140,15 @@ useEffect(()=>{
                   - Change Password
                   </button>
                 </Link>
-                <button
-                  onClick={() => alert("Profile Edit")}
-                  className="text-gray-500 block pl-8 text-center text-sm"
-                  role="menuitem"
-                  tabIndex="-1"
-                >
-                 - Profile Edit
-                </button>
+                <Link to='/profileedit'>
+                  <button
+                    className="text-gray-500 block pl-8 text-center text-sm"
+                    role="menuitem"
+                    tabIndex="-1"
+                  >
+                  - Profile Edit
+                  </button>
+                </Link>
               </div>
             )}
             <Link to={role=="user"?"/employee/signin":"/admin/signin"}>

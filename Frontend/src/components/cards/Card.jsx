@@ -96,7 +96,6 @@ export const Card4=({number})=>{
 export const SalaryCard=()=>{
 
   const salaryData=useRecoilValue(SalaryAtom);
-  console.log(salaryData)
 
   return (
     
@@ -107,19 +106,19 @@ export const SalaryCard=()=>{
         <div className="">
           <div className="pl-4 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M18 6h-11h3a4 4 0 0 1 0 8h-3l6 6" />  <line x1="7" y1="10" x2="18" y2="10" /></svg></div>
           <div className="font-semibold text-gray-600">Salary</div>
-          <div className="underline">{salaryData.base_salary}</div>
+          <div className="underline">{salaryData==""?0:salaryData}</div>
         </div>
         
         <div>
           <div className="pl-10 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg></div>
           <div className="font-semibold text-gray-600">Transport Allowance</div>
-          <div className="underline">{salaryData.trasportation_allowance}</div>
+          <div className="underline">{salaryData==""?0:salaryData.trasportation_allowance}</div>
         </div>
 
         <div>
           <div className="pl-10 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="8" y1="21" x2="16" y2="21" />  <line x1="12" y1="15" x2="12" y2="21" />  <path d="M16 4l1 6a5 5 0 0 1 -10 0l1 -6z" /></svg></div>
           <div className="font-semibold text-gray-600">Meal Allowance</div>
-          <div className="underline"> {salaryData.meal_allowance}</div>  
+          <div className="underline"> {salaryData==""?0:salaryData.meal_allowance}</div>  
         </div>
 
       </div>  
@@ -132,8 +131,14 @@ export const SalaryCard=()=>{
 export const DeductionCard=()=>{
 
   const deductionData=useRecoilValue(DeductionAtom);
-  const latestDeduction=deductionData.slice(-1)[0];
-  console.log(latestDeduction)
+  let latestDeduction
+  //console.log(deductionData+"Deduction")
+  if(deductionData!=""){
+    latestDeduction=deductionData.slice(-1)[0];
+  }else{
+    latestDeduction=""
+  }
+  //console.log(latestDeduction+"Latest Deduction")
 
   return (
     
@@ -147,13 +152,13 @@ export const DeductionCard=()=>{
                     </svg>
 </div>
           <div className="font-semibold text-gray-600">Deducted Amount</div>
-          <div className="underline">{latestDeduction.deduction_amount}</div>
+          <div className="underline">{latestDeduction==""?0:latestDeduction.deduction_amount}</div>
         </div>
         
         <div>
           <div className="pl-10 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="8" y1="21" x2="16" y2="21" />  <line x1="12" y1="17" x2="12" y2="21" />  <line x1="7" y1="4" x2="17" y2="4" />  <path d="M17 4v8a5 5 0 0 1 -10 0v-8" />  <circle cx="5" cy="9" r="2" />  <circle cx="19" cy="9" r="2" /></svg></div>
           <div className="font-semibold text-gray-600">Salary Remaning</div>
-          <div className="underline">{latestDeduction.salaryAfterDeduction}</div>
+          <div className="underline">{latestDeduction==""?0:latestDeduction.salaryAfterDeduction}</div>
         </div>
 
       </div>  
@@ -165,10 +170,15 @@ export const DeductionCard=()=>{
 
 export const AttendanceCard=()=>{
 
+  
   const attendanceData=useRecoilValue(AttendanceAtom);
-  //console.log(attendanceData)
-  const latestMonth=attendanceData.slice(-1)[0]
-  console.log(latestMonth)
+  //console.log(attendanceData+"Attendance")
+  let latestMonth=""
+
+  if(attendanceData!=""){
+    latestMonth=attendanceData.slice(-1)[0];
+  }
+  //console.log(latestMonth+"latest")
 
   return (
     
@@ -179,19 +189,19 @@ export const AttendanceCard=()=>{
         <div className="pl-10 pr-10">
           <div className="pl-4 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11h6m-3 -3v6" /></svg></div>
           <div className="font-semibold text-gray-600">Present</div>
-          <div className="underline">{latestMonth.present}</div>
+          <div className="underline">{latestMonth==""?0:latestMonth.present}</div>
         </div>
         
         <div className="pl-5 pr-5">
           <div className="pl-2 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <line x1="16" y1="11" x2="22" y2="11" /></svg></div>
           <div className="font-semibold text-gray-600">Absent</div>
-          <div className="underline">{latestMonth.absent}</div>
+          <div className="underline">{latestMonth==""?0:latestMonth.absent}</div>
         </div>
 
         <div className="pr-4 pl-4">
           <div className="pl-2 pb-2"><svg class="h-5 w-5 text-slate-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <line x1="19" y1="7" x2="19" y2="10" />  <line x1="19" y1="14" x2="19" y2="14.01" /></svg></div>
           <div className="font-semibold text-gray-600">Sick</div>
-          <div className="underline"> {latestMonth.sick}</div>  
+          <div className="underline"> {latestMonth==""?0:latestMonth.sick}</div>  
         </div>
 
       </div>  

@@ -8,6 +8,7 @@ const { salaryData, salaryDatabyName, salaryDatabyMonth } = require("../controll
 const { getEmployeeData, getEmployeeDataByEmployee_ID, getEmployeeDataByPan, getEmployeeDataByUsername, updateEmployeeData, deleteEmployeeData, username } = require("../controllers/dataemployee");
 const {upload,uploader, url}=require('../controllers/profilePic');
 const {salaryDatamain}=require('../controllers/Report');
+const {updateUsername}=require('../controllers/dataemployee')
 
 const router=express.Router();
 
@@ -25,13 +26,14 @@ router.post("/employee/change_password",jwtverify,changePassword);
 router.post("/employee/admin/change_password",jwtverify,adminChangePassword);
 //Profile pic upload on cloudinary
 router.get('/profile/url',jwtverify,url)
-router.post('/profile_pic/upload/:employeeid',uploader.single('file'),upload)
+router.post('/profile_pic/upload/:employeeid',jwtverify,uploader.single('file'),upload)
 //Employee Routes 
 router.get("/employee_data/",jwtverify,getEmployeeDataByUsername);
 router.get("/employee_data/all/",jwtverify,getEmployeeData);
 router.get("/employee_data/empid",jwtverify,getEmployeeDataByEmployee_ID);
 router.get('/employee_data/pan',jwtverify,getEmployeeDataByPan);
 router.post("/employee_data",jwtverify,userCreate);
+router.post("/employee/updateUsername/:empId",jwtverify,updateUsername);
 router.patch("/employee_data",jwtverify,updateEmployeeData);
 router.delete("/employee_data/delete",jwtverify,deleteEmployeeData);
 router.patch("/employee_data/change_password/",jwtverify,changePassword);

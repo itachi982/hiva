@@ -1,6 +1,16 @@
 import { atom } from "recoil";
 import { atomFamily } from 'recoil';
 
+export const SelectedJobAtom=atom({
+  key:"SelectedJobAtom",
+  default:""
+})
+
+export const SelectedJobTitleAtom=atom({
+  key:"SelectedJobTitleAtom",
+  default:""
+})
+
 export const CompanyDropAtom=atom({
     key:"CompanyDropAtom",
     default:false

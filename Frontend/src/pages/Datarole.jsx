@@ -52,7 +52,7 @@ export const DataRole = () => {
                 Job Data
             </div>
             <div>
-                <Link to="/admin/addJob">
+                <Link to="/AddJobData">
                     <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-5 pl-5">
                         Add Job +
                     </button>

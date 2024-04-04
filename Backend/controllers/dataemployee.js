@@ -249,10 +249,45 @@ const username=async (req,res)=>{
 
     const username=req.tokenData.username;
     const role=req.tokenData.role
+    const empId=req.tokenData.employee_id;
 
 
-    res.json({username,role})
+    res.json({username,role,empId})
     
+
+}
+
+const updateUsername=async(req,res)=>{
+     if (!req.tokenData) {return res.status(400).json({msg:"UNAUTHORISED"});}
+
+    try {
+        const empData=await prisma.employee.update({
+            where:{
+                employee_id:req.params.empId
+            },
+            data:{
+                username:req.body.username
+            }
+         })
+         if(!empData){return res.json({error:"Employee not found"})}
+         
+         const payload={
+             employee_id:empData.employee_id,
+             username:empData.username,
+             role:empData.access_rights
+            }
+            const token=jwt.sign(payload,process.env.JWTPASS,{ expiresIn: '1h' });
+            
+            if(!token){return res.status(500).json({msg:"INTERNAL SERVER ERROR"})}
+
+            res.json({msg:"Username updated successfully",token:token})
+            //console.log(payload);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg:"INTERNAL SERVER ERROR"});
+        
+    }
+
 
 }
 
@@ -263,6 +298,7 @@ module.exports = {
     getEmployeeDataByPan,
     getEmployeeDataByUsername,
     deleteEmployeeData,
-    username
+    username,
+    updateUsername
 };
 

@@ -40,9 +40,13 @@ async function upload (req, res) {
 
         const emp_id=req.params.employeeid;
         // Check if file was uploaded
+        console.log(req.file);
+        if (!req.tokenData) {return res.status(400).json({msg:"UNAUTHORISED"});}
+
         if (!req.file) {
-            return res.status(400).json({ error: "No file uploaded" });
+            return res.status(400).json({ error: "No file Selected" });
         }
+        
 
         // Upload file to Cloudinary
         const response = await uploadOnCloudinary(req.file.path);
@@ -90,7 +94,7 @@ const uploader=multer({storage})
 async function url(req,res){
 
     const username=req.query.username;
-    console.log("hello")
+    
     
     //if(!req.tokenData){return res.status(300).json({msg:"UNAUTHORISED"});}
 

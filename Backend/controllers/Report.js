@@ -17,17 +17,14 @@ const salaryDatamain = async(req,res)=>{
                 username:req.query.username
             }
         })
-        //console.log(data)
-
         //Salary Data
-        if(!data){return res.status(300).json({msg:"Employee not Found"})};
+        if(!data.jobdataid){return res.status(300).json({msg:"Employee not Found"})};
 
         const jobData=await prisma.job.findMany({
             where:{
                 id:data.jobdataid     
             }
         })
-        //console.log(jobData[0].base_salary)
         response.push({
            Salary:{
             base_salary:jobData[0].base_salary,
@@ -37,7 +34,7 @@ const salaryDatamain = async(req,res)=>{
         });
         //console.log(jobData)
 
-        if(!jobData){return res.status(300).json({msg:"Employee not Found"})};
+       if(!jobData){return res.status(300).json({msg:"Employee not Found"})};
 
         //attendance data
 

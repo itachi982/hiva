@@ -23,7 +23,7 @@ export const UserReport=()=>{
         async function Data(){
 
             try {
-                const response=await axios.get("http://localhost:3000/report/salaryData?username="+username,{
+                const response=await axios.get("http://localhost:3000/report/salaryData?username="+selectedUser,{
                     headers:{
                         'Authorization':localStorage.getItem('token')
                     }

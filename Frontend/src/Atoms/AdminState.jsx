@@ -7,6 +7,11 @@ export const UsernameAtom=atom({
 
 })
 
+export const EmpIDAtom=atom({
+    key:"EmpIDAtom",
+    default:""
+})
+
 export const roleAtom=atom({
     key:"roleAtom",
     default:""
