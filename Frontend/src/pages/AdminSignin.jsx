@@ -4,7 +4,7 @@ import Notification, { successNotification,errorNotification } from "../componen
 import axios from "axios";
 import {useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { AdminAtom } from "../Atoms/AuthAtom";
+import { AdminAuthAtom } from "../Atoms/AuthAtom";
 import { UsernameAtom } from "../Atoms/AdminState";
 
 
@@ -14,7 +14,7 @@ export const AdminSignin=()=>{
     const setUsernameAtom=useSetRecoilState(UsernameAtom);
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
-    const setAdminAtom=useSetRecoilState(AdminAtom);
+    const setAdminAtom=useSetRecoilState(AdminAuthAtom);
     async function login(){
 
         try {    
@@ -46,7 +46,7 @@ export const AdminSignin=()=>{
                     
                 } catch (error) {
         
-                    console.log(error)
+                   // console.log(error)
                     if(error){errorNotification(error.response.data.msg)}
                 }
         

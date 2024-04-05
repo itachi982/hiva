@@ -2,6 +2,7 @@ import { useState } from "react"
 import { AdminNavbar } from "../components/AdminPanel/AdminNavbar";
 import { Button } from "../components/SigninHelper";
 import axios from "axios"
+import pic from "../assets/job.svg"
 
 export const AddJobData = () => {
 
@@ -31,7 +32,7 @@ export const AddJobData = () => {
                 alert(job.data.msg)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             alert("Job Creation Failed")
         }
 
@@ -42,7 +43,7 @@ export const AddJobData = () => {
             <AdminNavbar />
             <div className="flex justify-around">
                 <div className="mt-20 pt-10">
-                    <img src="" alt="signup" />
+                    <img src={pic} alt="signup" />
                 </div>
 
                 <div>

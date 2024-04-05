@@ -39,21 +39,21 @@ export const AdminChangePassword=()=>{
                          <div className="bg-slate-300 pt-20">
                             Enter Username to confirm :
                          <div>                  
-                        <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>  
+                        <input type="text" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>  
             
                     </div>
                     <div className="pt-5">
                        Enter new password :
                             <div>
                                     
-                        <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/> 
+                        <input type="text" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/> 
                         </div>
                     </div>
                       <div className="pt-5 pd-10">
                                 Retype to confirm new password :
                         <div>
                                     
-                            <input type="text" class="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>
+                            <input type="text" className="border border-gray-300 pl-10 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"/>
                             
                       </div>
                                 

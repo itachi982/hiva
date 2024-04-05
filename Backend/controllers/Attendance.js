@@ -45,32 +45,31 @@ const createAttendance=async(req,res)=>{
 const updateAttendance=async(req,res)=>{
 
     if(req.tokenData.role!='admin'){return res.status(300).json({msg:"UNAUTHORISED"});}
-    const days=req.body.present+req.body.absent+req.body.sick;
+    console.log(req.body)
+    const dmonth=req.body.dmonth
+    const dpresent=parseInt(req.body.dpresent)
+    const dabsent=parseInt(req.body.dabsent)
+    const dsick=parseInt(req.body.dsick)
+   
+    const days=dpresent+dabsent+dsick;
     if(days!=30){return res.json({msg:"Incorrect number of days"})}
-    const{
-        dmonth,
-        dpresent,
-        dsick,
-        dabsent,
-        demployeeDataId
-    }=req.body;
-
+   
+   
     try {
         const attendance=await prisma.attendance.update({
             
             where:{
-                id:req.params.id
+                id:parseInt(req.params.id)
             },
             data:{
                 month:dmonth,
-                present:dpresent,
-                sick:dsick,
-                absent:dabsent,
-                employeeDataId:demployeeDataId
+                present:parseInt(dpresent),
+                sick:parseInt(dsick),
+                absent:parseInt(dabsent),
             },
             cacheStrategy: { swr: 60, ttl: 60 }
         })
-        res.json({msg:"Success",attendance});
+        res.json({msg:"Attendance Updated",attendance});
     } catch (error) {
         console.log(error)
         res.status(500).json({msg:"INTERNAL SERVER ERROR"});
@@ -160,7 +159,7 @@ const createDeduction=async(req,res)=>{
                     job:true,
                     attendences:true
                 },
-                cacheStrategy: { swr: 60, ttl: 60 }            
+                          
             })
         
             for(const attendance of employee.attendences){

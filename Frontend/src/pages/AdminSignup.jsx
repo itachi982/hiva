@@ -29,7 +29,7 @@ export const AdminSignup=()=>{
             
         }
         catch(AxiosError){
-            console.log(AxiosError)
+           // console.log(AxiosError)
             errorNotification("Admin not created : "+AxiosError.response.data.msg);
         }
        

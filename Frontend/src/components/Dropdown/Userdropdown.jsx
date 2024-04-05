@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { successNotification } from "../Notification";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AdminAtom } from "../../Atoms/AuthAtom";
+import { AdminAuthAtom } from "../../Atoms/AuthAtom";
 import { UsernameAtom, roleAtom,EmpIDAtom } from "../../Atoms/AdminState";
 import { urlAtom } from "../../Atoms/EmployeeData";
 import { useEffect } from "react";

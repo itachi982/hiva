@@ -1,10 +1,39 @@
 import { AdminNavbar } from "../components/AdminPanel/AdminNavbar";
 import { AttendanceAtom } from "../Atoms/ReportAtom";
 import { useRecoilValue } from "recoil";
+import { useState } from "react";
+import axios from "axios"
 
 export const EditAttendance = () => {
     const attendanceData=useRecoilValue(AttendanceAtom);
+    console.log(attendanceData)
     const latestMonth=attendanceData.slice(-1)[0];
+    const id=latestMonth.id;
+    const month=latestMonth.month;
+    const [present,setPresent]=useState('');
+    const [absent,setAbsent]=useState('')
+    const [sick,setSick]=useState('')
+
+    async function updateAttendance(){
+
+      try {
+        const response=await axios.patch("http://localhost:3000/attendance_data/update/"+id,{
+          dmonth:month,
+          dpresent:parseInt(present),
+          dsick:parseInt(sick),
+          dabsent:parseInt(absent),
+          
+        },{
+          headers:{
+            'Authorization':localStorage.getItem('token')
+          }
+        })
+        alert(response.data.msg);
+      } catch (error) {
+          console.log(error)
+      }
+
+    }
 
     return (
         <div className="bg-slate-200 border pt-8 pl-10 pr-10 pb-10 shadow-md rounded-lg">
@@ -55,21 +84,27 @@ export const EditAttendance = () => {
                     id="presentInputBox"
                     className="w-full mb-4 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     placeholder="Enter Present"
+                    defaultValue={latestMonth.present}
+                    onChange={e=>{setPresent(e.target.value)}}
                 />
                 <input
                     type="text"
                     id="absentInputBox"
                     className="w-full mb-4 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     placeholder="Enter Absent"
+                    defaultValue={latestMonth.absent}
+                    onChange={e=>{setAbsent(e.target.value)}}
                 />
                 <input
                     type="text"
                     id="sickInputBox"
                     className="w-full mb-4 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     placeholder="Enter Sick"
+                    defaultValue={latestMonth.sick}
+                    onChange={e=>{setSick(e.target.value)}}
                 />
                 <div className="flex justify-end">
-                    <button className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-400">
+                    <button onClick={updateAttendance} className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-400">
                         Apply Changes
                     </button>
                 </div>

@@ -91,7 +91,7 @@ export const DataRole = () => {
                     <span className="mx-2 bg-black text-white rounded-md text-xl px-3 pt-1">{currentPage}</span>
                     <button className="bg-black text-white rounded-md text-xl p-1" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
                         Next
-                        {console.log(currentPage)}
+                        {/* {console.log(currentPage)} */}
                     </button>
                 </div>
             </div>

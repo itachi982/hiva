@@ -1,7 +1,7 @@
 import {atom} from "recoil"
 
-export  const AdminAtom=atom({
-    key:"AdminAtom",
+export  const AdminAuthAtom=atom({
+    key:"AdminAuthAtom",
     default:[]
 }) 
 

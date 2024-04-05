@@ -1,4 +1,5 @@
 import { atom } from "recoil"
+
 export const ReportAtom=atom({
     key:"ReportAtom",
     default:""

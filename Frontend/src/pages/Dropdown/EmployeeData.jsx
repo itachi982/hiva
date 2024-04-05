@@ -107,7 +107,7 @@ export const EmployeeData=()=>{
     
 
     const data=paginationItems(currentPage,totalPages,setCurrentPage);
-    console.log(data);
+    //console.log(data);
 
 
     return(

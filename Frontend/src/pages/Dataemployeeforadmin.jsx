@@ -5,14 +5,14 @@ import React, { useEffect, useState } from "react";
 import defaultpic from "../assets/vect.png"
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AdminAtom } from "../Atoms/AuthAtom";
+import { AdminAuthAtom } from "../Atoms/AuthAtom";
 import { errorNotification, successNotification } from "../components/Notification";
 import { selectedUserAtom } from "../Atoms/Gender";
 import { AdminDropdown } from "./Dropdown/AdminDropdown";
 import { AdminDropdownAtom } from "../Atoms/DropDown";
 
 export const DataEmployeeForAdmin = () => {
-    const [employeeData, setEmployeeData] = useRecoilState(AdminAtom);
+    const [employeeData, setEmployeeData] = useRecoilState(AdminAuthAtom);
     const [currentPage, setCurrentPage] = useState(1);
     const [deleteEntry,setdelete]=useState("")
     const [selectedUser,setSelectedUser]=useRecoilState(selectedUserAtom);
@@ -101,7 +101,7 @@ export const DataEmployeeForAdmin = () => {
                                     
                                     <Link to={"/user/edit"}>
                                         <button  className="pt-6" title="Edit" onClick={()=>{setSelectedUser(employeeData.username)}}>
-                                            <svg class="h-8 w-8 text-amber-500"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>                                   
+                                            <svg className="h-8 w-8 text-amber-500"  viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>                                   
                                         </button>
                                     </Link>
                                      
@@ -112,12 +112,12 @@ export const DataEmployeeForAdmin = () => {
                                                     })
                                                 alert(response.data.msg);
                                                 setdelete(employeeData.username)}}>
-                                        <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                        <svg className="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                     </button>
                                     <Link to='/user/report'>
                                         <button className="pt-6" onClick={()=>{setSelectedUser(employeeData.username)}}>
-                                            <svg class="h-8 w-8 text-green-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                            <svg className="h-8 w-8 text-green-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                             </svg>
                                         </button>
                                     </Link>

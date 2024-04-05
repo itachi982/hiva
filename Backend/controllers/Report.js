@@ -51,6 +51,7 @@ const salaryDatamain = async(req,res)=>{
                 'authorization':req.headers.authorization
             }
         });
+        //console.log(createDeduction)
 
         const deductionData=await prisma.deduction.findMany({
             where:{

@@ -6,7 +6,7 @@ import { Footer } from '../components/Footer';
 import { Card1,Card2,Card3,Card4 } from '../components/cards/Card';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { AdminAtom } from '../Atoms/AuthAtom';
+import { AdminAuthAtom } from '../Atoms/AuthAtom';
 import { errorNotification } from '../components/Notification';
 import { Card1Atom,Card2Atom,Card3Atom,Card4Atom, JobPositionAtom, UsernameAtom } from '../Atoms/AdminState';
 
@@ -14,7 +14,7 @@ import { Card1Atom,Card2Atom,Card3Atom,Card4Atom, JobPositionAtom, UsernameAtom 
 
 export const AdminDashboard = ()=>{
 
-    const [AdminState,setAdminState]=useRecoilState(AdminAtom);
+    const [AdminState,setAdminState]=useRecoilState(AdminAuthAtom);
     const [jobdata,setjobdata]=useRecoilState(JobPositionAtom);
     const [card1,setCard1]=useRecoilState(Card1Atom);
     const [card2,setCard2]=useRecoilState(Card2Atom);
@@ -49,7 +49,7 @@ export const AdminDashboard = ()=>{
             UpdateState();
             
         } catch (error) {
-            console.error(error);
+            //console.error(error);
             if(error){errorNotification(error.response.data.msg)}
         }
 

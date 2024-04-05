@@ -1,13 +1,13 @@
 import {Chart as ChartJS,defaults} from "chart.js/auto";
 import {Bar,Doughnut,Pie} from "react-chartjs-2";
 import { useRecoilValue } from "recoil";
-import { AdminAtom } from "../../Atoms/AuthAtom";
+import { AdminAuthAtom } from "../../Atoms/AuthAtom";
 
 defaults.responsive=true;
 
 export const Chart1=()=>{
     
-    const employeeData=useRecoilValue(AdminAtom);
+    const employeeData=useRecoilValue(AdminAuthAtom);
     let male=0,female=0;
     for(let i=0;i<employeeData.length;i++){
         if(employeeData[i].gender=='male'){male++}

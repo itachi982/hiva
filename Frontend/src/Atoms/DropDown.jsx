@@ -21,10 +21,10 @@ export const TransactionDropAtom=atom({
     default:false
 })
 
-export const ReportDropAtom=atom({
-    key:"ReportAtom",
-    default:false
-})
+// export const ReportDropAtom=atom({
+//     key:"ReportAtom",
+//     default:false
+// })
 
 
 

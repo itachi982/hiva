@@ -71,7 +71,7 @@ export const AddEmployee = () => {
                 alert(Employee.data.msg)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             alert("Employee Creation Failed")
         }
 
