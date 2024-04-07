@@ -144,7 +144,6 @@ async function getEmployeeDataByUsername(req,res) {
                 gender: true,
                 status : true,
                 join_date: true,
-                photo:true,
                 url: true,
                 access_rights: true,
                 PAN : true,

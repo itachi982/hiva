@@ -7,34 +7,53 @@ import { useRecoilState, useRecoilValue } from "recoil"
 import { ReportAtom } from "../Atoms/ReportAtom"
 import { useEffect } from "react"
 import axios from "axios"
-import { UsernameAtom } from "../Atoms/AdminState"
+import { selectedUserAtom } from "../Atoms/Gender"
 import { SalaryAtom,AttendanceAtom,DeductionAtom } from "../Atoms/ReportAtom"
 import { UserNavbar } from "../components/UserPanel/Usernavbar"
+import { EmployeeDataAtom } from "../Atoms/EmployeeData"
 export const UserReport=()=>{
 
     const [reportData,setReportData]=useRecoilState(ReportAtom);
     const [salaryData,setSalaryData]=useRecoilState(SalaryAtom);
     const [attendanceData,setAttendanceData]=useRecoilState(AttendanceAtom);
     const [deduction,setDeduction]=useRecoilState(DeductionAtom);
-    const username=useRecoilValue(UsernameAtom);
+    const [employeeData,setemployeeData]=useRecoilState(EmployeeDataAtom);
 
     useEffect(()=>{
 
         async function Data(){
 
             try {
-                const response=await axios.get("http://localhost:3000/report/salaryData?username="+selectedUser,{
+
+                
+                const response=await axios.get("http://localhost:3000/report/salaryData?username="+employeeData.username,{
                     headers:{
                         'Authorization':localStorage.getItem('token')
                     }
                 })
-                setReportData(response.data);
-                setSalaryData(response.data[1].Salary);
-                setAttendanceData(response.data[2].attendances);
-                setDeduction(response.data[3].deductions);
-               // console.log(attendanceData);
+                
+
+                if(response.data[1].Salary){
+                    setSalaryData(response.data[1].Salary);
+                }
+                else{
+                    setSalaryData("");
+                }
+                if(response.data[2].attendances){
+                    setAttendanceData(response.data[2].attendances);
+                }
+                else{
+                    setAttendanceData("");
+                }
+                if(response.data[3].deductions){
+
+                    setDeduction(response.data[3].deductions);
+                }else{
+                    setDeduction("");
+                }
+                //console.log(attendanceData +"Report.jsx");
             } catch (error) {
-               // console.log(error)
+                //console.log(error)
             }
 
         }
@@ -54,25 +73,27 @@ export const UserReport=()=>{
                 </div>
                 <div>
                 <div className="flex justify-center space-x-10 pt-10">
-                    <div className="">  
-                      
-                    </div>
-                    <div>
+                    {/* <div className="">  
+                        <Link to="/admin/addEmployee">
+                            <button className="text-white text-2xl text-center mt-4 ml-20 rounded-md bg-black p-2 pr-12 pl-12" >
+                                Edit Salary +
+
+                            </button>
+                        </Link>
+                    </div> */}
+                    <div className="">
                         <SalaryCard/>
                     </div>
                 </div>
-                <div className="flex justify-center space-x-10 pt-10">
-                    <div className="">  
-                      
-                    </div>
+                <div className="flex pl-60 space-x-10 pt-10 pr-60">
+                    
                     <div>
                         <AttendanceCard/>
                     </div>
+                    
                 </div>
                 <div className="flex justify-center space-x-10 pt-10">
-                    <div className="">  
-                     
-                    </div>
+                    
                     <div>
                         <DeductionCard/>
                     </div>

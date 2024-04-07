@@ -48,7 +48,6 @@ model Employee{
  gender         Gender
  join_date      DateTime?
  status         Status
- photo          String?
  url            String?
  access_rights  AccessRights
  jobdataid      Int?
