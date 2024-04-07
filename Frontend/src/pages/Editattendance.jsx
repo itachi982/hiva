@@ -6,7 +6,7 @@ import axios from "axios"
 
 export const EditAttendance = () => {
     const attendanceData=useRecoilValue(AttendanceAtom);
-    console.log(attendanceData)
+console.log(attendanceData)
     const latestMonth=attendanceData.slice(-1)[0];
     const id=latestMonth.id;
     const month=latestMonth.month;
@@ -30,7 +30,7 @@ export const EditAttendance = () => {
         })
         alert(response.data.msg);
       } catch (error) {
-          console.log(error)
+          //console.log(error)
       }
 
     }

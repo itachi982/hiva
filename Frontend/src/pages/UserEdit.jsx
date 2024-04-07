@@ -42,7 +42,7 @@ export const UserEdit=()=>{
                 setGender(response.data.user.gender);
                 //setAccess_rights(response.data.user.access_rights);
             } catch (error) {
-                console.log(error)
+               // console.log(error)
             }
         }
         data();
@@ -71,7 +71,7 @@ export const UserEdit=()=>{
             );
             alert(response.data.msg);
         } catch (error) {
-            console.log(error)   
+            //console.log(error)   
         }
     }
 
@@ -87,7 +87,7 @@ export const UserEdit=()=>{
             })
             alert(response.data.msg)
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 

@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 
 export const EditSalary = () => {
   const salaryData = useRecoilValue(SalaryAtom);
-  console.log(salaryData);
+  //console.log(salaryData);
 
   return (
     <div className="bg-gray-100 min-h-screen">

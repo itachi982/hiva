@@ -7,7 +7,7 @@ export const AdminDropdown = ({role}) => {
     const [isOpen, setIsOpen] = useState(false);
     //const [selectedValue, setSelectedValue] = useRecoilState(AdminDropdownAtom);
     const [selectedValue, setSelectedValue]=useState(role);
-    console.log(role)
+    //console.log(role)
     // useEffect(()=>{
     //     setSelectedValue(role.role);
     // },[])
@@ -18,7 +18,7 @@ export const AdminDropdown = ({role}) => {
         setSelectedValue(value);
         setIsOpen(false);
         // setSelectedValue(role);
-        console.log(role.role)
+        //console.log(role.role)
     };
 
     return (

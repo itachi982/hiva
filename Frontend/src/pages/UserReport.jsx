@@ -32,9 +32,9 @@ export const UserReport=()=>{
                 setSalaryData(response.data[1].Salary);
                 setAttendanceData(response.data[2].attendances);
                 setDeduction(response.data[3].deductions);
-                console.log(attendanceData);
+               // console.log(attendanceData);
             } catch (error) {
-                console.log(error)
+               // console.log(error)
             }
 
         }
