@@ -30,7 +30,6 @@ const updateUserSchema = zod.object({
   gender:zod.string().refine(value => value === 'female' || value === 'male', {
       message: 'Value must be either "female" or "male"',
   }).optional(),
-  photo:zod.optional(),
   url:zod.string().optional(),
   join_date:zod.string().optional(),
   status:zod.string().optional(),
@@ -98,7 +97,7 @@ const changeAdminPasswordSchema=zod.object({
 })
 
 const jobDataSchema=zod.object({
-
+  
     job_title:zod.string().min(1),
     base_salary:zod.number().int(),
     transportation_allowance:zod.number().int().optional(),
