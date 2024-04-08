@@ -7,9 +7,9 @@
   * [Setting Up on a local machine](#Setting-Up-on-a-local-machine)
   * [Features](#Features)
   * [Tech Stack](#Tech-Stack)
-      - [Frontend]
-      - [Backend]
-      - [Database]
+      - Frontend
+      - Backend
+      - Database
   * [Screenshots](#screenshots)
 
 ## Setting Up on a local machine
