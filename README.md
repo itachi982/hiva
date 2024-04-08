@@ -95,7 +95,7 @@ DataBase
  - Maridb
  - Refer to prisma Documentaion for more  [prisma Docs](https://www.prisma.io/docs)
 
-## ScreenShots
+## Screenshots
 ![Dashboard](https://github.com/itachi982/hiva/blob/master/ScreenShots/DashBoard.png)
 ![EmployeeSignin](https://github.com/itachi982/hiva/blob/master/ScreenShots/EmployeeSignin.png)
 ![Employee Dashboard](https://github.com/itachi982/hiva/blob/master/ScreenShots/Screenshot%20from%202024-04-08%2011-46-25.png)
