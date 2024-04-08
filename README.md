@@ -6,13 +6,11 @@
 
   * [Setting Up on a local machine](#Setting-Up-on-a-local-machine)
   * [Features](#Features)
-  * [Technologies used](#technologies-used)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
-      - [Database](#database)
+  * [Tech Stack](#Tech-Stack)
+      - [Frontend]
+      - [Backend]
+      - [Database]
   * [Screenshots](#screenshots)
-  * [Meet The Team](#meet-the-team)
-  * [License](#license)
 
 ## Setting Up on a local machine
 To Setup Hiva locally , Follow the Following steps 
