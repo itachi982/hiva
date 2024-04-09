@@ -21,7 +21,7 @@ export const LicensingContent = () => {
             <div className="bg-slate-300 h-200 p-40 text-xl font-semibold text-gray-600 text-center">
                 <p className="text-center">MIT License</p><br/>
 
-                <p className="text-center">Copyright (c) 2022 Vishal Patsariya and Chitresh Manjhi</p><br/>
+                <p className="text-center">Copyright (c) 2024 Vishal Patsariya and Chitresh Manjhi</p><br/>
 
                 <p className="text-center">Permission is hereby granted, free of charge, to any person obtaining a copy
                 of this software and associated documentation files (the "Software"), to deal
