@@ -15,7 +15,7 @@ export const DataRole = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/job_positions/all", {
+                const response = await axios.get("https://hiva-1.onrender.com/job_positions/all", {
                     headers: {
                         'Authorization': localStorage.getItem("token")
                     }

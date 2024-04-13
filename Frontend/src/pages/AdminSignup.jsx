@@ -12,7 +12,7 @@ export const AdminSignup=()=>{
 
         try{
             
-            const response=await axios.post("http://localhost:3000/admin/create",{
+            const response=await axios.post("https://hiva-1.onrender.com/admin/create",{
                 employee_id,
                 PAN,
                 employee_name,

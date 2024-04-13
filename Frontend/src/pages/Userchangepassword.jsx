@@ -27,7 +27,7 @@ export const UserChangePassword=()=>{
 
         try {
       
-            const response = await axios.patch("http://localhost:3000/employee_data/change_password",{
+            const response = await axios.patch("https://hiva-1.onrender.com/employee_data/change_password",{
                
                     oldPassword,
                     newPassword,

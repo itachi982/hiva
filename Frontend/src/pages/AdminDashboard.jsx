@@ -26,14 +26,14 @@ export const AdminDashboard = ()=>{
     const AdminData=async ()=>{
 
         try {
-            const allEmp=await axios.get("http://localhost:3000/employee_data/all",{
+            const allEmp=await axios.get("https://hiva-1.onrender.com/employee_data/all",{
                 headers:{
                     'Authorization':localStorage.getItem("token")
                 }
             })
             //console.log(allEmp.data.data)
 
-            const job=await axios.get("http://localhost:3000/job_positions/all",{
+            const job=await axios.get("https://hiva-1.onrender.com/job_positions/all",{
                 headers:{
                     'Authorization':localStorage.getItem("token")
                 }

@@ -46,7 +46,7 @@ const salaryDatamain = async(req,res)=>{
         response.push({
             attendances:attendanceData
         })
-        const createDeduction=await axios.get('http://localhost:3000/deduction_data/create?username='+req.query.username,{
+        const createDeduction=await axios.get('https://hiva-1.onrender.com/deduction_data/create?username='+req.query.username,{
             headers:{
                 'authorization':req.headers.authorization
             }

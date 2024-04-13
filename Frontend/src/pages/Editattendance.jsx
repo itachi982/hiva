@@ -17,7 +17,7 @@ export const EditAttendance = () => {
     async function updateAttendance(){
 
       try {
-        const response=await axios.patch("http://localhost:3000/attendance_data/update/"+id,{
+        const response=await axios.patch("https://hiva-1.onrender.com/attendance_data/update/"+id,{
           dmonth:month,
           dpresent:parseInt(present),
           dsick:parseInt(sick),

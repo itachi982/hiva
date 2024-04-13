@@ -26,7 +26,7 @@ export const UserReport=()=>{
             try {
 
                 
-                const response=await axios.get("http://localhost:3000/report/salaryData?username="+employeeData.username,{
+                const response=await axios.get("https://hiva-1.onrender.com/report/salaryData?username="+employeeData.username,{
                     headers:{
                         'Authorization':localStorage.getItem('token')
                     }

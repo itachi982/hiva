@@ -59,7 +59,7 @@ export const ProfileEdit = () => {
                                 <div>
                                     <Button func={async()=>{
                                         try {
-                                            const response=await axios.post("http://localhost:3000/employee/updateUsername/"+EmpID,{
+                                            const response=await axios.post("https://hiva-1.onrender.com/employee/updateUsername/"+EmpID,{
                                                 username:dusername
                                             },{
                                                 headers:{
@@ -92,7 +92,7 @@ export const ProfileEdit = () => {
                                 try {
                                     const formData = new FormData();
                                     formData.append('file', image);
-                                    const response = await axios.post('http://localhost:3000/profile_pic/upload/'+EmpID, formData, {
+                                    const response = await axios.post('https://hiva-1.onrender.com/profile_pic/upload/'+EmpID, formData, {
                                       headers: {
                                           'Authorization':localStorage.getItem('token'),
                                           'Content-Type': 'multipart/form-data', // Make sure to set the correct content type for FormData
