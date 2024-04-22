@@ -19,7 +19,7 @@ export const AdminSignin=()=>{
 
         try {    
 
-            const response=await axios.post("https://hiva-1.onrender.com/admin/login",{
+            const response=await axios.post("http://localhost:3000/admin/login",{
                 username,
                 password
             })
@@ -28,7 +28,7 @@ export const AdminSignin=()=>{
             localStorage.setItem("token",response.data.token);
             if(response.data.token){
                 try {
-                    const AdminData=await axios.get("https://hiva-1.onrender.com/employee_data/?username="+username,{
+                    const AdminData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
                         headers:{
                             'Authorization':localStorage.getItem("token")
                         }

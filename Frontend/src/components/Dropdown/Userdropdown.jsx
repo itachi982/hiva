@@ -21,7 +21,7 @@ export const UserDropDown = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get("https://hiva-1.onrender.com/employee/username", {
+            const response = await axios.get("http://localhost:3000/employee/username", {
                 headers: {
                     'Authorization': localStorage.getItem("token")
                 }
@@ -44,7 +44,7 @@ useEffect(()=>{
   const fetchurl=async()=>{
     try {
       
-      const durl = await axios.get("https://hiva-1.onrender.com/profile/url?username="+username, {
+      const durl = await axios.get("http://localhost:3000/profile/url?username="+username, {
           headers: {
               'Authorization': localStorage.getItem("token")
           }

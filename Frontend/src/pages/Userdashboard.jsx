@@ -22,7 +22,7 @@ export const UserDashboard = () => {
       const fetchUsername=async()=>{
 
         try {
-          const dusername = await axios.get("https://hiva-1.onrender.com/employee/username", {
+          const dusername = await axios.get("http://localhost:3000/employee/username", {
                 headers: {
                     'Authorization': localStorage.getItem("token")
                 }
@@ -50,7 +50,7 @@ export const UserDashboard = () => {
 
         try {
           
-          const data = await axios.get("https://hiva-1.onrender.com/employee_data?username="+username, {
+          const data = await axios.get("http://localhost:3000/employee_data?username="+username, {
                 headers: {
                     'Authorization': localStorage.getItem("token")
                 }

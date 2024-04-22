@@ -22,7 +22,7 @@ export const DataEmployeeForAdmin = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://hiva-1.onrender.com/employee_data/all", {
+                const response = await axios.get("http://localhost:3000/employee_data/all", {
                     headers: {
                         'Authorization': localStorage.getItem("token")
                     }
@@ -105,7 +105,7 @@ export const DataEmployeeForAdmin = () => {
                                         </button>
                                     </Link>
                                      
-                                    <button title="Delete" onClick={async()=>{const response=await axios.delete("https://hiva-1.onrender.com/employee_data/delete?username="+employeeData.username,{
+                                    <button title="Delete" onClick={async()=>{const response=await axios.delete("http://localhost:3000/employee_data/delete?username="+employeeData.username,{
                                                             headers:{
                                                                     'Authorization':localStorage.getItem('token')
                                                                     }

@@ -24,7 +24,7 @@ export const AddEmployee = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://hiva-1.onrender.com/job_positions/all", {
+                const response = await axios.get("http://localhost:3000/job_positions/all", {
                     headers: {
                         'Authorization': localStorage.getItem("token")
                     }
@@ -54,7 +54,7 @@ export const AddEmployee = () => {
         }
 
         try {
-            const Employee=await axios.post("https://hiva-1.onrender.com/employee/create",{
+            const Employee=await axios.post("http://localhost:3000/employee/create",{
                 employee_id:EmployeeID,
                 employee_name:EmployeeName,
                 username:Username,

@@ -29,7 +29,7 @@ export const UserEdit=()=>{
 
         async function data(){
             try {
-                const response =await axios.get("https://hiva-1.onrender.com/employee_data?username="+username,{
+                const response =await axios.get("http://localhost:3000/employee_data?username="+username,{
                     headers:{
                         'Authorization':localStorage.getItem('token')
                     }
@@ -52,7 +52,7 @@ export const UserEdit=()=>{
     async function update(){
         try {
             const response = await axios.patch(
-                "https://hiva-1.onrender.com/employee_data", // PATCH request URL
+                "http://localhost:3000/employee_data", // PATCH request URL
                 {
                     employee_id: employeeId,
                     username: updateUsername,
@@ -77,7 +77,7 @@ export const UserEdit=()=>{
 
     async function updatePass(){
         try {
-            const response=await axios.post("https://hiva-1.onrender.com/employee/admin/change_password?username="+updateUsername,{
+            const response=await axios.post("http://localhost:3000/employee/admin/change_password?username="+updateUsername,{
                 newPassword,
                 confirmPassword               
             },{

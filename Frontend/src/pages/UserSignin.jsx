@@ -12,7 +12,7 @@ export const UserSignin=({setIsUser})=>{
 
         try {
             
-            const response=await axios.post("https://hiva-1.onrender.com/user/login",{
+            const response=await axios.post("http://localhost:3000/user/login",{
                 username,
                 password
             })
@@ -23,7 +23,7 @@ export const UserSignin=({setIsUser})=>{
             
             if(response.data.token){
                 
-                const EmployeeData=await axios.get("https://hiva-1.onrender.com/employee_data/?username="+username,{
+                const EmployeeData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
                     headers:{
                         'Authorization':localStorage.getItem("token")
                     }

@@ -18,7 +18,7 @@ export const AddJobData = () => {
         }
         
         try {
-            const job=await axios.post("https://hiva-1.onrender.com/job_positions",{
+            const job=await axios.post("http://localhost:3000/job_positions",{
                 job_title:job_title,
                 base_salary:parseInt(base_salary),
                 transportation_allowance:parseInt(transportation_allowance),
