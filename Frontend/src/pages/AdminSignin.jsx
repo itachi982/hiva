@@ -1,9 +1,9 @@
-import { useState,useEffect } from "react"
+import { useState } from "react"
 import { BottomWarning, Button, Heading, InputBox, SubHeading ,Logo} from "../components/SigninHelper"
 import Notification, { successNotification,errorNotification } from "../components/Notification";
 import axios from "axios";
 import {useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { AdminAuthAtom } from "../Atoms/AuthAtom";
 import { UsernameAtom } from "../Atoms/AdminState";
 
@@ -30,7 +30,7 @@ export const AdminSignin=()=>{
                 try {
                     const AdminData=await axios.get("http://localhost:3000/employee_data/?username="+username,{
                         headers:{
-                            'Authorization':localStorage.getItem("token")
+                            'Authorization':localStorage.getItem("token"),
                         }
                     });
         
